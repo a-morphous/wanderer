@@ -1,0 +1,41 @@
+import head from './partials/head.html'
+import scripts from './partials/scripts.html'
+
+<!DOCTYPE html>
+<html>
+  ${partials.head}
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          ${md(o.feeds.pages.map( post => {
+            return `* [${post.title}](${post.url})`
+          }).join('\n'))}
+        </div>
+      </nav>
+      <main>
+        <article>
+        ${o.content}
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          ${o.previous ?
+          `<a href="${o.previous.url}">Previous</a>
+            <p>${o.previous.title}</p>
+          ` : ''}
+          </div>
+          ${o.next ?
+            `<div id="next"><a href="${o.next.url}">Next</a>
+              <p>${o.next.title}</p>
+            </div>` : ''}
+      </footer>
+    </div>
+  </body>
+</html>

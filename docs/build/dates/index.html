@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Working with Dates</title>
+    
+    <meta name="description" content="undefined">
+    <meta name="author" content="undefined">
+    <link rel="shortcut icon" href="/static/favicon.png" />
+    
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="/static/palette.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    
+</head>
+
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          <ul>
+<li><a href="/getting-started/index.html">Getting Started</a></li>
+<li><a href="/frame-content/index.html">Directory Structure</a></li>
+<li><a href="/configuration/index.html">Configuration</a></li>
+<li><a href="/templating/index.html">Templating</a></li>
+<li><a href="/tips/index.html">Common Use Cases</a></li>
+<li><a href="/queries/index.html">Queries in Wanderer</a></li>
+<li><a href="/plugins/index.html">Plugins</a></li>
+<li><a href="/dates/index.html">Working with Dates</a></li>
+</ul>
+
+        </div>
+      </nav>
+      <main>
+        <article>
+        <h1 id="working-with-dates">Working with Dates</h1>
+<p>There are two places where wanderer looks for dates to determine a page’s date:</p>
+<ol>
+<li>the file’s last update date in the system</li>
+<li>the tempo string prefixing the page’s name (see <a href="./frame-content">the pretty url section</a> for how this works)</li>
+</ol>
+<p>If there is a tempo string defined, the page’s <strong>date</strong> value will automatically be set to that date on the tempo string. Otherwise, the <strong>date</strong> value will be set to the update date, and thus be the same as the <strong>update</strong> value.</p>
+<p>You can use both <strong>date</strong> and <strong>updated</strong> in your templates:</p>
+<pre><code>This page was created (or had the date set to) ${date(o.date)}.
+
+This page was last updated on ${date(o.updated)}.
+</code></pre>
+<h2 id="tempo-strings">Tempo Strings</h2>
+<p>Tempo strings are a frankly esoteric way to define dates that is supposed to be more human writable than ISO, and also list files chronologically when organizing in alphabetical order.</p>
+<p>It’s mostly for use in filenames because I already organize filenames this way.</p>
+<p>The format is YYmDD, where YY is the last two digits of the year, m is a single character for the month, and DD is two digits making up the day.</p>
+<p>The months are alphabet characters, with the letter corresponding to a month. It uses a-l, with <code>a</code> being January, and <code>l</code> being December, and months corresponding to the letters’ position in the alphabet. It assumes lowercase letters for ordering purposes.</p>
+<p>It also assumes years after 2000 because I wasn’t creating digital content before then. </p>
+<h3 id="example">Example:</h3>
+<pre><code>19b20 -&gt; February 20th, 2019.
+15k01 -&gt; November 1st, 2001.
+</code></pre>
+
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          <a href="/plugins/index.html">Previous</a>
+            <p>Plugins</p>
+          
+          </div>
+          
+      </footer>
+    </div>
+  </body>
+</html>
+

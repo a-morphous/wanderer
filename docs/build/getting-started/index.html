@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Getting Started</title>
+    
+    <meta name="description" content="undefined">
+    <meta name="author" content="undefined">
+    <link rel="shortcut icon" href="/static/favicon.png" />
+    
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="/static/palette.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    
+</head>
+
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          <ul>
+<li><a href="/getting-started/index.html">Getting Started</a></li>
+<li><a href="/frame-content/index.html">Directory Structure</a></li>
+<li><a href="/configuration/index.html">Configuration</a></li>
+<li><a href="/templating/index.html">Templating</a></li>
+<li><a href="/tips/index.html">Common Use Cases</a></li>
+<li><a href="/queries/index.html">Queries in Wanderer</a></li>
+<li><a href="/plugins/index.html">Plugins</a></li>
+<li><a href="/dates/index.html">Working with Dates</a></li>
+</ul>
+
+        </div>
+      </nav>
+      <main>
+        <article>
+        <h1 id="getting-started">Getting Started</h1>
+<h2 id="usage">Usage</h2>
+<p>There are two main parts to a wanderer site: the <code>frame</code>, which contains layouts, templates, and global static files, and the <code>content</code>, which contains text, image assets, and any other site-specific content.</p>
+<p><code>wanderer</code> ships as a Node.JS CLI interface:</p>
+<pre><code>wanderer -i ./path/to/content -f ./path/to/frame -o ./build
+</code></pre>
+<p>The full list of CLI variables are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>flag</th>
+<th>short name</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–in $1</td>
+<td>-i</td>
+<td>./content</td>
+<td>path to the content directory defined in $1</td>
+</tr>
+<tr>
+<td>–frame $1</td>
+<td>-f</td>
+<td>./frame</td>
+<td>path to the frame directory defined in $1</td>
+</tr>
+<tr>
+<td>–out $1</td>
+<td>-o</td>
+<td>./build</td>
+<td>path to the output directory defined in $1</td>
+</tr>
+<tr>
+<td>–cache $1</td>
+<td>-a</td>
+<td>./.cache</td>
+<td>path to the cache directory. The cache is used to speed up partial builds.</td>
+</tr>
+<tr>
+<td>–config $1</td>
+<td>-c</td>
+<td>./config.toml</td>
+<td>path to a TOML config file for wanderer</td>
+</tr>
+<tr>
+<td>–clean</td>
+<td></td>
+<td></td>
+<td>If set, will delete the output directory before building</td>
+</tr>
+</tbody></table>
+<p>You can call wanderer without any arguments to build a site defined in <code>./frame</code> and <code>./content</code> with an optional <code>./config.toml</code> configuration file defined.</p>
+<p>This documentation is a wanderer site!</p>
+
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          
+          </div>
+          <div id="next"><a href="/frame-content/index.html">Next</a>
+              <p>Directory Structure</p>
+            </div>
+      </footer>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Configuration</title>
+    
+    <meta name="description" content="undefined">
+    <meta name="author" content="undefined">
+    <link rel="shortcut icon" href="/static/favicon.png" />
+    
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="/static/palette.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    
+</head>
+
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          <ul>
+<li><a href="/getting-started/index.html">Getting Started</a></li>
+<li><a href="/frame-content/index.html">Directory Structure</a></li>
+<li><a href="/configuration/index.html">Configuration</a></li>
+<li><a href="/templating/index.html">Templating</a></li>
+<li><a href="/tips/index.html">Common Use Cases</a></li>
+<li><a href="/queries/index.html">Queries in Wanderer</a></li>
+<li><a href="/plugins/index.html">Plugins</a></li>
+<li><a href="/dates/index.html">Working with Dates</a></li>
+</ul>
+
+        </div>
+      </nav>
+      <main>
+        <article>
+        <h1 id="configuration">Configuration</h1>
+<p>There are three levels of configuration for a wanderer site, all defined as TOML files:</p>
+<p><strong>Site Configuration</strong> - defined in the <code>config.toml</code> file supplied to the wanderer command. This can be used to configure plugins, or assign global values across the whole site (e.g. author)</p>
+<p><strong>Directory Configuration</strong> - defined in <code>_.toml</code> files in any content directory or subdirectory. The parameters defined in directory-level configuration applies to that directory <em>and all subdirectories</em>.</p>
+<p><strong>File Configuration</strong> - defined in individual content files as TOML frontmatter, deliminated by <code>---</code> or <code>+++</code>. Example:</p>
+<pre><code>+++
+title = &quot;Amorphic Space&quot;
+_partials = { card = &quot;./partials/card.html&quot; }
+layout = &quot;home&quot;
+
+[feeds]
+
+[feeds.recent]
+query = { tags = { like = &quot;logs&quot; } }
+isAscending = false
+limit = 10
+
++++
+
+This is the actual page content.
+</code></pre>
+<p>Every individual page has the site config, then the directory config, then the file config applied to it.</p>
+<p>Most configuration is used to add variables to the pages (as the page’s configuration is injected into the template), but there are variables with additional effects as well:</p>
+<h2 id="site-configuration-special-variables">Site Configuration Special Variables</h2>
+<p><code>plugins</code> - a list of strings which can be used to import plugins to parse additional content files. Can either be relative paths (to the base site directory), or names of included npm modules.</p>
+<h2 id="directory--file-configuration-special-variables">Directory / File Configuration Special Variables</h2>
+<p>Values that are unset can take their defaults from the site configuration.</p>
+<p><code>private</code> - if set to <code>true</code>, then the page / directory won’t be built in the final site.</p>
+<p><code>layout</code> - Changes the layout file that is used to build the page. Defined as a string with no extension (leave out the <code>.html</code>). All layouts should live in <code>frame/layouts</code>.</p>
+<p><code>dir</code> - Chooses which directory the built site file will build to, which will change the pretty URL for the page. <strong>NOTE: the dir variable should only be set in directory-level config for now.</strong></p>
+<p><code>rename</code> - Renames the page (the last section in the URL). This should be a URL-friendly string with no extension.</p>
+<p><code>feeds</code> - an array that can be used to list pages in the site. <a href="./queries">See the specific feeds page for more information</a></p>
+<p><code>_partials</code> - adds onto the <code>_partials</code> object defined in the HTML template, which allows you to import additional partials per page. The key for each field in the object is the name of the partial, the value is the relative path from <strong>the frame directory</strong>. <a href="./templating">See templating for how partials work</a></p>
+<p><code>tags</code> - a list of strings that can be used to create feeds.</p>
+
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          <a href="/frame-content/index.html">Previous</a>
+            <p>Directory Structure</p>
+          
+          </div>
+          <div id="next"><a href="/templating/index.html">Next</a>
+              <p>Templating</p>
+            </div>
+      </footer>
+    </div>
+  </body>
+</html>
+

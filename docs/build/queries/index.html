@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Queries in Wanderer</title>
+    
+    <meta name="description" content="undefined">
+    <meta name="author" content="undefined">
+    <link rel="shortcut icon" href="/static/favicon.png" />
+    
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="/static/palette.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    
+</head>
+
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          <ul>
+<li><a href="/getting-started/index.html">Getting Started</a></li>
+<li><a href="/frame-content/index.html">Directory Structure</a></li>
+<li><a href="/configuration/index.html">Configuration</a></li>
+<li><a href="/templating/index.html">Templating</a></li>
+<li><a href="/tips/index.html">Common Use Cases</a></li>
+<li><a href="/queries/index.html">Queries in Wanderer</a></li>
+<li><a href="/plugins/index.html">Plugins</a></li>
+<li><a href="/dates/index.html">Working with Dates</a></li>
+</ul>
+
+        </div>
+      </nav>
+      <main>
+        <article>
+        <h1 id="queries-in-wanderer">Queries in Wanderer</h1>
+<p>wanderer builds the site page by page, but this can fall apart in the case of blog indices. Thus, there’s also a capability of creating various <code>feeds</code> that can be used to list out pages.</p>
+<h2 id="defining-feeds-in-config">Defining feeds in config</h2>
+<p>Feeds are defined under the <code>feeds</code> header in page level configurations:</p>
+<pre><code>[feeds]
+feedName = { tags = { like = &#39;feedTag&#39; }  }
+</code></pre>
+<ul>
+<li>if the feedName is a string, we assume that the feed should be made of the files whose <strong>source directories</strong> fall under that string</li>
+<li>if the feedName is a dict, we search the database for pages whose configurations matches that dict. Generally, this is applicable for creating feeds by tag.</li>
+</ul>
+<p>All feeds are also fed into the templates as <code>o.feeds.feedName</code>, and can then be used in content:</p>
+<pre><code># Blog posts
+
+${o.feeds.feedName.map(item =&gt; {
+    return `# ${item.title}
+    ${item.description}`
+}).join(&#39;&#39;)}
+</code></pre>
+<p><a href="https://benfrain.com/html-templating-with-vanilla-javascript-es2015-template-literals/#h-H2_2">Reference</a></p>
+<p>Note the <code>join</code> at the end. Without it, the map would be interpreted as an array, and will render with comma separators.</p>
+<h2 id="objects-in-a-feed">Objects in a feed</h2>
+<pre><code>{
+    config: {}
+    id: pageID
+    url: absolute/link/to/page
+    title: page title
+    exerpt: a short excerpt (also defined in config.exerpt)
+    content: full page content (be aware that nested template features won&#39;t work right)
+}
+</code></pre>
+<h2 id="dynamic-queries">Dynamic Queries</h2>
+<p>Most of the time queries are static. However, in the future, there might also be support for dynamic queries by incorporating TaffyDB (already in use) and/or lunr.js (for search)</p>
+<p>It becomes possible to, given the JSON database of all pages, filter them by tag or content.</p>
+<h2 id="variables-that-you-can-sort-or-query-a-feed-by">Variables that you can sort or query a feed by</h2>
+<p><code>date</code>
+<code>title</code>
+<code>id</code>
+<code>sourceDir</code>
+<code>url</code>
+<code>tags</code></p>
+<h2 id="examples">Examples</h2>
+<p>Directory config for all the pages in the blog:</p>
+<pre><code>tags = [&quot;blog&quot;, ...]
+</code></pre>
+<p>Blog index page:</p>
+<pre><code>+++
+[feeds]
+
+[feeds.blog]
+query = { tags = { like = &quot;blog&quot; } }
+isAscending = false
+limit = 10
+sortBy = &#39;date&#39;
++++
+
+# Recent Updates
+</code></pre>
+
+
+${md(o.feeds.blog.slice(0, 8).map( post => {
+    return `* [${post.title}](${post.url}) // ${post.tags.filter(tag => {
+        return tag !== 'blog'
+    }).map(tag => {
+        return tag
+    }).join(', ')}`
+}).join('\n'))}<p>```</p>
+
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          <a href="/tips/index.html">Previous</a>
+            <p>Common Use Cases</p>
+          
+          </div>
+          <div id="next"><a href="/plugins/index.html">Next</a>
+              <p>Plugins</p>
+            </div>
+      </footer>
+    </div>
+  </body>
+</html>
+

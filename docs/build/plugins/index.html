@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Plugins</title>
+    
+    <meta name="description" content="undefined">
+    <meta name="author" content="undefined">
+    <link rel="shortcut icon" href="/static/favicon.png" />
+    
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="/static/palette.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    
+</head>
+
+  <body>
+    <div class="container">
+      <nav id="sidebar">
+        <div>
+          <ul>
+            <li>
+              <a href="/" class="primary">wanderer</a>
+            </li>
+          </ul>
+          
+          <ul>
+<li><a href="/getting-started/index.html">Getting Started</a></li>
+<li><a href="/frame-content/index.html">Directory Structure</a></li>
+<li><a href="/configuration/index.html">Configuration</a></li>
+<li><a href="/templating/index.html">Templating</a></li>
+<li><a href="/tips/index.html">Common Use Cases</a></li>
+<li><a href="/queries/index.html">Queries in Wanderer</a></li>
+<li><a href="/plugins/index.html">Plugins</a></li>
+<li><a href="/dates/index.html">Working with Dates</a></li>
+</ul>
+
+        </div>
+      </nav>
+      <main>
+        <article>
+        <h1 id="plugins">Plugins</h1>
+<p>All file processing in wanderer is done via plugins. When parsing each file, wanderer takes the list of available plugins, and uses the first one that matches the input extension, and processes the file with that plugin. If nothing matches, wanderer copies over the file as-is.</p>
+<h2 id="using-custom-plugins">Using custom plugins</h2>
+<p>You can define custom plugins using the site-wide <code>config.toml</code> file, by listing them as an array under the <code>plugins</code> field.</p>
+<pre><code>plugins=[&quot;wanderer-jsx-to-html&quot;]
+</code></pre>
+<p>The plugins are included via CommonJS <code>require()</code> relative to the directory you call wanderer from, so you can reference local files, or modules installed in <code>node_modules/</code>.</p>
+<h2 id="creating-custom-plugins">Creating custom plugins</h2>
+<p>Plugins are defined as a class with the following interface:</p>
+<pre><code>class Plugin {
+    getType() {
+        return &#39;ASSET&#39; // or &#39;CONTENT&#39;
+    }
+
+    getExtensions() {
+        return [&#39;list&#39;, &#39;of&#39;, &#39;extensions&#39;, &#39;that&#39;, &#39;the&#39;, &#39;plugin&#39;, &#39;should&#39;, &#39;operate&#39;, &#39;on]
+    }
+
+    parse(opts) {
+        // take in the source file, and output it to the build directory
+    }
+}
+</code></pre>
+<p>The <code>parse</code> function returns different options depending on whether the plugin processes <strong>asset</strong> or <strong>content</strong> files.</p>
+<p>All <code>opts</code> objects have a <code>touchedFile</code> parameter, which is an object with relevant information about the input file. That <code>assetFile</code> object has the following shape:</p>
+<pre><code>{
+    id: string, - unique identifier for the file
+    file: string, - filename with extension of the source directory
+    dir: string, - path to the source directory of the file
+    config: object - the _file_ configuration object
+    url: string - expected URL of the page
+    date - Date object with the last modified (or custom set) date
+    updated - Date object with the last modified date
+}
+</code></pre>
+<p><strong>Asset</strong> files are things like images, sound, etc. They don’t count as individual web pages, so don’t get folded into the next / previous pages, or into feeds. The <code>opts</code> object of an asset plugin looks like:</p>
+<pre><code>{
+    assetInfo, - object with information about the input file
+    baseContentDir - string - path to the content directory
+    baseFrameDir, - string - path to the frame directory
+    targetDirPath, - string - path to the directory that this file should be saved in
+    cacheDirectory - string - path to the cache directory for storing temporary files
+}
+</code></pre>
+<p><strong>Content</strong> files are files that should be processed into pages. As a result, the <code>opts</code> object here contains some more helper functions, including ones to generate feeds and create pretty URLs. The <code>opts</code> object looks like this:</p>
+<pre><code>{
+    {
+        // base inputs
+        touchedFile, - fileInfo
+        baseContentDir - string - path to the content directory
+        baseFrameDir, - string
+        targetDirPath, - string
+        pageObject, - pageInfo - contains information for the content page such as the next / previous pages, as well as canonical URLs.
+
+        // generator functions
+        genPageStatics,
+        genBuild,
+        genFeeds,
+        genLayout,
+
+        // helper libraries
+        harpe, - markdown parser
+        template - templating engine
+    }
+}
+</code></pre>
+<p>A <strong>pageInfo</strong> has the following shape, and is an extension of the <strong>assetInfo</strong> object:</p>
+<pre><code>{
+    title - title of the page
+    text - raw text of the page
+}
+</code></pre>
+<p><strong>genPageStatics()</strong> - creates a file that contains static files associated with the page.
+static files are files that have the same name as a content file. Returns an object:</p>
+<pre><code>{
+    css: path to css file
+    js: path to js file
+    statics: [list of other static files]
+}
+</code></pre>
+<p><strong>genBuild(content, extension)</strong> - writes the content to the canonical URL of the page with the provided file extension (generally <code>.html</code>). This will allow you to make pages that have pretty URLs. Has no return.</p>
+<p><strong>genFeeds()</strong> - generates a feed object for the page based on the values provided in the configuration, which can then be passed to the template. Returns a list:</p>
+<pre><code>[
+    ...pageInfo
+]
+</code></pre>
+<p><strong>genLayout()</strong> - produces layout text from the configuration that can then be fed into <code>template</code> to create an HTML output.</p>
+<h2 id="example">Example</h2>
+<p>This is the default plugin used for parsing Markdown files.</p>
+<pre><code>const Plugin = require(&#39;../plugin-template&#39;);
+class MDParser extends Plugin {
+    getType() {
+        // should return &#39;ASSET&#39; or &#39;CONTENT&#39;
+        return this.types.CONTENT;
+    }
+
+    getExtensions() {
+        return [&#39;md&#39;];
+    }
+
+    parse(opts) {
+            
+        const {
+            // base inputs
+            touchedFile,
+            baseFrameDir,
+            targetDirPath,
+            pageObject,
+
+            // generator functions
+            genPageStatics,
+            genBuild,
+            genFeeds,
+            genLayout,
+
+            // helper libraries
+            harpe,
+            template
+        } = opts;
+
+        const parsedConfig = pageObject.config;
+        const layoutText = genLayout();
+
+        // figure out if we should add css / js files
+        const pageStatics = genPageStatics();
+        const feeds = genFeeds();
+
+        // parse and generate the template
+        ////////////////////////////////////
+
+        const parser = harpe();
+        const html = parser.parse(pageObject.text)
+
+        const templateVars = {
+            // adds page-specific css and js
+            ...pageStatics,
+
+            // adds anything from the frontmatter + folder config
+            ...parsedConfig,
+            feeds,
+            content: html,
+            _baseDir: baseFrameDir
+        }
+
+        // second html pass: add layouts and additional partials to the content
+        const templatedHTML = template(layoutText, templateVars)
+        genBuild(templatedHTML, &#39;.html&#39;);
+    }
+}
+
+module.exports = MDParser;
+</code></pre>
+
+        </article>
+      </main>
+      <footer>
+        <div id="prev">
+          <a href="/queries/index.html">Previous</a>
+            <p>Queries in Wanderer</p>
+          
+          </div>
+          <div id="next"><a href="/dates/index.html">Next</a>
+              <p>Working with Dates</p>
+            </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
