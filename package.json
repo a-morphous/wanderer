@@ -1,0 +1,17 @@
+{
+  "name": "@a-morphous/wanderer-plugin-rss",
+  "version": "1.0.0",
+  "description": "",
+  "module": "index.mjs",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "feed": "^4.2.2"
+  }
+}
