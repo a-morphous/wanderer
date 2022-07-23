@@ -1,0 +1,23 @@
+{
+  "name": "@a-morphous/wanderer-plugin-markdown",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/wanderer-markdown.js",
+  "module": "dist/wanderer-markdown.module.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@a-morphous/wanderer-template": "workspace:^1.0.0",
+    "markdown-link-extractor": "^4.0.1",
+    "micromark": "^3.0.10",
+    "upath": "^1.2.0"
+  },
+  "devDependencies": {
+    "@a-morphous/wanderer-types": "workspace:^1.0.0",
+    "esbuild": "^0.14.49"
+  }
+}

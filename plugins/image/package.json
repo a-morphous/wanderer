@@ -1,0 +1,21 @@
+{
+	"name": "@a-morphous/wanderer-plugin-image",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/wanderer-image.js",
+	"module": "dist/wanderer-image.module.mjs",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dayjs": "^1.11.4",
+		"upath": "^1.2.0"
+	},
+	"devDependencies": {
+		"@a-morphous/wanderer-types": "workspace:^1.0.0",
+		"esbuild": "^0.14.49"
+	}
+}

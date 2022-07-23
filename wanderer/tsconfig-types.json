@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"target": "ES6",
+		"declaration": true,
+		"esModuleInterop": true,
+		"emitDeclarationOnly": true,
+		"declarationDir": "../packages/wanderer-types",
+		"outDir": "../packages/wanderer-types",
+		"module": "es2020"
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
+}

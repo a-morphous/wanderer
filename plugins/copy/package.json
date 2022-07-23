@@ -1,0 +1,20 @@
+{
+	"name": "@a-morphous/wanderer-plugin-copy",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/wanderer-copy.js",
+	"module": "dist/wanderer-copy.module.mjs",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"upath": "^1.2.0"
+	},
+	"devDependencies": {
+		"@a-morphous/wanderer-types": "workspace:^1.0.0",
+		"esbuild": "^0.14.49"
+	}
+}

@@ -2,21 +2,6 @@
 	"name": "wanderer",
 	"version": "1.0.0",
 	"description": "Static site generator",
-	"main": "index.js",
-	"scripts": {
-		"test": "node ./cli -i test/content -f test/frame -o test/build -c test/config.toml -a test/.cache --clean",
-		"docs": "node ./cli -i docs/content -f docs/frame -o docs/build -c docs/config.toml -a docs/.cache --clean",
-		"postinstall": "cd src/tools/install && node npm-install-all.js"
-	},
-	"bin": {
-		"wanderer": "./cli.js"
-	},
 	"author": "Amorphous",
-	"license": "ISC",
-	"dependencies": {
-		"@iarna/toml": "^2.2.3",
-		"dayjs": "^1.8.19",
-		"minimist": "^1.2.2",
-		"upath": "^1.2.0"
-	}
+	"license": "ISC"
 }

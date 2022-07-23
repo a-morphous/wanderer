@@ -1,0 +1,33 @@
+{
+	"name": "@a-morphous/wanderer-core",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "node ./cli -i test/content -f test/frame -o test/build -c test/config.toml -a test/.cache --clean",
+		"docs": "node ./cli -i docs/content -f docs/frame -o docs/build -c docs/config.toml -a docs/.cache --clean",
+		"types": "tsc --build ./tsconfig-types.json"
+	},
+	"bin": {
+		"wanderer": "./cli.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@a-morphous/wanderer-plugin-copy": "workspace:^1.0.0",
+		"@a-morphous/wanderer-plugin-image": "workspace:^1.0.0",
+		"@a-morphous/wanderer-plugin-markdown": "workspace:^1.0.0",
+		"@iarna/toml": "^2.2.3",
+		"dayjs": "^1.8.19",
+		"istextorbinary": "^6.0.0",
+		"jsonata": "^1.8.6",
+		"minimist": "^1.2.2",
+		"upath": "^1.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "^18.0.6",
+		"esbuild": "^0.14.49",
+		"typescript": "^4.7.4"
+	}
+}
