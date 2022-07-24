@@ -32,6 +32,9 @@ export class ImagePlugin implements BasePlugin {
 					return true
 				}
 				if (path.resolve(cacheFilePath) !== path.resolve(targetPath)) {
+					if (!fs.existsSync(path.dirname(targetPath))) {
+						fs.mkdirSync(path.dirname(targetPath), { recursive: true })
+					}
 					fs.copyFileSync(cacheFilePath, targetPath)
 				}
 				return true
@@ -45,6 +48,9 @@ export class ImagePlugin implements BasePlugin {
 				return true
 			}
 			if (path.resolve(cacheFilePath) !== path.resolve(targetPath)) {
+				if (!fs.existsSync(path.dirname(targetPath))) {
+					fs.mkdirSync(path.dirname(targetPath), { recursive: true })
+				}
 				fs.copyFileSync(cacheFilePath, targetPath)
 			}
 		})

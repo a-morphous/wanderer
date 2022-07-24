@@ -7335,7 +7335,7 @@ var genFeeds = (file, filePool, allURLs) => {
 var genPageReference = (file, filePool, allURLs, existingFeed) => {
   const pageReference = {
     id: file.id,
-    title: file.name,
+    title: file.title ?? file.name,
     url: "/" + allURLs[file.id],
     sourceName: path2.basename(file.sourcePath),
     created: file.created,
@@ -7433,11 +7433,22 @@ var MarkdownPlugin = class {
     } else {
       relativeDir = import_upath2.default.relative(site.contentDirectory, file.sourceDir);
     }
-    const urlPiece = relativeDir + import_upath2.default.sep + file.name;
+    let urlPiece = relativeDir + import_upath2.default.sep + file.name;
+    if (file.name === "index") {
+      const pathSplit = file.id.split(import_upath2.default.sep);
+      if (pathSplit.length > 1) {
+        urlPiece = relativeDir + import_upath2.default.sep + pathSplit[pathSplit.length - 2] + import_upath2.default.sep + "index";
+      }
+    }
     if (["404", "index"].includes(file.name)) {
       return urlPiece + ".html";
     }
     return urlPiece + import_upath2.default.sep + "index.html";
+  }
+  title(file, site) {
+    const page = file;
+    const title = page.text.trim().split(/\r\n|\r|\n/g)[0].slice(2).trim();
+    return file.configuration?.title || title || file.name;
   }
   build(opts, dryRun = false) {
     const file = opts.file;

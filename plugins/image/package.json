@@ -15,7 +15,7 @@
 		"upath": "^1.2.0"
 	},
 	"devDependencies": {
-		"@a-morphous/wanderer-types": "workspace:^1.0.0",
+		"@a-morphous/wanderer-types": "^1.0.0",
 		"esbuild": "^0.14.49"
 	}
 }

@@ -422,7 +422,7 @@ var import_child_process = require("child_process");
 var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
   config = config || {};
   const targetFileDir = import_path.default.dirname(targetFilePath);
-  const ext = import_path.default.extname(inputFilePath).toLowerCase();
+  const ext = import_path.default.extname(inputFilePath).toLocaleLowerCase();
   if (!import_fs.default.existsSync(targetFileDir)) {
     import_fs.default.mkdirSync(targetFileDir, { recursive: true });
   }
@@ -521,6 +521,9 @@ var ImagePlugin = class {
           return true;
         }
         if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
+          if (!import_fs2.default.existsSync(import_upath.default.dirname(targetPath))) {
+            import_fs2.default.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+          }
           import_fs2.default.copyFileSync(cacheFilePath, targetPath);
         }
         return true;
@@ -532,6 +535,9 @@ var ImagePlugin = class {
         return true;
       }
       if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
+        if (!import_fs2.default.existsSync(import_upath.default.dirname(targetPath))) {
+          import_fs2.default.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+        }
         import_fs2.default.copyFileSync(cacheFilePath, targetPath);
       }
     });

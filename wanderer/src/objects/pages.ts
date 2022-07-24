@@ -46,8 +46,8 @@ export class FileCache {
 		for (let file of allFiles) {
 			const fullPath = path.resolve(this.siteInfo.contentDirectory, file)
 			const dir = path.dirname(file)
-			const ext = path.extname(file)
-			const name = path.basename(file, ext)
+			const ext = path.extname(file).toLocaleLowerCase()
+			const name = path.basename(file, path.extname(file))
 			let isFrontmatter = false
 
 			let config
@@ -98,13 +98,21 @@ export class FileCache {
 
 		for (let file of allFiles) {
 			const dir = path.dirname(file)
-			const ext = path.extname(file)
-			const rawname = path.basename(file, ext)
+			const ext = path.extname(file).toLocaleLowerCase()
+			const rawname = path.basename(file, path.extname(file))
 
 			const tempoString = tempo(rawname)
 			const name = tempoString.name
 
 			if (ext.toLocaleLowerCase() === '.toml') {
+				continue
+			}
+
+			const sourcePath = path.resolve(this.siteInfo.contentDirectory, file)
+			const stats = fs.statSync(sourcePath)
+
+			// if the file is totally empty, we ignore it
+			if (stats.size === 0) {
 				continue
 			}
 
@@ -123,9 +131,6 @@ export class FileCache {
 			if (!url.startsWith('/')) {
 				url = '/' + url
 			}
-
-			const sourcePath = path.resolve(this.siteInfo.contentDirectory, file)
-			const stats = fs.statSync(sourcePath)
 
 			const info: FileInfo = {
 				configuration: config,

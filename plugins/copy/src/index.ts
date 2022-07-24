@@ -12,6 +12,9 @@ export class CopyPlugin implements BasePlugin {
 	build(opts: PluginBuildOptions) {
 		const targetFilePath = path.resolve(opts.site.buildDirectory, opts.url)
 		const sourceFilePath = path.resolve(opts.file.sourcePath)
+        if (!fs.existsSync(path.dirname(targetFilePath))) {
+            fs.mkdirSync(path.dirname(targetFilePath), { recursive: true })
+        }
 		fs.copyFileSync(sourceFilePath, targetFilePath)
 
 		return true

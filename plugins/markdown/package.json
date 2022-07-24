@@ -13,13 +13,16 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@a-morphous/wanderer-template": "workspace:^1.0.0",
 		"micromark": "^3.0.10",
 		"upath": "^1.2.0"
 	},
 	"devDependencies": {
-		"@a-morphous/wanderer-types": "workspace:^1.0.0",
+		"@a-morphous/wanderer-types": "^1.0.0",
+		"@a-morphous/wanderer-template": "^1.0.0",
 		"esbuild": "^0.14.49",
 		"esbuild-visualizer": "^0.3.1"
+	},
+	"peerDependencies": {
+		"@a-morphous/wanderer-template": "^1.0.0"
 	}
 }

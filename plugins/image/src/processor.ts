@@ -14,7 +14,7 @@ const processImageGM = (
 ) => {
 	config = config || {}
 	const targetFileDir = path.dirname(targetFilePath)
-	const ext = path.extname(inputFilePath).toLowerCase()
+	const ext = path.extname(inputFilePath).toLocaleLowerCase()
 
 	if (!fs.existsSync(targetFileDir)) {
 		fs.mkdirSync(targetFileDir, { recursive: true })

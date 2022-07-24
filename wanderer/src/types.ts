@@ -47,6 +47,10 @@ export type FileInfo = {
 	date?: Date
 	id: string // unique identifier
 	configuration?: Configuration
+
+	// gets populated later
+	url?: string
+	title?: string // title can have spaces in it, which can also be wikilinked.
 }
 
 /**
@@ -68,7 +72,7 @@ export type PageReference = {
 export type Page = FileInfo & {
 	configuration?: PageConfig
 	isPage: true
-	title?: string // title can have spaces in it, which can also be wikilinked.
+
 	text: string
 }
 

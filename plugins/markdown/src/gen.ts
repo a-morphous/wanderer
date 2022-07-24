@@ -133,7 +133,7 @@ export const genPageReference = (
 ) => {
 	const pageReference: PageReference = {
 		id: file.id,
-		title: file.name, //TODO: actual method to get the title
+		title: file.title ?? file.name, //TODO: actual method to get the title
 		url: '/' + allURLs[file.id],
 		sourceName: path.basename(file.sourcePath), // filename before we did any processing
 		created: file.created,

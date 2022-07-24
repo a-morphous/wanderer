@@ -214,6 +214,9 @@ var CopyPlugin = class {
   build(opts) {
     const targetFilePath = import_upath.default.resolve(opts.site.buildDirectory, opts.url);
     const sourceFilePath = import_upath.default.resolve(opts.file.sourcePath);
+    if (!import_fs.default.existsSync(import_upath.default.dirname(targetFilePath))) {
+      import_fs.default.mkdirSync(import_upath.default.dirname(targetFilePath), { recursive: true });
+    }
     import_fs.default.copyFileSync(sourceFilePath, targetFilePath);
     return true;
   }

@@ -419,7 +419,7 @@ import { spawn } from "child_process";
 var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
   config = config || {};
   const targetFileDir = path.dirname(targetFilePath);
-  const ext = path.extname(inputFilePath).toLowerCase();
+  const ext = path.extname(inputFilePath).toLocaleLowerCase();
   if (!fs.existsSync(targetFileDir)) {
     fs.mkdirSync(targetFileDir, { recursive: true });
   }
@@ -518,6 +518,9 @@ var ImagePlugin = class {
           return true;
         }
         if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
+          if (!fs2.existsSync(import_upath.default.dirname(targetPath))) {
+            fs2.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+          }
           fs2.copyFileSync(cacheFilePath, targetPath);
         }
         return true;
@@ -529,6 +532,9 @@ var ImagePlugin = class {
         return true;
       }
       if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
+        if (!fs2.existsSync(import_upath.default.dirname(targetPath))) {
+          fs2.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+        }
         fs2.copyFileSync(cacheFilePath, targetPath);
       }
     });

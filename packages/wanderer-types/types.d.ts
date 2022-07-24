@@ -39,6 +39,8 @@ export declare type FileInfo = {
     date?: Date;
     id: string;
     configuration?: Configuration;
+    url?: string;
+    title?: string;
 };
 /**
  * Used to refer to a different page without needing the whole page object
@@ -58,7 +60,6 @@ export declare type PageReference = {
 export declare type Page = FileInfo & {
     configuration?: PageConfig;
     isPage: true;
-    title?: string;
     text: string;
 };
 export declare type Feed = {};

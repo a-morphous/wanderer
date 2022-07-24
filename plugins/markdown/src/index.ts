@@ -27,7 +27,14 @@ export class MarkdownPlugin implements BasePlugin {
 			relativeDir = path.relative(site.contentDirectory, file.sourceDir)
 		}
 
-		const urlPiece = relativeDir + path.sep + file.name
+		let urlPiece = relativeDir + path.sep + file.name
+		if (file.name === 'index') {
+			// we need to get the upper level directory anyway...
+			const pathSplit = file.id.split(path.sep)
+			if (pathSplit.length > 1) {
+				urlPiece = relativeDir + path.sep + pathSplit[pathSplit.length - 2] + path.sep + 'index'
+			}
+		}
 
 		if (['404', 'index'].includes(file.name)) {
 			// no pretty printing needed
@@ -37,6 +44,18 @@ export class MarkdownPlugin implements BasePlugin {
 		// time to pretty print!
 		return urlPiece + path.sep + 'index.html'
 	}
+
+	title(file: FileInfo, site: SiteInfo) {
+		const page = file as Page
+		const title = page.text
+			.trim()
+			.split(/\r\n|\r|\n/g)[0]
+			.slice(2)
+			.trim()
+
+		return file.configuration?.title || title || file.name
+	}
+
 	build(opts: PluginBuildOptions, dryRun: boolean = false) {
 		const file = opts.file as Page
 

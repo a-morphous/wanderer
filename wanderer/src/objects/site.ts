@@ -89,7 +89,7 @@ export class Site {
 		const pluginFiles: FileInfo[][] = []
 		const allURLs: Record<string, string> = {}
 
-		// now we can figure out all the URLs
+		// generate URLs and titles
 		for (let i = 0; i < this.plugins.length; i++) {
 			const plugin = this.plugins[i]
 			if (plugin.extensions === 'UNUSED') {
@@ -98,14 +98,21 @@ export class Site {
 				pluginFiles[i] = this.fileCache.getAllFilesWithExts(plugin.extensions)
 			}
 
-			// get the url
 			for (let j = 0; j < pluginFiles[i].length; j++) {
 				const file = pluginFiles[i][j]
+
+				// get the url
 				let partialUrl = plugin.url(file, this.siteInfo)
 				if (partialUrl.startsWith('/')) {
 					partialUrl = partialUrl.slice(1)
 				}
 				allURLs[file.id] = partialUrl
+				file.url = partialUrl
+
+				// get the title, if the plugin has a title function
+				if (plugin.title) {
+					file.title = file.configuration?.title ?? plugin.title(file, this.siteInfo)
+				}
 			}
 		}
 

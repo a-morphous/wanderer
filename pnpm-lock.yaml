@@ -2,28 +2,68 @@ lockfileVersion: 5.4
 
 importers:
 
+  .:
+    specifiers: {}
+
+  packages/template:
+    specifiers:
+      dayjs: ^1.11.4
+      micromark: ^3.0.10
+      upath: ^1.2.0
+    dependencies:
+      dayjs: 1.11.4
+      micromark: 3.0.10
+      upath: 1.2.0
+
+  packages/wanderer-types:
+    specifiers: {}
+
+  plugins/copy:
+    specifiers:
+      '@a-morphous/wanderer-types': ^1.0.0
+      esbuild: ^0.14.49
+      upath: ^1.2.0
+    dependencies:
+      upath: 1.2.0
+    devDependencies:
+      '@a-morphous/wanderer-types': link:../../packages/wanderer-types
+      esbuild: 0.14.49
+
+  plugins/image:
+    specifiers:
+      '@a-morphous/wanderer-types': ^1.0.0
+      dayjs: ^1.11.4
+      esbuild: ^0.14.49
+      upath: ^1.2.0
+    dependencies:
+      dayjs: 1.11.4
+      upath: 1.2.0
+    devDependencies:
+      '@a-morphous/wanderer-types': link:../../packages/wanderer-types
+      esbuild: 0.14.49
+
   plugins/markdown:
     specifiers:
-      '@a-morphous/wanderer-template': workspace:^1.0.0
-      '@a-morphous/wanderer-types': workspace:^1.0.0
+      '@a-morphous/wanderer-template': ^1.0.0
+      '@a-morphous/wanderer-types': ^1.0.0
       esbuild: ^0.14.49
       esbuild-visualizer: ^0.3.1
       micromark: ^3.0.10
       upath: ^1.2.0
     dependencies:
-      '@a-morphous/wanderer-template': link:../../packages/template
       micromark: 3.0.10
       upath: 1.2.0
     devDependencies:
+      '@a-morphous/wanderer-template': link:../../packages/template
       '@a-morphous/wanderer-types': link:../../packages/wanderer-types
       esbuild: 0.14.49
       esbuild-visualizer: 0.3.1
 
   wanderer:
     specifiers:
-      '@a-morphous/wanderer-plugin-copy': workspace:^1.0.0
-      '@a-morphous/wanderer-plugin-image': workspace:^1.0.0
-      '@a-morphous/wanderer-plugin-markdown': workspace:^1.0.0
+      '@a-morphous/wanderer-plugin-copy': ^1.0.0
+      '@a-morphous/wanderer-plugin-image': ^1.0.0
+      '@a-morphous/wanderer-plugin-markdown': ^1.0.0
       '@iarna/toml': ^2.2.3
       '@types/node': ^18.0.6
       dayjs: ^1.8.19
@@ -35,9 +75,6 @@ importers:
       typescript: ^4.7.4
       upath: ^1.2.0
     dependencies:
-      '@a-morphous/wanderer-plugin-copy': link:../plugins/copy
-      '@a-morphous/wanderer-plugin-image': link:../plugins/image
-      '@a-morphous/wanderer-plugin-markdown': link:../plugins/markdown
       '@iarna/toml': 2.2.5
       dayjs: 1.11.4
       istextorbinary: 6.0.0
@@ -45,6 +82,9 @@ importers:
       minimist: 1.2.6
       upath: 1.2.0
     devDependencies:
+      '@a-morphous/wanderer-plugin-copy': link:../plugins/copy
+      '@a-morphous/wanderer-plugin-image': link:../plugins/image
+      '@a-morphous/wanderer-plugin-markdown': link:../plugins/markdown
       '@types/node': 18.0.6
       esbuild: 0.14.49
       esbuild-visualizer: 0.3.1
