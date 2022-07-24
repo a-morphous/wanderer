@@ -115,7 +115,9 @@ const render = (template, config, layer) => {
 	}
 
 	const md = (text) => {
-		return micromark(text)
+		return micromark(text, 'utf-8', {
+			allowDangerousHtml: true,
+		})
 	}
 
 	const date = (rawDate) => {
