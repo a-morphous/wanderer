@@ -115,9 +115,11 @@ export const genFeeds = (file: FileInfo, filePool: FileDB, allURLs: Record<strin
 	// convert all the feeds to pageReferences.
 	for (let feedName in feeds) {
 		const rawFeed = feeds[feedName]
-		referenceFeeds[feedName] = rawFeed.map((file) => {
-			return genPageReference(file, filePool, allURLs)
-		})
+		referenceFeeds[feedName] = []
+
+		for (let feedFile of rawFeed) {
+			referenceFeeds[feedName].push(genPageReference(feedFile, filePool, allURLs))
+		}
 	}
 
 	return referenceFeeds
@@ -133,6 +135,7 @@ export const genPageReference = (
 		id: file.id,
 		title: file.name, //TODO: actual method to get the title
 		url: '/' + allURLs[file.id],
+		sourceName: path.basename(file.sourcePath), // filename before we did any processing
 		created: file.created,
 		updated: file.updated,
 		date: file.date,

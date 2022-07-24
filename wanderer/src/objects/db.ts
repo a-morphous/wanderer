@@ -2,6 +2,7 @@ import { FileInfo } from '../types'
 import jsonata from 'jsonata'
 import path from 'upath'
 import { PathLike } from 'fs'
+import { Logger, LOG_LEVEL } from '../lib/log'
 
 // https://docs.jsonata.org/boolean-functions and https://docs.jsonata.org/boolean-operators
 export enum QUERY_BOOLEAN_OPERATORS {
@@ -118,6 +119,8 @@ export class FileDB {
 				}
 				pointer += 1
 			}
+
+			Logger.log(LOG_LEVEL.DEBUG, 'performing query: ', `$[${rawQuery}]`)
 
 			// wrap the query
 			const expression = jsonata(`$[${rawQuery}]`)

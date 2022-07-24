@@ -1,7 +1,6 @@
 import path from 'path'
-import { FileCache } from './objects/pages'
 import * as url from 'url'
-import { FileDB, QUERY_BOOLEAN_OPERATORS, QUERY_MODIFIER_OPERATIONS } from './objects/db'
+import { Logger, LOG_LEVEL } from './lib/log'
 import { wanderer } from './wanderer'
 
 // @ts-ignore: __filename will be defined in nodejs module settings
@@ -10,6 +9,7 @@ const __filename = __filename || url.fileURLToPath(import.meta.url)
 const __dirname = __dirname || url.fileURLToPath(new URL('.', import.meta.url))
 
 const main = async () => {
+	Logger.set(LOG_LEVEL.WARN)
 	// testing
 	const siteConfig = {
 		contentDirectory: path.resolve(__dirname, '..', 'test', 'content'),

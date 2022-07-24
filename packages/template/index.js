@@ -1,12 +1,11 @@
 const fs = require('fs')
 const path = require('upath')
 const dayjs = require('dayjs')
-const microdown = require('micro-down')
+const { micromark } = require('micromark')
 
 const render = (template, config, layer) => {
 	layer = layer || 0
 	if (layer > 10) {
-		console.log(template)
 		throw new Error(
 			"More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported."
 		)
@@ -116,7 +115,7 @@ const render = (template, config, layer) => {
 	}
 
 	const md = (text) => {
-		return microdown.parse(text)
+		return micromark(text)
 	}
 
 	const date = (rawDate) => {

@@ -8,6 +8,7 @@ import * as toml from '@iarna/toml'
 import { getTextAfterFrontmatter, streamFrontmatter } from '../lib/frontmatter'
 import { tempo } from '../lib/tempo'
 import { FileDB, QueryOpts, QUERY_BOOLEAN_OPERATORS, QUERY_MODIFIER_OPERATIONS } from './db'
+import { Logger, LOG_LEVEL } from '../lib/log'
 
 export enum CONFIG_RECURSION_LEVEL {
 	NONE,
@@ -86,6 +87,8 @@ export class FileCache {
 				}
 			}
 		}
+
+		Logger.log(LOG_LEVEL.DEBUG, this.nestedConfiguration)
 		return this.nestedConfiguration
 	}
 
@@ -161,9 +164,19 @@ export class FileCache {
 		}
 		if (recursive === CONFIG_RECURSION_LEVEL.IMMEDIATE_PARENT) {
 			parts.pop()
+
 			if (!parts.length) {
+				// check the main directory
+				if (this.nestedConfiguration['.']) {
+					Logger.log(LOG_LEVEL.DEBUG, 'Has a main config!', this.nestedConfiguration['.'])
+					return {
+						...this.nestedConfiguration['.'],
+						...(this.nestedConfiguration[fileId] ?? {}),
+					}
+				}
 				return this.nestedConfiguration[fileId] ?? {}
 			}
+			Logger.log(LOG_LEVEL.DEBUG, 'Does this have a main config!', this.nestedConfiguration['.'])
 			return {
 				...(this.nestedConfiguration[parts[parts.length - 1]] ?? {}),
 				...(this.nestedConfiguration[fileId] ?? {}),
@@ -172,10 +185,14 @@ export class FileCache {
 		if (recursive === CONFIG_RECURSION_LEVEL.ALL) {
 			const config = {}
 			let currentPath = ''
+			if (this.nestedConfiguration['.']) {
+				Object.assign(config, this.nestedConfiguration['.'])
+			}
 			for (let part of parts) {
 				currentPath = path.join(currentPath, part)
 				Object.assign(config, this.nestedConfiguration[currentPath] ?? {})
 			}
+			Logger.log(LOG_LEVEL.DEBUG, 'full config', config)
 			return config
 		}
 		return {}

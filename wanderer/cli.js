@@ -3,10 +3,10 @@
 // TODO: needs to be totally rewritten!
 const path = require('upath')
 const fs = require('fs')
+const toml = require('@iarna/toml')
 
 var argv = require('minimist')(process.argv.slice(2))
-const wanderer = require('../index')
-const pageInfoTool = require('./wanderer/src/lib/page-info')
+const { wanderer } = require('./dist/wanderer')
 
 console.time('build')
 
@@ -23,44 +23,33 @@ const buildDir = argv.out || argv.o || path.resolve(process.cwd(), 'build')
 const cacheDir = argv.cache || argv.a || path.resolve(process.cwd(), '.cache')
 const configFile = argv.config || argv.c || path.resolve(process.cwd(), 'config.toml')
 
-if (argv.info) {
-	try {
-		const targetFile = argv.file || argv._[0]
-		pageInfoTool(configFile, frameDir, contentDir, path.resolve(targetFile)).then((pageInfo) => {
-			console.log(pageInfo)
-		})
-	} catch (e) {
-		console.log(e)
-		console.log(
-			`Usage: wanderer --info -f <frame directory> -i <content directory> -c <config file> <targetFile>`
-		)
-	}
-	return
-}
+let siteConfig = {}
 
 if (argv.clean) {
 	// clean up cache stuff
 	try {
-		fs.unlinkSync(path.resolve(cacheDir, 'static', 'pages.json'))
-	} catch (e) {
-		// swallow it
-	}
-
-	try {
-		fs.unlinkSync(path.resolve(cacheDir, 'pages.json'))
-	} catch (e) {
-		// swallow it
-	}
-
-	try {
-		fs.unlinkSync(path.resolve(cacheDir, '.touchfile'))
+		fs.rmdirSync(path.resolve(cacheDir), { recursive: true })
 	} catch (e) {
 		// swallow it
 	}
 
 	if (fs.existsSync(buildDir)) {
-		fs.rmdirSync(buildDir, { recursive: true })
+		fs.rmdirSync(path.resolve(buildDir), { recursive: true })
 	}
 }
 
-wanderer(configFile, frameDir, contentDir, cacheDir, buildDir).then(() => console.timeEnd('build'))
+
+if (fs.existsSync(configFile)) {
+	siteConfig = toml.parse(fs.readFileSync(configFile, 'utf-8'))
+}
+
+const siteInfo = {
+	siteConfiguration: siteConfig,
+	contentDirectory: contentDir,
+	frameDirectory: frameDir,
+	buildDirectory: buildDir,
+	cacheDirectory: cacheDir,
+}
+
+
+wanderer(siteInfo).then(() => console.timeEnd('build'))

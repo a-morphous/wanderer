@@ -54,6 +54,7 @@ export type FileInfo = {
  */
 export type PageReference = {
 	configuration?: Configuration
+	sourceName: string
 	created?: Date
 	updated?: Date
 	date?: Date

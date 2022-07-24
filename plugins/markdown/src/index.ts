@@ -12,7 +12,7 @@ import {
 	SiteInfo,
 } from '@a-morphous/wanderer-types'
 import { parse } from './harpe'
-import extractLinks from 'markdown-link-extractor'
+import { extractLinks } from './utils/extract-links'
 import { isURL } from './utils/is-url'
 import { getRelativeURL } from './utils/get-relative-url'
 

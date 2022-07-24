@@ -5,8 +5,29 @@
 
 import { micromark } from 'micromark'
 
+const escapeHTML = (text) => {
+	// escape $ is necessary since otherwise ${} inside a code tag will turn into a template literal
+	return text
+		.replace(/\&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/\$/g, '\\$')
+}
+
 export const parse = (input: string): string => {
-	const parts = input.split('\n!!!')
+	// escape $ inside of code tags otherwise we'll risk recursing forever
+	let preparseTextPieces: string[] = []
+	const codeParts = input.split('\n```')
+	let isInCode = false
+	for (let part of codeParts) {
+		if (!isInCode) {
+			preparseTextPieces.push(part)
+		} else {
+			preparseTextPieces.push(escapeHTML(part))
+		}
+        isInCode = !isInCode
+	}
+
+	const parts = preparseTextPieces.join('\n```').split('\n!!!')
 
 	let finalString = ''
 	let isInEscapeBlockPointer = false
@@ -16,8 +37,8 @@ export const parse = (input: string): string => {
 			finalString += `\n${part}`
 		} else {
 			finalString += micromark(part, 'utf-8', {
-                allowDangerousHtml: true
-            })
+				allowDangerousHtml: true,
+			})
 		}
 		isInEscapeBlockPointer = !isInEscapeBlockPointer
 	}
