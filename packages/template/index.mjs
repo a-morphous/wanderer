@@ -142,7 +142,11 @@ export const render = (template, config, layer) => {
 		}
 		// run this as an indirect eval to avoid esbuild falling over.
 		// see https://esbuild.github.io/content-types/#direct-eval
-		currentString = (0, eval)('`' + currentString + '`')
+		const evaluationFunction = new Function('o', 'macro', 'md', 'date', 'partials', `
+			return \`${currentString}\`
+		`)
+
+		currentString = evaluationFunction(o, macro, md, date, partials)
 	}
 
 	return currentString.replace(/\\\$/gm, '$')

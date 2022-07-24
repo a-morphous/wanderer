@@ -1,6 +1,6 @@
 {
 	"name": "@a-morphous/wanderer-core",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "",
 	"main": "dist/wanderer.js",
 	"module": "dist/wanderer.module.js",
@@ -18,24 +18,19 @@
 	"license": "ISC",
 	"dependencies": {
 		"@iarna/toml": "^2.2.3",
-		"dayjs": "^1.8.19",
-		"istextorbinary": "^6.0.0",
-		"jsonata": "^1.8.6",
-		"minimist": "^1.2.2",
-		"upath": "^1.2.0"
+		"minimist": "^1.2.2"
 	},
 	"devDependencies": {
 		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
 		"@a-morphous/wanderer-plugin-image": "^1.0.0",
-		"@a-morphous/wanderer-plugin-markdown": "^1.0.0",
+		"@a-morphous/wanderer-plugin-markdown": "^1.0.1",
 		"@types/node": "^18.0.6",
 		"esbuild": "^0.14.49",
 		"esbuild-visualizer": "^0.3.1",
-		"typescript": "^4.7.4"
-	},
-	"peerDependencies": {
-		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
-		"@a-morphous/wanderer-plugin-image": "^1.0.0",
-		"@a-morphous/wanderer-plugin-markdown": "^1.0.0"
+		"typescript": "^4.7.4",
+		"dayjs": "^1.8.19",
+		"istextorbinary": "^6.0.0",
+		"jsonata": "^1.8.6",
+		"upath": "^1.2.0"
 	}
 }

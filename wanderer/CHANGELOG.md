@@ -1,3 +1,8 @@
+# v1.1.2
+
+- micromark -> marked in plugins, new build
+- Remove plugins from peerDependencies; if you just use the built wanderer-core, those dependencies aren't needed.
+
 # v1.1.1
 
 - Included changes from `markdown` and `template` to allow HTML in Markdown templates, and fix `index.html` in Markdown's URLs.
