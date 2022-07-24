@@ -7,6 +7,7 @@ esbuild
 		entryPoints: ['src/index.ts'],
 		bundle: true,
         metafile: true,
+		minify: true,
 		platform: 'node',
 		outfile: 'dist/wanderer-markdown.js',
 	}).then((result) => {
@@ -19,6 +20,7 @@ esbuild
 		entryPoints: ['src/index.ts'],
 		bundle: true,
 		format: 'esm',
+		minify: true,
 		platform: 'node',
 		outfile: 'dist/wanderer-markdown.module.mjs',
 	})

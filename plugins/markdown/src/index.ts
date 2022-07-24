@@ -1,7 +1,7 @@
 import path from 'upath'
 import fs from 'fs'
 import { genFeeds, genLayout, genPageReference, genPageStatics } from './gen'
-import template from '@a-morphous/wanderer-template'
+import { render } from '@a-morphous/wanderer-template'
 import {
 	BasePlugin,
 	FileInfo,
@@ -156,7 +156,7 @@ export class MarkdownPlugin implements BasePlugin {
 		}
 
 		// second html pass: add layouts and additional partials to the content
-		const templatedHTML = template(layoutText, templateVars)
+		const templatedHTML = render(layoutText, templateVars)
 		const targetPath = path.resolve(opts.site.buildDirectory, opts.url)
 		if (dryRun) {
 			console.log(opts)

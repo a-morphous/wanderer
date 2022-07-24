@@ -3,7 +3,7 @@
  * Except I got rid of the custom parser part because I didn't want to maintain it.
  */
 
-import { micromark } from 'micromark'
+import { marked } from 'marked'
 
 const escapeHTML = (text) => {
 	// escape $ is necessary since otherwise ${} inside a code tag will turn into a template literal
@@ -24,7 +24,7 @@ export const parse = (input: string): string => {
 		} else {
 			preparseTextPieces.push(escapeHTML(part))
 		}
-        isInCode = !isInCode
+		isInCode = !isInCode
 	}
 
 	const parts = preparseTextPieces.join('\n```').split('\n!!!')
@@ -36,8 +36,9 @@ export const parse = (input: string): string => {
 		if (isInEscapeBlockPointer) {
 			finalString += `\n${part}`
 		} else {
-			finalString += micromark(part, 'utf-8', {
-				allowDangerousHtml: true,
+			finalString += marked.parse(part, {
+				smartLists: true,
+				smartypants: true,
 			})
 		}
 		isInEscapeBlockPointer = !isInEscapeBlockPointer

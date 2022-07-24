@@ -1,3 +1,8 @@
+# v1.0.2
+
+* Upgrade template to avoid double-including markdown parser
+* micromark -> marked to avoid dependencies
+
 # v1.0.1
 
 * Upgrade template to allow html in parsed templates
