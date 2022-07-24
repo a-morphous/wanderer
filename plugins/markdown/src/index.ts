@@ -32,7 +32,14 @@ export class MarkdownPlugin implements BasePlugin {
 			// we need to get the upper level directory anyway...
 			const pathSplit = file.id.split(path.sep)
 			if (pathSplit.length > 1) {
-				urlPiece = relativeDir + path.sep + pathSplit[pathSplit.length - 2] + path.sep + 'index'
+				const targetDir = pathSplit[pathSplit.length - 2]
+				const relativeSplit = relativeDir.split(path.sep)
+
+				// SPECIAL CASE: if the file is index and the `dir` configuration points to the
+				// same directory as above, we don't create a second copy of that directory.
+				if (targetDir !== relativeSplit[relativeSplit.length - 1]) {
+					urlPiece = relativeDir + path.sep + targetDir + path.sep + 'index'
+				}
 			}
 		}
 

@@ -1,6 +1,6 @@
 {
 	"name": "@a-morphous/wanderer-plugin-markdown",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "",
 	"main": "dist/wanderer-markdown.js",
 	"module": "dist/wanderer-markdown.module.mjs",
