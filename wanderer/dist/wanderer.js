@@ -15057,7 +15057,9 @@ var require_wanderer_markdown = __commonJS2({
             return render(partialValue, macroConfig, layer + 1);
           };
           const md = (text3) => {
-            return micromark(text3);
+            return micromark(text3, "utf-8", {
+              allowDangerousHtml: true
+            });
           };
           const date = (rawDate) => {
             return dayjs(rawDate).format("MMM D, YYYY");
@@ -15244,7 +15246,11 @@ ${part}`;
         if (file.name === "index") {
           const pathSplit = file.id.split(import_upath2.default.sep);
           if (pathSplit.length > 1) {
-            urlPiece = relativeDir + import_upath2.default.sep + pathSplit[pathSplit.length - 2] + import_upath2.default.sep + "index";
+            const targetDir = pathSplit[pathSplit.length - 2];
+            const relativeSplit = relativeDir.split(import_upath2.default.sep);
+            if (targetDir !== relativeSplit[relativeSplit.length - 1]) {
+              urlPiece = relativeDir + import_upath2.default.sep + targetDir + import_upath2.default.sep + "index";
+            }
           }
         }
         if (["404", "index"].includes(file.name)) {

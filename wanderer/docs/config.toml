@@ -1,7 +1,0 @@
-
-[feeds]
-
-[feeds.pages]
-query = [{ key="configuration.tags", value="pages", modifier="CONTAINS" }]
-isAscending = true
-sortBy = "id"
