@@ -1,9 +1,9 @@
-const fs = require('fs')
-const path = require('upath')
-const dayjs = require('dayjs')
-const { micromark } = require('micromark')
+import fs from 'fs'
+import path from 'upath'
+import dayjs from 'dayjs'
+import { marked } from 'marked'
 
-const render = (template, config, layer) => {
+export const render = (template, config, layer) => {
 	layer = layer || 0
 	if (layer > 10) {
 		throw new Error(
@@ -115,8 +115,9 @@ const render = (template, config, layer) => {
 	}
 
 	const md = (text) => {
-		return micromark(text, 'utf-8', {
-			allowDangerousHtml: true,
+		return marked.parse(text, {
+			smartypants: true,
+			smartLists: true,
 		})
 	}
 
@@ -139,10 +140,10 @@ const render = (template, config, layer) => {
 				"More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported."
 			)
 		}
-		currentString = eval('`' + currentString + '`')
+		// run this as an indirect eval to avoid esbuild falling over.
+		// see https://esbuild.github.io/content-types/#direct-eval
+		currentString = (0, eval)('`' + currentString + '`')
 	}
 
 	return currentString.replace(/\\\$/gm, '$')
 }
-
-module.exports = render
