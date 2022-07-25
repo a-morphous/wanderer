@@ -1,6 +1,6 @@
 {
   "name": "@a-morphous/wanderer-plugin-rss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "module": "index.mjs",
   "main": "index.mjs",

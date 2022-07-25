@@ -73,6 +73,15 @@ export default class FeedPlugin {
 							: [rssConfiguration.feed.query],
 				  }
 
+		if (feedQuery.predicates) {
+			feedQuery.predicates.push({
+				key: 'isPage',
+				value: true,
+				modifier: '=',
+				operator: 'AND',
+			})
+		}
+
 		feedQuery.isAscending = rssConfiguration.feed.isAscending
 		feedQuery.sortBy = rssConfiguration.feed.sortBy
 
