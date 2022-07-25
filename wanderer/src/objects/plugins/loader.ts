@@ -1,13 +1,14 @@
 import path from 'upath'
 import { BasePlugin } from './base-plugin'
 
-export const loadPluginFromString = async (pluginPath: string, baseDir?: string) => {
+export const loadPluginFromString = async (pluginPath: string, nameOfExport: string = 'default', baseDir?: string) => {
 	try {
 		if (pluginPath.startsWith('.')) {
 			// relative path. Should resolve from where wanderer is called
 			pluginPath = path.resolve(baseDir || process.cwd(), pluginPath)
 		}
-		const PluginClass = await import(pluginPath)
+		const pluginModule = await import(pluginPath)
+		const PluginClass = pluginModule[nameOfExport]
 		const plugin: BasePlugin = new PluginClass()
 		if (!plugin.build || !plugin.extensions) {
 			console.warn('wanderer plugin in path ' + pluginPath + ' was invalid')

@@ -16,7 +16,7 @@ import { extractLinks } from './utils/extract-links'
 import { isURL } from './utils/is-url'
 import { getRelativeURL } from './utils/get-relative-url'
 
-export class MarkdownPlugin implements BasePlugin {
+export default class MarkdownPlugin implements BasePlugin {
 	public extensions: string[] = ['.md', '.markdown']
 	url(file: FileInfo, site: SiteInfo) {
 		let relativeDir: string
@@ -54,11 +54,14 @@ export class MarkdownPlugin implements BasePlugin {
 
 	title(file: FileInfo, site: SiteInfo) {
 		const page = file as Page
-		const title = page.text
-			.trim()
-			.split(/\r\n|\r|\n/g)[0]
-			.slice(2)
-			.trim()
+		let title = ''
+		if (page.text.trimStart().startsWith('#')) {
+			title = page.text
+				.trim()
+				.split(/\r\n|\r|\n/g)[0]
+				.slice(2)
+				.trim()
+		}
 
 		return file.configuration?.title || title || file.name
 	}

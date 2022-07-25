@@ -4,7 +4,7 @@ import { BasePlugin, FileInfo, PluginBuildOptions, SiteInfo } from '@a-morphous/
 
 // simply copies the source file to target directory.
 // this parser is used if no extensions match.
-export class CopyPlugin implements BasePlugin {
+export default class CopyPlugin implements BasePlugin {
 	public extensions = 'UNUSED' as const
 	url(fileInfo: FileInfo, site: SiteInfo): string {
 		return fileInfo.id

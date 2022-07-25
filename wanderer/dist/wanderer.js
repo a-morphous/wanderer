@@ -7925,7 +7925,7 @@ var require_wanderer_markdown = __commonJS({
     var J = (r, e, n) => (n = r != null ? rt(ot(r)) : {}, Pe(e || !r || !r.__esModule ? pe(n, "default", { value: r, enumerable: true }) : n, r));
     var ut = (r) => Pe(pe({}, "__esModule", { value: true }), r);
     var ge = Le((Be) => {
-      var Re = "1.2.0", Fe, fe, Ce, ze, Ie, K, se, re, ve, le, L, Ue = [].slice, ht = [].indexOf || function(r) {
+      var ve = "1.2.0", Fe, fe, Ce, Ie, Te, K, se, re, ze, le, L, Ue = [].slice, ht = [].indexOf || function(r) {
         for (var e = 0, n = this.length; e < n; e++)
           if (e in this && this[e] === r)
             return e;
@@ -7935,11 +7935,11 @@ var require_wanderer_markdown = __commonJS({
       Ce = function(r) {
         return r instanceof Function;
       };
-      ze = function(r) {
+      Ie = function(r) {
         return typeof r == "string" || !!r && typeof r == "object" && Object.prototype.toString.call(r) === "[object String]";
       };
       L = Be;
-      L.VERSION = typeof Re < "u" && Re !== null ? Re : "NO-VERSION";
+      L.VERSION = typeof ve < "u" && ve !== null ? ve : "NO-VERSION";
       le = function(r) {
         var e;
         for (r = r.replace(/\\/g, "/"), e = /\/\//; r.match(e); )
@@ -7947,14 +7947,14 @@ var require_wanderer_markdown = __commonJS({
         return r;
       };
       for (re in se)
-        ve = se[re], Ce(ve) ? L[re] = function(r) {
+        ze = se[re], Ce(ze) ? L[re] = function(r) {
           return function() {
             var e, n;
             return e = 1 <= arguments.length ? Ue.call(arguments, 0) : [], e = e.map(function(t) {
-              return ze(t) ? le(t) : t;
-            }), n = se[r].apply(se, e), ze(n) ? le(n) : n;
+              return Ie(t) ? le(t) : t;
+            }), n = se[r].apply(se, e), Ie(n) ? le(n) : n;
           };
-        }(re) : L[re] = ve;
+        }(re) : L[re] = ze;
       L.sep = "/";
       fe = { toUnix: le, normalizeSafe: function(r) {
         return r = le(r), r.startsWith("./") ? r.startsWith("./..") || r === "./" ? L.normalize(r) : "./" + L.normalize(r) : L.normalize(r);
@@ -7967,16 +7967,16 @@ var require_wanderer_markdown = __commonJS({
         return e ? (e[0] !== "." && (e = "." + e), r + (r.endsWith(e) ? "" : e)) : r;
       }, trimExt: function(r, e, n) {
         var t;
-        return n == null && (n = 7), t = L.extname(r), Ie(t, e, n) ? r.slice(0, +(r.length - t.length - 1) + 1 || 9e9) : r;
+        return n == null && (n = 7), t = L.extname(r), Te(t, e, n) ? r.slice(0, +(r.length - t.length - 1) + 1 || 9e9) : r;
       }, removeExt: function(r, e) {
         return e ? (e = e[0] === "." ? e : "." + e, L.extname(r) === e ? L.trimExt(r) : r) : r;
       }, changeExt: function(r, e, n, t) {
         return t == null && (t = 7), L.trimExt(r, n, t) + (e ? e[0] === "." ? e : "." + e : "");
       }, defaultExt: function(r, e, n, t) {
         var i;
-        return t == null && (t = 7), i = L.extname(r), Ie(i, n, t) ? r : L.addExt(r, e);
+        return t == null && (t = 7), i = L.extname(r), Te(i, n, t) ? r : L.addExt(r, e);
       } };
-      Ie = function(r, e, n) {
+      Te = function(r, e, n) {
         return e == null && (e = []), r && r.length <= n && ht.call(e.map(function(t) {
           return (t && t[0] !== "." ? "." : "") + t;
         }), r) < 0;
@@ -7988,10 +7988,10 @@ var require_wanderer_markdown = __commonJS({
           L[K] = Fe;
         }
     });
-    var Ze = Le((De, Oe) => {
+    var Ze = Le((Oe, Ae) => {
       (function(r, e) {
-        typeof De == "object" && typeof Oe < "u" ? Oe.exports = e() : typeof define == "function" && define.amd ? define(e) : (r = typeof globalThis < "u" ? globalThis : r || self).dayjs = e();
-      })(De, function() {
+        typeof Oe == "object" && typeof Ae < "u" ? Ae.exports = e() : typeof define == "function" && define.amd ? define(e) : (r = typeof globalThis < "u" ? globalThis : r || self).dayjs = e();
+      })(Oe, function() {
         "use strict";
         var r = 1e3, e = 6e4, n = 36e5, t = "millisecond", i = "second", s = "minute", l = "hour", o = "day", a = "week", p = "month", m = "quarter", z = "year", _ = "date", g = "Invalid Date", B = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, A = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, j = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, S = function(y, f, c) {
           var x = String(y);
@@ -8145,13 +8145,13 @@ var require_wanderer_markdown = __commonJS({
             var x = this, u = this.$locale();
             if (!this.isValid())
               return u.invalidDate || g;
-            var b = c || "YYYY-MM-DDTHH:mm:ssZ", w = v.z(this), T = this.$H, M = this.$m, E = this.$M, U = u.weekdays, H = u.months, Y = function(q, V, Se, he) {
-              return q && (q[V] || q(x, b)) || Se[V].slice(0, he);
+            var b = c || "YYYY-MM-DDTHH:mm:ssZ", w = v.z(this), T = this.$H, M = this.$m, E = this.$M, U = u.weekdays, H = u.months, Y = function(q, V, Re, he) {
+              return q && (q[V] || q(x, b)) || Re[V].slice(0, he);
             }, ne = function(q) {
               return v.s(T % 12 || 12, q, "0");
-            }, ie = u.meridiem || function(q, V, Se) {
+            }, ie = u.meridiem || function(q, V, Re) {
               var he = q < 12 ? "AM" : "PM";
-              return Se ? he.toLowerCase() : he;
+              return Re ? he.toLowerCase() : he;
             }, G = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: E + 1, MM: v.s(E + 1, 2, "0"), MMM: Y(u.monthsShort, E, H, 3), MMMM: Y(H, E), D: this.$D, DD: v.s(this.$D, 2, "0"), d: String(this.$W), dd: Y(u.weekdaysMin, this.$W, U, 2), ddd: Y(u.weekdaysShort, this.$W, U, 3), dddd: U[this.$W], H: String(T), HH: v.s(T, 2, "0"), h: ne(1), hh: ne(2), a: ie(T, M, true), A: ie(T, M, false), m: String(M), mm: v.s(M, 2, "0"), s: String(this.$s), ss: v.s(this.$s, 2, "0"), SSS: v.s(this.$ms, 3, "0"), Z: w };
             return b.replace(A, function(q, V) {
               return V || G[q] || w.replace(":", "");
@@ -8194,15 +8194,15 @@ var require_wanderer_markdown = __commonJS({
       });
     });
     var Ot = {};
-    ct(Ot, { MarkdownPlugin: () => Ee });
+    ct(Ot, { default: () => Se });
     module2.exports = ut(Ot);
     var N = J(ge());
     var _e = J(require("fs"));
     var ee = J(require("path"));
-    var Te = J(require("fs"));
+    var De = J(require("fs"));
     var je = (r, e) => {
       let n = e.configuration?.layout || "default", t = ee.default.resolve(r.frameDirectory, "layouts", n + ".html"), i = "${o.content}";
-      return Te.default.existsSync(t) && (i = Te.default.readFileSync(ee.default.resolve(r.frameDirectory, "layouts", n + ".html")).toString()), i;
+      return De.default.existsSync(t) && (i = De.default.readFileSync(ee.default.resolve(r.frameDirectory, "layouts", n + ".html")).toString()), i;
     };
     var qe = (r, e) => {
       let n = e.getFilesWithSimilarNames(r), t = { statics: [] };
@@ -8248,7 +8248,7 @@ var require_wanderer_markdown = __commonJS({
       return i;
     };
     var be = J(require("fs"), 1);
-    var Ae = J(ge(), 1);
+    var Ee = J(ge(), 1);
     var et = J(Ze(), 1);
     function Xe() {
       return { baseUrl: null, breaks: false, extensions: null, gfm: true, headerIds: true, headerPrefix: "", highlight: null, langPrefix: "language-", mangle: true, pedantic: false, renderer: null, sanitize: false, sanitizer: null, silent: false, smartLists: false, smartypants: false, tokenizer: null, walkTokens: null, xhtml: false };
@@ -9371,7 +9371,7 @@ Please report this to https://github.com/markedjs/marked.`, e.silent)
       for (key of Object.keys(l)) {
         let $ = l[key];
         if ($.endsWith(".html")) {
-          let I = Ae.default.resolve(t, $);
+          let I = Ee.default.resolve(t, $);
           if (!be.default.existsSync(I)) {
             console.warn(`Partial at path ${I} was not found. Your site may look incorrect.`);
             continue;
@@ -9392,7 +9392,7 @@ Please report this to https://github.com/markedjs/marked.`, e.silent)
             if (I.length < 3)
               throw new Error("Invalid import statement");
             let F = I[1], R = I[I.length - 1];
-            (R.startsWith('"') || R.startsWith("'")) && (R = R.slice(1)), (R.endsWith('"') || R.endsWith("'")) && (R = R.slice(0, R.length - 1)), m[F] = be.default.readFileSync(Ae.default.resolve(t, R), "utf-8");
+            (R.startsWith('"') || R.startsWith("'")) && (R = R.slice(1)), (R.endsWith('"') || R.endsWith("'")) && (R = R.slice(0, R.length - 1)), m[F] = be.default.readFileSync(Ee.default.resolve(t, R), "utf-8");
             continue;
           }
           p += $ + `
@@ -9445,7 +9445,7 @@ ${o}` : s += k.parse(o, { smartLists: true, smartypants: true }), l = !l;
     var it = (r) => /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(r);
     var ue = J(ge());
     var $e = (r, e, n) => ue.default.relative(ue.default.resolve(r.contentDirectory, ue.default.dirname(e)), ue.default.resolve(r.contentDirectory, n));
-    var Ee = class {
+    var Se = class {
       constructor() {
         this.extensions = [".md", ".markdown"];
       }
@@ -9467,8 +9467,8 @@ ${o}` : s += k.parse(o, { smartLists: true, smartypants: true }), l = !l;
         return ["404", "index"].includes(e.name) ? i + ".html" : i + N.default.sep + "index.html";
       }
       title(e, n) {
-        let i = e.text.trim().split(/\r\n|\r|\n/g)[0].slice(2).trim();
-        return e.configuration?.title || i || e.name;
+        let t = e, i = "";
+        return t.text.trimStart().startsWith("#") && (i = t.text.trim().split(/\r\n|\r|\n/g)[0].slice(2).trim()), e.configuration?.title || i || e.name;
       }
       build(e, n = false) {
         let t = e.file, i = je(e.site, t), s = qe(t, e.allFiles), l = Ne(t, e.database, e.allURLs), o = nt(t.text), a = t.text;
@@ -9899,7 +9899,7 @@ var require_wanderer_image = __commonJS({
     });
     var src_exports2 = {};
     __export2(src_exports2, {
-      ImagePlugin: () => ImagePlugin2
+      default: () => ImagePlugin2
     });
     module2.exports = __toCommonJS2(src_exports2);
     var import_upath6 = __toESM2(require_upath2());
@@ -10234,7 +10234,7 @@ var require_wanderer_copy = __commonJS({
     });
     var src_exports2 = {};
     __export2(src_exports2, {
-      CopyPlugin: () => CopyPlugin2
+      default: () => CopyPlugin2
     });
     module2.exports = __toCommonJS2(src_exports2);
     var import_fs5 = __toESM2(require("fs"));
@@ -11120,6 +11120,7 @@ var FileCache = class {
         const pageInfo = info;
         pageInfo.text = getTextAfterFrontmatter(sourcePath);
         pageInfo.title = config.title ?? config.name ?? name;
+        pageInfo.isPage = true;
       }
       this.files[file] = info;
     }
@@ -11290,17 +11291,21 @@ var Site = class {
       const plugin = this.plugins[i];
       if (plugin.extensions === "UNUSED") {
         pluginFiles[i] = this.fileCache.getAllFilesWithExts(Array.from(this.usedExtensions), true);
+      } else if (plugin.extensions.length === 0) {
+        pluginFiles[i] = [];
       } else {
         pluginFiles[i] = this.fileCache.getAllFilesWithExts(plugin.extensions);
       }
       for (let j = 0; j < pluginFiles[i].length; j++) {
         const file = pluginFiles[i][j];
         let partialUrl = plugin.url(file, this.siteInfo);
-        if (partialUrl.startsWith("/")) {
-          partialUrl = partialUrl.slice(1);
+        if (partialUrl) {
+          if (partialUrl.startsWith("/")) {
+            partialUrl = partialUrl.slice(1);
+          }
+          allURLs[file.id] = partialUrl;
+          file.url = partialUrl;
         }
-        allURLs[file.id] = partialUrl;
-        file.url = partialUrl;
         if (plugin.title) {
           file.title = file.configuration?.title ?? plugin.title(file, this.siteInfo);
         }
@@ -11339,12 +11344,13 @@ var import_wanderer_plugin_image = __toESM(require_wanderer_image());
 
 // src/objects/plugins/loader.ts
 var import_upath5 = __toESM(require_upath());
-var loadPluginFromString = async (pluginPath, baseDir) => {
+var loadPluginFromString = async (pluginPath, nameOfExport = "default", baseDir) => {
   try {
     if (pluginPath.startsWith(".")) {
       pluginPath = import_upath5.default.resolve(baseDir || process.cwd(), pluginPath);
     }
-    const PluginClass = await import(pluginPath);
+    const pluginModule = await import(pluginPath);
+    const PluginClass = pluginModule[nameOfExport];
     const plugin = new PluginClass();
     if (!plugin.build || !plugin.extensions) {
       console.warn("wanderer plugin in path " + pluginPath + " was invalid");
@@ -11359,27 +11365,26 @@ var loadPluginFromString = async (pluginPath, baseDir) => {
 
 // src/wanderer.ts
 var import_wanderer_plugin_copy = __toESM(require_wanderer_copy());
-var wanderer = async (siteInfo, plugins) => {
+var wanderer = async (siteInfo, useDefaultPlugins = true, plugins) => {
   const site = new Site(siteInfo);
-  let addedPlugins = false;
+  if (useDefaultPlugins) {
+    site.addPlugin(new import_wanderer_plugin_image.default());
+    site.addPlugin(new import_wanderer_plugin_markdown.default());
+  }
   if (plugins) {
     for (let plugin of plugins) {
       site.addPlugin(plugin);
-      addedPlugins = true;
     }
   } else if (siteInfo.siteConfiguration.plugins) {
     for (let pluginPath of siteInfo.siteConfiguration.plugins) {
       const plugin = await loadPluginFromString(pluginPath);
       if (plugin) {
         site.addPlugin(plugin);
-        addedPlugins = true;
       }
     }
   }
-  if (!addedPlugins) {
-    site.addPlugin(new import_wanderer_plugin_image.ImagePlugin());
-    site.addPlugin(new import_wanderer_plugin_markdown.MarkdownPlugin());
-    site.addPlugin(new import_wanderer_plugin_copy.CopyPlugin());
+  if (useDefaultPlugins) {
+    site.addPlugin(new import_wanderer_plugin_copy.default());
   }
   await site.make();
 };

@@ -1,5 +1,5 @@
 {
-	"name": "@a-morphous/wanderer-core",
+	"name": "@a-morphous/wanderer",
 	"version": "1.1.2",
 	"description": "",
 	"main": "dist/wanderer.js",
@@ -24,6 +24,7 @@
 		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
 		"@a-morphous/wanderer-plugin-image": "^1.0.0",
 		"@a-morphous/wanderer-plugin-markdown": "^1.0.1",
+		"@a-morphous/wanderer-plugin-rss": "^1.0.0",
 		"@types/node": "^18.0.6",
 		"esbuild": "^0.14.49",
 		"esbuild-visualizer": "^0.3.1",

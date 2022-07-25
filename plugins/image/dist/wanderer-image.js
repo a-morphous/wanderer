@@ -408,7 +408,7 @@ var require_dayjs_min = __commonJS({
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  ImagePlugin: () => ImagePlugin
+  default: () => ImagePlugin
 });
 module.exports = __toCommonJS(src_exports);
 var import_upath = __toESM(require_upath());
@@ -545,6 +545,4 @@ var ImagePlugin = class {
   }
 };
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ImagePlugin
-});
+0 && (module.exports = {});

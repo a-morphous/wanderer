@@ -4,7 +4,7 @@ import fs from 'fs'
 import dayjs from 'dayjs'
 import { processImage } from './processor'
 
-export class ImagePlugin implements BasePlugin {
+export default class ImagePlugin implements BasePlugin {
 	public extensions = ['.png', '.jpg', '.jpeg']
 	url(file: FileInfo, site: SiteInfo) {
 		let relativeDir: string

@@ -148,6 +148,7 @@ export class FileCache {
 				const pageInfo = info as Page
 				pageInfo.text = getTextAfterFrontmatter(sourcePath)
 				pageInfo.title = config.title ?? config.name ?? name
+				pageInfo.isPage = true
 			}
 			this.files[file] = info
 		}

@@ -199,7 +199,7 @@ var require_upath = __commonJS({
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  CopyPlugin: () => CopyPlugin
+  default: () => CopyPlugin
 });
 module.exports = __toCommonJS(src_exports);
 var import_fs = __toESM(require("fs"));
@@ -222,6 +222,4 @@ var CopyPlugin = class {
   }
 };
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  CopyPlugin
-});
+0 && (module.exports = {});

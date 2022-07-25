@@ -94,6 +94,8 @@ export class Site {
 			const plugin = this.plugins[i]
 			if (plugin.extensions === 'UNUSED') {
 				pluginFiles[i] = this.fileCache.getAllFilesWithExts(Array.from(this.usedExtensions), true)
+			} else if (plugin.extensions.length === 0) {
+				pluginFiles[i] = []
 			} else {
 				pluginFiles[i] = this.fileCache.getAllFilesWithExts(plugin.extensions)
 			}
@@ -103,11 +105,13 @@ export class Site {
 
 				// get the url
 				let partialUrl = plugin.url(file, this.siteInfo)
-				if (partialUrl.startsWith('/')) {
-					partialUrl = partialUrl.slice(1)
+				if (partialUrl) {
+					if (partialUrl.startsWith('/')) {
+						partialUrl = partialUrl.slice(1)
+					}
+					allURLs[file.id] = partialUrl
+					file.url = partialUrl
 				}
-				allURLs[file.id] = partialUrl
-				file.url = partialUrl
 
 				// get the title, if the plugin has a title function
 				if (plugin.title) {

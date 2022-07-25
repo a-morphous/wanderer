@@ -1,2 +1,14 @@
 # global configuration
 description = "A static site generator! How novel"
+url="http://localhost:8080"
+plugins=["@a-morphous/wanderer-plugin-rss"]
+
+[rss]
+author = "Test Author"
+email = "test@test.com"
+
+[rss.feed]
+query = [{ key="configuration.tags", value="blog", modifier="CONTAINS" }]
+isAscending = true
+limit = 10
+sortBy = "date"

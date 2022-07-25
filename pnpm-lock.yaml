@@ -2,6 +2,46 @@ lockfileVersion: 5.4
 
 importers:
 
+  .:
+    specifiers: {}
+
+  packages/template:
+    specifiers:
+      dayjs: ^1.11.4
+      marked: ^4.0.18
+      upath: ^1.2.0
+    dependencies:
+      dayjs: 1.11.4
+      marked: 4.0.18
+      upath: 1.2.0
+
+  packages/wanderer-types:
+    specifiers: {}
+
+  plugins/copy:
+    specifiers:
+      '@a-morphous/wanderer-types': ^1.0.0
+      esbuild: ^0.14.49
+      upath: ^1.2.0
+    dependencies:
+      upath: 1.2.0
+    devDependencies:
+      '@a-morphous/wanderer-types': link:../../packages/wanderer-types
+      esbuild: 0.14.49
+
+  plugins/image:
+    specifiers:
+      '@a-morphous/wanderer-types': ^1.0.0
+      dayjs: ^1.11.4
+      esbuild: ^0.14.49
+      upath: ^1.2.0
+    dependencies:
+      dayjs: 1.11.4
+      upath: 1.2.0
+    devDependencies:
+      '@a-morphous/wanderer-types': link:../../packages/wanderer-types
+      esbuild: 0.14.49
+
   plugins/markdown:
     specifiers:
       '@a-morphous/wanderer-template': ^1.0.0
@@ -19,11 +59,18 @@ importers:
       esbuild: 0.14.49
       esbuild-visualizer: 0.3.1
 
+  plugins/rss:
+    specifiers:
+      feed: ^4.2.2
+    dependencies:
+      feed: 4.2.2
+
   wanderer:
     specifiers:
       '@a-morphous/wanderer-plugin-copy': ^1.0.0
       '@a-morphous/wanderer-plugin-image': ^1.0.0
       '@a-morphous/wanderer-plugin-markdown': ^1.0.1
+      '@a-morphous/wanderer-plugin-rss': ^1.0.0
       '@iarna/toml': ^2.2.3
       '@types/node': ^18.0.6
       dayjs: ^1.8.19
@@ -41,6 +88,7 @@ importers:
       '@a-morphous/wanderer-plugin-copy': link:../plugins/copy
       '@a-morphous/wanderer-plugin-image': link:../plugins/image
       '@a-morphous/wanderer-plugin-markdown': link:../plugins/markdown
+      '@a-morphous/wanderer-plugin-rss': link:../plugins/rss
       '@types/node': 18.6.0
       dayjs: 1.11.4
       esbuild: 0.14.49
@@ -98,7 +146,6 @@ packages:
 
   /dayjs/1.11.4:
     resolution: {integrity: sha512-Zj/lPM5hOvQ1Bf7uAvewDaUcsJoI6JmNqmHhHl3nyumwe0XHwt8sWdOVAPACJzCebL8gQCi+K49w7iKWnGwX9g==}
-    dev: true
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -327,6 +374,13 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /feed/4.2.2:
+    resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      xml-js: 1.6.11
+    dev: false
+
   /get-caller-file/2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -392,6 +446,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /sax/1.2.4:
+    resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    dev: false
+
   /string-width/4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -431,6 +489,13 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
     dev: true
+
+  /xml-js/1.6.11:
+    resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
+    hasBin: true
+    dependencies:
+      sax: 1.2.4
+    dev: false
 
   /y18n/5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}

@@ -219,5 +219,5 @@ var CopyPlugin = class {
   }
 };
 export {
-  CopyPlugin
+  CopyPlugin as default
 };

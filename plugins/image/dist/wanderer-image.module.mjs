@@ -542,5 +542,5 @@ var ImagePlugin = class {
   }
 };
 export {
-  ImagePlugin
+  ImagePlugin as default
 };
