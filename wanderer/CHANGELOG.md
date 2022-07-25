@@ -1,3 +1,8 @@
+# v1.1.3
+
+- Plugins are default exports now
+- Fix bug where returning a blank string for the url in a plugin would error out, instead of ignoring that url (even if the plugin didn't work on any extensions)
+
 # v1.1.2
 
 - micromark -> marked in plugins, new build
