@@ -53,3 +53,12 @@ export interface BasePlugin {
     afterBuild?: (opts: PluginOperationOptions) => void;
 }
 ```
+
+## Plugin Lifecycle
+
+Wanderer uses its plugins in the following format way:
+
+1. Run all the plugins' `url()` function, and save every file's url. Do the same with `title()` and each file's title.
+2. Run all the plugins' `beforeBuild()` function once, in the order that the plugins were loaded.
+3. Run all the plugins' `build()` functions **for every file that matches an extension in that plugin's extension variable**. This function should create the built files for each function.
+4. Run all the plugins' `afterBuild()` functions once, in the order that the plugins were loaded.

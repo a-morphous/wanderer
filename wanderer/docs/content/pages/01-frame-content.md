@@ -8,8 +8,6 @@ Content is anything that goes onto the website: images, text content, and other 
 
 By default, wanderer processes Markdown files and image files (reducing filesize), and copies over other files as is to the output directory.
 
-> This section is still a work in progress!
-
 ### Pretty URLs
 
 As part of the parsing process, wanderer may change the directory that the content file is eventually saved to, based on the following rules:
