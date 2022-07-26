@@ -1,14 +1,3 @@
-/**
- * This gets converted into a TaffyDB query.
- */
-export type FeedQuery = {
-	directory?: string
-	tags?: []
-	isAscending?: boolean
-	sortBy: string
-	limit: number
-}
-
 export type Configuration = Record<string, any>
 
 export type SiteConfig = {
@@ -18,7 +7,7 @@ export type SiteConfig = {
 type DirAndPageCommonConfig = {
 	private?: boolean
 	layout?: string // name of the layout file used to build the page(s)
-	feeds?: Record<string, FeedQuery>
+	feeds?: Record<string, any>
 	tags?: string[]
 }
 
@@ -75,5 +64,3 @@ export type Page = FileInfo & {
 
 	text: string
 }
-
-export type Feed = {}

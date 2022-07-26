@@ -1,13 +1,3 @@
-/**
- * This gets converted into a TaffyDB query.
- */
-export declare type FeedQuery = {
-    directory?: string;
-    tags?: [];
-    isAscending?: boolean;
-    sortBy: string;
-    limit: number;
-};
 export declare type Configuration = Record<string, any>;
 export declare type SiteConfig = {
     plugins?: string[];
@@ -15,7 +5,7 @@ export declare type SiteConfig = {
 declare type DirAndPageCommonConfig = {
     private?: boolean;
     layout?: string;
-    feeds?: Record<string, FeedQuery>;
+    feeds?: Record<string, any>;
     tags?: string[];
 };
 export declare type DirConfig = {
@@ -62,5 +52,4 @@ export declare type Page = FileInfo & {
     isPage: true;
     text: string;
 };
-export declare type Feed = {};
 export {};
