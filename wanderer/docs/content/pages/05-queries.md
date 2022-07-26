@@ -7,12 +7,19 @@ wanderer builds the site page by page, but this can fall apart in the case of bl
 Feeds are defined under the `feeds` header in page level configurations:
 
 ```
-[feeds]
-feedName = { tags = { like = 'feedTag' }  }
+[feeds.feedName]
+query = [{ key="configuration.tags", value="logs", modifier="CONTAINS" }]
+isAscending = true
+limit = 10
+sortBy = "date"
 ```
 
 * if the feedName is a string, we assume that the feed should be made of the files whose **source directories** fall under that string
-* if the feedName is a dict, we search the database for pages whose configurations matches that dict. Generally, this is applicable for creating feeds by tag.
+* if the feedName is a dict, we search the database for pages that match the query object. The queries use `JSONata` as the underlying query language, and the `feed` dict takes the following fields:
+    * `query` - either an array of conditions, or a raw JSONata string operating on the main file database.
+    * `isAscending` - boolean
+    * `limit` - how many pages are in the result
+    * `sortBy`
 
 All feeds are also fed into the templates as `o.feeds.feedName`, and can then be used in content:
 
@@ -40,51 +47,4 @@ Note the `join` at the end. Without it, the map would be interpreted as an array
     exerpt: a short excerpt (also defined in config.exerpt)
     content: full page content (be aware that nested template features won't work right)
 }
-```
-
-## Dynamic Queries
-
-Most of the time queries are static. However, in the future, there might also be support for dynamic queries by incorporating TaffyDB (already in use) and/or lunr.js (for search)
-
-It becomes possible to, given the JSON database of all pages, filter them by tag or content.
-
-## Variables that you can sort or query a feed by
-
-`date`
-`title`
-`id`
-`sourceDir`
-`url`
-`tags`
-
-## Examples
-
-Directory config for all the pages in the blog:
-```
-tags = ["blog", ...]
-```
-
-Blog index page:
-```
-+++
-[feeds]
-
-[feeds.blog]
-query = { tags = { like = "blog" } }
-isAscending = false
-limit = 10
-sortBy = 'date'
-+++
-
-# Recent Updates
-
-!!!
-${md(o.feeds.blog.slice(0, 8).map( post => {
-    return `* [${post.title}](${post.url}) // ${post.tags.filter(tag => {
-        return tag !== 'blog'
-    }).map(tag => {
-        return tag
-    }).join(', ')}`
-}).join('\n'))}
-!!!
 ```

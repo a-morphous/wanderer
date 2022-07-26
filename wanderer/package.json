@@ -13,6 +13,11 @@
 	"bin": {
 		"wanderer": "./cli.js"
 	},
+	"files": [
+		"cli.js",
+		"dist",
+		"src"
+	],
 	"keywords": [],
 	"author": "",
 	"license": "ISC",

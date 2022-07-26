@@ -17,9 +17,10 @@ layout = "home"
 [feeds]
 
 [feeds.recent]
-query = { tags = { like = "logs" } }
-isAscending = false
+query = [{ key="configuration.tags", value="logs", modifier="CONTAINS" }]
+isAscending = true
 limit = 10
+sortBy = "date"
 
 +++
 

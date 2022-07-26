@@ -20,11 +20,25 @@ Is it ready for production use? It's ready in the sense that I personally use it
 
 ## usage
 
-This is a monorepo managed by `pnpm`. The main wanderer program is in the `wanderer` subdirectory, with some default plugins in the `plugins` directory. To use wanderer, first run `pnpm install` to install all dependencies, and then run:
+wanderer is intended to be used on the command line:
 
 ```
-# assuming your terminal is in the wanderer monorepo directory
-node wanderer/cli -i <content folderpath> -f <frame folderpath> -o <build folderpath> -c <config filepath>
+npm install -g @a-morphous/wanderer
+
+wanderer -i <content folderpath> -f <frame folderpath> -o <build folderpath> -c <config filepath>
 ```
 
 > If no inputs are provided, wanderer will build in the current directory, assuming that the content lives in `./content`, the frame is in `./frame`, and the build should output to `./build`
+
+If you want to use wanderer in another JS program, you can do so as well:
+```
+import { wanderer } from '@a-morphous/wanderer'
+
+wanderer({
+    buildDirectory: 'path/to/output/dir',
+    contentDirectory: 'path/to/content/dir',
+    frameDirectory: 'path/to/layouts,
+    cacheDirectory: 'path/to/temp/cache',
+    siteConfiguration: {}
+})
+```
