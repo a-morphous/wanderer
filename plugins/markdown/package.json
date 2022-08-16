@@ -1,6 +1,6 @@
 {
 	"name": "@a-morphous/wanderer-plugin-markdown",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "",
 	"main": "dist/wanderer-markdown.js",
 	"module": "dist/wanderer-markdown.module.mjs",
@@ -19,6 +19,7 @@
 	"devDependencies": {
 		"@a-morphous/wanderer-template": "^1.0.0",
 		"@a-morphous/wanderer-types": "^1.0.0",
+		"@types/node": "^18.0.6",
 		"esbuild": "^0.14.49",
 		"esbuild-visualizer": "^0.3.1"
 	},

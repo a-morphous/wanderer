@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'upath'
 import fs from 'fs'
 import {
 	FileCache,
@@ -8,7 +8,6 @@ import {
 	QueryOpts,
 	SiteInfo,
 } from '@a-morphous/wanderer-types'
-import { getRelativeURL } from './utils/get-relative-url'
 
 /**
  * genLayout - produces layout text based on input configuration

@@ -47,7 +47,7 @@ export type FileInfo = {
  */
 export type PageReference = {
 	configuration?: Configuration
-	sourceName: string
+	sourceName: string // name of the page before any page-specific processing
 	created?: Date
 	updated?: Date
 	date?: Date
@@ -63,4 +63,9 @@ export type Page = FileInfo & {
 	isPage: true
 
 	text: string
+
+	// html content of the page. Plugins are responsible for filling this out.
+	// Note that plugins should fill it with the html *content* of the page,
+	// without any of the templates, layout or boilerplate around it. 
+	html?: string 
 }

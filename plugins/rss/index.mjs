@@ -1,15 +1,11 @@
 import { Feed } from 'feed'
 import fs from 'fs'
 import path from 'path'
-
-function escapeHtml(unsafe) {
-	return unsafe.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-	// .replace(/"/g, '&quot;')
-	// .replace(/'/g, '&#039;')
-}
+import sanitizeHtml from 'sanitize-html'
 
 export default class FeedPlugin {
 	constructor() {
+		// runs on no files!
 		this.extensions = []
 	}
 
@@ -103,7 +99,7 @@ export default class FeedPlugin {
 				title: file.title,
 				id: feedURL + '/' + file.url,
 				link: feedURL + '/' + file.url,
-				description: escapeHtml(file.configuration?.description ?? file.text ?? ''),
+				description: sanitizeHtml(file.configuration?.description ?? file.html ?? file.text ?? ''),
 				date: file.date,
 				author: [author],
 			})

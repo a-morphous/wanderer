@@ -7906,7 +7906,7 @@ var require_jsonata = __commonJS({
 var require_wanderer_markdown = __commonJS({
   "../plugins/markdown/dist/wanderer-markdown.js"(exports2, module2) {
     var rt = Object.create;
-    var pe = Object.defineProperty;
+    var fe = Object.defineProperty;
     var st = Object.getOwnPropertyDescriptor;
     var lt = Object.getOwnPropertyNames;
     var ot = Object.getPrototypeOf;
@@ -7914,18 +7914,18 @@ var require_wanderer_markdown = __commonJS({
     var Le = (r, e) => () => (e || r((e = { exports: {} }).exports, e), e.exports);
     var ct = (r, e) => {
       for (var n in e)
-        pe(r, n, { get: e[n], enumerable: true });
+        fe(r, n, { get: e[n], enumerable: true });
     };
     var Pe = (r, e, n, t) => {
       if (e && typeof e == "object" || typeof e == "function")
         for (let i of lt(e))
-          !at.call(r, i) && i !== n && pe(r, i, { get: () => e[i], enumerable: !(t = st(e, i)) || t.enumerable });
+          !at.call(r, i) && i !== n && fe(r, i, { get: () => e[i], enumerable: !(t = st(e, i)) || t.enumerable });
       return r;
     };
-    var J = (r, e, n) => (n = r != null ? rt(ot(r)) : {}, Pe(e || !r || !r.__esModule ? pe(n, "default", { value: r, enumerable: true }) : n, r));
-    var ut = (r) => Pe(pe({}, "__esModule", { value: true }), r);
-    var ge = Le((Be) => {
-      var ve = "1.2.0", Fe, fe, Ce, Ie, Te, K, se, re, ze, le, L, Ue = [].slice, ht = [].indexOf || function(r) {
+    var J = (r, e, n) => (n = r != null ? rt(ot(r)) : {}, Pe(e || !r || !r.__esModule ? fe(n, "default", { value: r, enumerable: true }) : n, r));
+    var ut = (r) => Pe(fe({}, "__esModule", { value: true }), r);
+    var oe = Le((Be) => {
+      var ve = "1.2.0", Fe, ge, Ce, Ie, Te, K, se, re, ze, le, L, Ue = [].slice, ht = [].indexOf || function(r) {
         for (var e = 0, n = this.length; e < n; e++)
           if (e in this && this[e] === r)
             return e;
@@ -7956,7 +7956,7 @@ var require_wanderer_markdown = __commonJS({
           };
         }(re) : L[re] = ze;
       L.sep = "/";
-      fe = { toUnix: le, normalizeSafe: function(r) {
+      ge = { toUnix: le, normalizeSafe: function(r) {
         return r = le(r), r.startsWith("./") ? r.startsWith("./..") || r === "./" ? L.normalize(r) : "./" + L.normalize(r) : L.normalize(r);
       }, normalizeTrim: function(r) {
         return r = L.normalizeSafe(r), r.endsWith("/") ? r.slice(0, +(r.length - 2) + 1 || 9e9) : r;
@@ -7981,9 +7981,9 @@ var require_wanderer_markdown = __commonJS({
           return (t && t[0] !== "." ? "." : "") + t;
         }), r) < 0;
       };
-      for (K in fe)
-        if (!!pt.call(fe, K)) {
-          if (Fe = fe[K], L[K] !== void 0)
+      for (K in ge)
+        if (!!pt.call(ge, K)) {
+          if (Fe = ge[K], L[K] !== void 0)
             throw new Error("path." + K + " already exists.");
           L[K] = Fe;
         }
@@ -8145,13 +8145,13 @@ var require_wanderer_markdown = __commonJS({
             var x = this, u = this.$locale();
             if (!this.isValid())
               return u.invalidDate || g;
-            var b = c || "YYYY-MM-DDTHH:mm:ssZ", w = v.z(this), T = this.$H, M = this.$m, E = this.$M, U = u.weekdays, H = u.months, Y = function(q, V, Re, he) {
-              return q && (q[V] || q(x, b)) || Re[V].slice(0, he);
+            var b = c || "YYYY-MM-DDTHH:mm:ssZ", w = v.z(this), T = this.$H, M = this.$m, E = this.$M, U = u.weekdays, H = u.months, Y = function(q, V, Re, pe) {
+              return q && (q[V] || q(x, b)) || Re[V].slice(0, pe);
             }, ne = function(q) {
               return v.s(T % 12 || 12, q, "0");
             }, ie = u.meridiem || function(q, V, Re) {
-              var he = q < 12 ? "AM" : "PM";
-              return Re ? he.toLowerCase() : he;
+              var pe = q < 12 ? "AM" : "PM";
+              return Re ? pe.toLowerCase() : pe;
             }, G = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: E + 1, MM: v.s(E + 1, 2, "0"), MMM: Y(u.monthsShort, E, H, 3), MMMM: Y(H, E), D: this.$D, DD: v.s(this.$D, 2, "0"), d: String(this.$W), dd: Y(u.weekdaysMin, this.$W, U, 2), ddd: Y(u.weekdaysShort, this.$W, U, 3), dddd: U[this.$W], H: String(T), HH: v.s(T, 2, "0"), h: ne(1), hh: ne(2), a: ie(T, M, true), A: ie(T, M, false), m: String(M), mm: v.s(M, 2, "0"), s: String(this.$s), ss: v.s(this.$s, 2, "0"), SSS: v.s(this.$ms, 3, "0"), Z: w };
             return b.replace(A, function(q, V) {
               return V || G[q] || w.replace(":", "");
@@ -8196,9 +8196,9 @@ var require_wanderer_markdown = __commonJS({
     var Ot = {};
     ct(Ot, { default: () => Se });
     module2.exports = ut(Ot);
-    var N = J(ge());
+    var N = J(oe());
     var _e = J(require("fs"));
-    var ee = J(require("path"));
+    var ee = J(oe());
     var De = J(require("fs"));
     var je = (r, e) => {
       let n = e.configuration?.layout || "default", t = ee.default.resolve(r.frameDirectory, "layouts", n + ".html"), i = "${o.content}";
@@ -8235,20 +8235,20 @@ var require_wanderer_markdown = __commonJS({
         let l = t[s];
         i[s] = [];
         for (let o of l)
-          i[s].push(oe(o, e, n));
+          i[s].push(ae(o, e, n));
       }
       return i;
     };
-    var oe = (r, e, n, t) => {
+    var ae = (r, e, n, t) => {
       let i = { id: r.id, title: r.title ?? r.name, url: "/" + n[r.id], sourceName: ee.default.basename(r.sourcePath), created: r.created, updated: r.updated, date: r.date, configuration: r.configuration };
       if (t) {
         let s = t.indexOf(r);
-        s > 0 && (i.previousPage = oe(t[s - 1], e, n)), s >= 0 && s < t.length - 1 && (i.nextPage = oe(t[s + 1], e, n));
+        s > 0 && (i.previousPage = ae(t[s - 1], e, n)), s >= 0 && s < t.length - 1 && (i.nextPage = ae(t[s + 1], e, n));
       }
       return i;
     };
     var be = J(require("fs"), 1);
-    var Ee = J(ge(), 1);
+    var Ee = J(oe(), 1);
     var et = J(Ze(), 1);
     function Xe() {
       return { baseUrl: null, breaks: false, extensions: null, gfm: true, headerIds: true, headerPrefix: "", highlight: null, langPrefix: "language-", mangle: true, pedantic: false, renderer: null, sanitize: false, sanitizer: null, silent: false, smartLists: false, smartypants: false, tokenizer: null, walkTokens: null, xhtml: false };
@@ -8402,7 +8402,7 @@ var require_wanderer_markdown = __commonJS({
       }).join(`
 `);
     }
-    var ae = class {
+    var ce = class {
       constructor(e) {
         this.options = e || te;
       }
@@ -8732,7 +8732,7 @@ var require_wanderer_markdown = __commonJS({
     }
     var Z = class {
       constructor(e) {
-        this.tokens = [], this.tokens.links = /* @__PURE__ */ Object.create(null), this.options = e || te, this.options.tokenizer = this.options.tokenizer || new ae(), this.tokenizer = this.options.tokenizer, this.tokenizer.options = this.options, this.tokenizer.lexer = this, this.inlineQueue = [], this.state = { inLink: false, inRawBlock: false, top: true };
+        this.tokens = [], this.tokens.links = /* @__PURE__ */ Object.create(null), this.options = e || te, this.options.tokenizer = this.options.tokenizer || new ce(), this.tokenizer = this.options.tokenizer, this.tokenizer.options = this.options, this.tokenizer.lexer = this, this.inlineQueue = [], this.state = { inLink: false, inRawBlock: false, top: true };
         let n = { block: d.normal, inline: h.normal };
         this.options.pedantic ? (n.block = d.pedantic, n.inline = h.pedantic) : this.options.gfm && (n.block = d.gfm, this.options.breaks ? n.inline = h.breaks : n.inline = h.gfm), this.tokenizer.rules = n;
       }
@@ -8915,7 +8915,7 @@ var require_wanderer_markdown = __commonJS({
         return n;
       }
     };
-    var ce = class {
+    var ue = class {
       constructor(e) {
         this.options = e || te;
       }
@@ -9070,7 +9070,7 @@ ${e}</tr>
     };
     var W = class {
       constructor(e) {
-        this.options = e || te, this.options.renderer = this.options.renderer || new ce(), this.renderer = this.options.renderer, this.renderer.options = this.options, this.textRenderer = new xe(), this.slugger = new we();
+        this.options = e || te, this.options.renderer = this.options.renderer || new ue(), this.renderer = this.options.renderer, this.renderer.options = this.options, this.textRenderer = new xe(), this.slugger = new we();
       }
       static parse(e, n) {
         return new W(n).parse(e);
@@ -9281,7 +9281,7 @@ Please report this to https://github.com/markedjs/marked.`, e.silent)
           }
           s.childTokens && (n.childTokens[s.name] = s.childTokens);
         })), i.renderer) {
-          let s = k.defaults.renderer || new ce();
+          let s = k.defaults.renderer || new ue();
           for (let l in i.renderer) {
             let o = s[l];
             s[l] = (...a) => {
@@ -9292,7 +9292,7 @@ Please report this to https://github.com/markedjs/marked.`, e.silent)
           e.renderer = s;
         }
         if (i.tokenizer) {
-          let s = k.defaults.tokenizer || new ae();
+          let s = k.defaults.tokenizer || new ce();
           for (let l in i.tokenizer) {
             let o = s[l];
             s[l] = (...a) => {
@@ -9350,11 +9350,11 @@ Please report this to https://github.com/markedjs/marked.`, e.silent)
     };
     k.Parser = W;
     k.parser = W.parse;
-    k.Renderer = ce;
+    k.Renderer = ue;
     k.TextRenderer = xe;
     k.Lexer = Z;
     k.lexer = Z.lex;
-    k.Tokenizer = ae;
+    k.Tokenizer = ce;
     k.Slugger = we;
     k.parse = k;
     var Lt = k.options;
@@ -9443,8 +9443,8 @@ ${o}` : s += k.parse(o, { smartLists: true, smartypants: true }), l = !l;
       return t;
     };
     var it = (r) => /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(r);
-    var ue = J(ge());
-    var $e = (r, e, n) => ue.default.relative(ue.default.resolve(r.contentDirectory, ue.default.dirname(e)), ue.default.resolve(r.contentDirectory, n));
+    var he = J(oe());
+    var $e = (r, e, n) => he.default.relative(he.default.resolve(r.contentDirectory, he.default.dirname(e)), he.default.resolve(r.contentDirectory, n));
     var Se = class {
       constructor() {
         this.extensions = [".md", ".markdown"];
@@ -9485,8 +9485,8 @@ ${o}` : s += k.parse(o, { smartLists: true, smartypants: true }), l = !l;
         }
         let p = tt(a), m = {};
         s.css && (m.css = $e(e.site, e.url, e.allURLs[s.css.id] ?? s.css.id)), s.js && (m.js = $e(e.site, e.url, e.allURLs[s.js.id] ?? s.js.id));
-        let z = oe(e.file, e.database, e.allURLs, e.database.queryDirectory(e.file.sourceDir, { predicates: [{ key: "name", value: "index", operator: "NOT", modifier: "=" }, { key: "name", value: "404", operator: "NOT", modifier: "=" }] })), _ = { ...m, ...t, ...t.configuration, feeds: l, content: p, _baseDir: e.site.frameDirectory, next: z.nextPage, previous: z.previousPage }, g = ye(i, _), B = N.default.resolve(e.site.buildDirectory, e.url);
-        return n ? (console.log(e), console.log(`Markdown plugin running, to save ${B}`), true) : (_e.default.existsSync(B) || _e.default.mkdirSync(N.default.dirname(B), { recursive: true }), _e.default.writeFileSync(B, g), true);
+        let z = ae(e.file, e.database, e.allURLs, e.database.queryDirectory(e.file.sourceDir, { predicates: [{ key: "name", value: "index", operator: "NOT", modifier: "=" }, { key: "name", value: "404", operator: "NOT", modifier: "=" }] })), _ = { ...m, ...t, ...t.configuration, feeds: l, content: p, _baseDir: e.site.frameDirectory, next: z.nextPage, previous: z.previousPage }, g = ye(i, _), B = N.default.resolve(e.site.buildDirectory, e.url);
+        return n ? (console.log(e), console.log(`Markdown plugin running, to save ${B}`), true) : (_e.default.existsSync(B) || _e.default.mkdirSync(N.default.dirname(B), { recursive: true }), _e.default.writeFileSync(B, g), t.html = p, true);
       }
     };
   }
@@ -11311,6 +11311,7 @@ var Site = class {
         }
       }
     }
+    const allPluginOpts = [];
     for (let i = 0; i < this.plugins.length; i++) {
       const plugin = this.plugins[i];
       const pluginOpts = {
@@ -11322,17 +11323,24 @@ var Site = class {
       if (plugin.beforeBuild) {
         plugin.beforeBuild(pluginOpts);
       }
+      allPluginOpts[i] = pluginOpts;
+    }
+    for (let i = 0; i < this.plugins.length; i++) {
+      const plugin = this.plugins[i];
       for (let j = 0; j < pluginFiles[i].length; j++) {
         const file = pluginFiles[i][j];
         const buildOpts = {
-          ...pluginOpts,
+          ...allPluginOpts[i],
           file,
           url: allURLs[file.id]
         };
         plugin.build(buildOpts);
       }
+    }
+    for (let i = 0; i < this.plugins.length; i++) {
+      const plugin = this.plugins[i];
       if (plugin.afterBuild) {
-        plugin.afterBuild(pluginOpts);
+        plugin.afterBuild(allPluginOpts[i]);
       }
     }
   }

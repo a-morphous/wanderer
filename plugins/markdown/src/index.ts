@@ -170,6 +170,7 @@ export default class MarkdownPlugin implements BasePlugin {
 			fs.mkdirSync(path.dirname(targetPath), { recursive: true })
 		}
 		fs.writeFileSync(targetPath, templatedHTML)
+		file.html = html
 
 		return true
 	}

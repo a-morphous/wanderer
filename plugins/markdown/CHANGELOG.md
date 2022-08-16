@@ -1,3 +1,7 @@
+# v1.0.3
+
+* Update the file info's `html` field with the parsed result.
+
 # v1.0.2
 
 * Upgrade template to avoid double-including markdown parser

@@ -120,6 +120,8 @@ export class Site {
 			}
 		}
 
+		const allPluginOpts: PluginOperationOptions[] = []
+
 		// now we run all the plugins!
 		for (let i = 0; i < this.plugins.length; i++) {
 			const plugin = this.plugins[i]
@@ -138,21 +140,32 @@ export class Site {
 				plugin.beforeBuild(pluginOpts)
 			}
 
-			// build!
+			// save pluginOpts for future builds
+			allPluginOpts[i] = pluginOpts
+		}
+
+		// build!
+		for (let i = 0; i < this.plugins.length; i++) {
+			const plugin = this.plugins[i]
+
 			for (let j = 0; j < pluginFiles[i].length; j++) {
 				const file = pluginFiles[i][j]
 
 				const buildOpts: PluginBuildOptions = {
-					...pluginOpts,
+					...allPluginOpts[i],
 					file: file,
 					url: allURLs[file.id],
 				}
 				plugin.build(buildOpts)
 			}
+		}
 
-			// after build
+		// after build
+		for (let i = 0; i < this.plugins.length; i++) {
+			const plugin = this.plugins[i]
+
 			if (plugin.afterBuild) {
-				plugin.afterBuild(pluginOpts)
+				plugin.afterBuild(allPluginOpts[i])
 			}
 		}
 	}

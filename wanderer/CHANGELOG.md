@@ -1,3 +1,7 @@
+# v1.1.4
+
+- Ensures all `beforeBuild` functions run before _any_ `build` functions, and that `afterBuild` runs after all `build` functions. This allows plugins, in `afterBuild`, to also examine the HTML content of a page.
+
 # v1.1.3
 
 - Plugins are default exports now

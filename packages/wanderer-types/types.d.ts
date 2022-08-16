@@ -51,5 +51,6 @@ export declare type Page = FileInfo & {
     configuration?: PageConfig;
     isPage: true;
     text: string;
+    html?: string;
 };
 export {};
