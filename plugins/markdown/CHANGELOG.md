@@ -1,3 +1,7 @@
+# v1.1.1
+
+- Forgot to update builds
+
 # v1.1.0
 
 - Updates the linking scheme so that any relative links to assets and other pages are replaced with absolute links.

@@ -10624,21 +10624,19 @@ ${part}`;
         const links = extractLinks(file.text);
         let text = file.text;
         for (let link of links) {
-          let shouldBeAbsolute = false;
           if (isURL(link)) {
             continue;
           }
           let linkSourcePath = import_upath42.default.resolve(opts.file.sourceDir, link);
           if (link.startsWith("/")) {
             linkSourcePath = import_upath42.default.resolve(opts.site.contentDirectory, link.slice(1));
-            shouldBeAbsolute = true;
           }
           const file2 = opts.allFiles.getFileFromPath(linkSourcePath)[0];
           if (!file2) {
             continue;
           }
           const newURL = opts.allURLs[file2.id];
-          const newLink = shouldBeAbsolute ? "/" + newURL : getRelativeURL(opts.site, opts.url, newURL);
+          const newLink = "/" + newURL;
           if (link !== newLink) {
             text = text.replace(link, newLink);
           }
