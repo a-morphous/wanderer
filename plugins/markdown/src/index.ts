@@ -15,6 +15,7 @@ import { parse } from './harpe'
 import { extractLinks } from './utils/extract-links'
 import { isURL } from './utils/is-url'
 import { getRelativeURL } from './utils/get-relative-url'
+import { processAllWikilinks } from './utils/wikilinks'
 
 export default class MarkdownPlugin implements BasePlugin {
 	public extensions: string[] = ['.md', '.markdown']
@@ -82,6 +83,7 @@ export default class MarkdownPlugin implements BasePlugin {
 		// to the proper file in the destination directory.
 		const links = extractLinks(file.text)
 		let text = file.text
+		
 		for (let link of links) {
 			if (isURL(link)) {
 				continue
@@ -96,12 +98,18 @@ export default class MarkdownPlugin implements BasePlugin {
 				continue
 			}
 			const newURL = opts.allURLs[file.id]
-			const newLink = getRelativeURL(opts.site, opts.url, newURL)
+			// make all links absolute; this is easier to debug.
+			const newLink =  '/' + newURL
+			// uncomment if you really want relative links.
+			// const newLink = getRelativeURL(opts.site, opts.url, newURL)
 
 			if (link !== newLink) {
 				text = text.replace(link, newLink)
 			}
 		}
+
+		// process wikilinks
+		text = processAllWikilinks(text, opts.allFiles)
 
 		// now we parse the text into HTML.
 

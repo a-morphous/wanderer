@@ -5,6 +5,7 @@ import { BasePlugin, PluginBuildOptions, PluginOperationOptions } from './plugin
 import { FileCache } from './pages'
 import { FileDB } from './db'
 import { readdirSyncRecursive } from '../lib/recursive-readdir'
+import { slugify } from '../lib/slugify'
 
 export class Site {
 	protected siteInfo: SiteInfo
@@ -109,7 +110,13 @@ export class Site {
 					if (partialUrl.startsWith('/')) {
 						partialUrl = partialUrl.slice(1)
 					}
-					allURLs[file.id] = partialUrl
+
+					// slugify
+					const urlSplits = partialUrl.split('/')
+					const slugifiedSplits = urlSplits.map((value => {
+						return slugify(value)
+					}))
+					allURLs[file.id] = slugifiedSplits.join('/')
 					file.url = partialUrl
 				}
 

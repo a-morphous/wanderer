@@ -1,3 +1,10 @@
+# v1.2.0
+
+- Updates the linking scheme so that any relative links to assets and other pages are replaced with absolute links.
+- This means that, when linking assets in the contents folder, you are encouraged now to link relatively to the file _also in the contents folder_, and wanderer will automatically parse the link, find the file, and replace the built link with the correct URL
+- Adds wikilink support. Using `[[Double Bracket]]` links will link to the page with the same title.
+- Slugifies pages and files. This ensures that they will render nicely as urls, but may break existing links.
+
 # v1.1.4
 
 - Ensures all `beforeBuild` functions run before _any_ `build` functions, and that `afterBuild` runs after all `build` functions. This allows plugins, in `afterBuild`, to also examine the HTML content of a page.

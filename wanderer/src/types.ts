@@ -2,6 +2,7 @@ export type Configuration = Record<string, any>
 
 export type SiteConfig = {
 	plugins?: string[] // Can either be relative paths (to the base site directory), or names of included npm modules.
+	slugifyFunction?: string // an exported function to call as the slugify function for URLs
 } & Configuration
 
 type DirAndPageCommonConfig = {

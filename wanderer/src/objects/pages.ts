@@ -97,9 +97,13 @@ export class FileCache {
 		this.files = {}
 
 		for (let file of allFiles) {
-			const dir = path.dirname(file)
 			const ext = path.extname(file).toLocaleLowerCase()
 			const rawname = path.basename(file, path.extname(file))
+
+			// hidden files should be ignored
+			if (rawname.startsWith('.')) {
+				continue
+			}
 
 			const tempoString = tempo(rawname)
 			const name = tempoString.name
@@ -120,16 +124,6 @@ export class FileCache {
 
 			if (config.private) {
 				continue // we ignore private files at a wanderer level.
-			}
-
-			// get pretty print URL
-			const pathDir = dir || path.dirname(file)
-			const pathEnd = config.rename || name
-
-			let url = [pathDir === '.' ? '' : pathDir, pathEnd === 'index' ? '' : pathEnd].join('/')
-
-			if (!url.startsWith('/')) {
-				url = '/' + url
 			}
 
 			const info: FileInfo = {
@@ -223,6 +217,26 @@ export class FileCache {
 					key: 'sourcePath',
 					value: path.resolve(sourcePath),
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
+				},
+			],
+		}
+
+		return this._db.query(query)
+	}
+
+	public getFilesWithTitle(title: string) {
+		const query: QueryOpts = {
+			predicates: [
+				{
+					key: 'title',
+					value: title,
+					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
+				},
+				{
+					key: 'name',
+					value: title,
+					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
+					operator: QUERY_BOOLEAN_OPERATORS.OR,
 				},
 			],
 		}

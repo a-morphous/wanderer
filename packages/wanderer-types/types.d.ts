@@ -1,6 +1,7 @@
 export declare type Configuration = Record<string, any>;
 export declare type SiteConfig = {
     plugins?: string[];
+    slugifyFunction?: string;
 } & Configuration;
 declare type DirAndPageCommonConfig = {
     private?: boolean;

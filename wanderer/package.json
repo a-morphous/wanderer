@@ -1,6 +1,6 @@
 {
 	"name": "@a-morphous/wanderer",
-	"version": "1.1.4",
+	"version": "1.2.0",
 	"description": "",
 	"main": "dist/wanderer.js",
 	"module": "dist/wanderer.module.js",
@@ -10,7 +10,8 @@
 		"stats": "esbuild-visualizer --metadata ./meta.json",
 		"types": "tsc --build ./tsconfig-types.json",
 		"dryRun": "pnpm publish --dry-run",
-		"pub": "pnpm publish --access public"
+		"pub": "pnpm publish --access public",
+		"build": "node build"
 	},
 	"bin": {
 		"wanderer": "./cli.js"
@@ -30,7 +31,7 @@
 	"devDependencies": {
 		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
 		"@a-morphous/wanderer-plugin-image": "^1.0.0",
-		"@a-morphous/wanderer-plugin-markdown": "^1.0.1",
+		"@a-morphous/wanderer-plugin-markdown": "^1.1.0",
 		"@a-morphous/wanderer-plugin-rss": "^1.0.0",
 		"@types/node": "^18.0.6",
 		"esbuild": "^0.14.49",

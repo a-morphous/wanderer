@@ -18,6 +18,7 @@ export declare class FileCache {
     get allFiles(): FileInfo[];
     get db(): FileDB;
     getFileFromPath(sourcePath: string): FileInfo[];
+    getFilesWithTitle(title: string): FileInfo[];
     getAllFilesWithExts(exts: string[], not?: boolean): FileInfo[];
     getFilesWithSimilarNames(file: FileInfo): FileInfo[];
 }
