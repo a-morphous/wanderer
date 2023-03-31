@@ -11,7 +11,8 @@
 		"types": "tsc --build ./tsconfig-types.json",
 		"dryRun": "pnpm publish --dry-run",
 		"pub": "pnpm publish --access public",
-		"build": "node build"
+		"build": "node build",
+		"prepublishOnly": "pnpm build"
 	},
 	"bin": {
 		"wanderer": "./cli.js"
@@ -26,7 +27,10 @@
 	"license": "ISC",
 	"dependencies": {
 		"@iarna/toml": "^2.2.3",
-		"minimist": "^1.2.2"
+		"minimist": "^1.2.2",
+		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
+		"@a-morphous/wanderer-plugin-image": "^1.0.0",
+		"@a-morphous/wanderer-plugin-markdown": "^1.1.0"
 	},
 	"devDependencies": {
 		"@a-morphous/wanderer-plugin-copy": "^1.0.0",

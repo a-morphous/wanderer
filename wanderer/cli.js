@@ -28,13 +28,13 @@ let siteConfig = {}
 if (argv.clean) {
 	// clean up cache stuff
 	try {
-		fs.rmdirSync(path.resolve(cacheDir), { recursive: true })
+		fs.rmSync(path.resolve(cacheDir), { recursive: true, force: true })
 	} catch (e) {
 		// swallow it
 	}
 
 	if (fs.existsSync(buildDir)) {
-		fs.rmdirSync(path.resolve(buildDir), { recursive: true })
+		fs.rmSync(path.resolve(buildDir), { recursive: true, force: true })
 	}
 }
 
