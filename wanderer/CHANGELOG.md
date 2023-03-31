@@ -1,3 +1,9 @@
+# v1.3.0
+
+- Plugins are now listed as dependencies, and not bundled into Wanderer proper.
+- All plugins are now listed on npm separately from the wanderer main bundle.
+- Image plugin now uses ImageMagick rather than GraphicsMagick. This was because gm was misbehaving on MacOS.
+
 # v1.2.1
 
 - Forgot to update build
