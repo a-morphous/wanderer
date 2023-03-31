@@ -11,12 +11,12 @@ Is it ready for production use? It's ready in the sense that I personally use it
 - HTML templating, layouts, and partials using JS template strings.
 - Write pages in Markdown.
 - flat file content structure. Builds the site in the exact structure as the source content, unless you change it.
-- image processing via `Graphicsmagick` to make web-ready images
+- image processing via `ImageMagick` to make web-ready images
 - as few dependencies as possible - most tools are created as subdirectories, and only uses npm packages that have zero dependencies of their own for text content. (Processing images and media requires more packages)
 
 ## notes
 
-- For image compression to work properly, your computer needs both `gm` (Graphicsmagick) and `pngquant` installed and on the path.
+- For image compression to work properly, your computer needs both `magick` (Imagemagick) and `pngquant` installed and on the path.
 
 ## usage
 
