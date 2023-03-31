@@ -7,7 +7,10 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"stats": "esbuild-visualizer --metadata ./meta.json",
-		"build": "node build"
+		"build": "node build",
+		"dryRun": "pnpm publish --dry-run",
+		"pub": "pnpm publish --access public",
+		"prepublishOnly": "pnpm build"
 	},
 	"keywords": [],
 	"author": "",
