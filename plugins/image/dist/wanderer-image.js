@@ -427,7 +427,7 @@ var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
     import_fs.default.mkdirSync(targetFileDir, { recursive: true });
   }
   try {
-    const gm = (0, import_child_process.spawn)("gm", [
+    const magick = (0, import_child_process.spawn)("magick", [
       "convert",
       "-size",
       "1200x1200>",
@@ -439,7 +439,7 @@ var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
       "-strip",
       targetFilePath
     ]);
-    gm.on("close", () => {
+    magick.on("close", () => {
       if (ext !== ".png") {
         if (callback) {
           callback();
@@ -469,11 +469,11 @@ var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
         }
       }
     });
-    gm.on("error", (e) => {
+    magick.on("error", (e) => {
       throw e;
     });
   } catch (e) {
-    console.log("Graphicsmagick (as gm) needs to be installed and on the path for image processing to work");
+    console.log("Imagemagick (as magick) needs to be installed and on the path for image processing to work");
     throw e;
   }
 };

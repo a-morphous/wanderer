@@ -20,7 +20,7 @@ const processImageGM = (
 		fs.mkdirSync(targetFileDir, { recursive: true })
 	}
 	try {
-		const gm = spawn('gm', [
+		const magick = spawn('magick', [
 			'convert',
 			'-size',
 			'1200x1200>',
@@ -32,7 +32,7 @@ const processImageGM = (
 			'-strip',
 			targetFilePath,
 		])
-		gm.on('close', () => {
+		magick.on('close', () => {
 			if (ext !== '.png') {
 				if (callback) {
 					callback()
@@ -67,12 +67,12 @@ const processImageGM = (
 			}
 		})
 
-		gm.on('error', (e) => {
+		magick.on('error', (e) => {
 			throw e
 		})
 	} catch (e) {
 		console.log(
-			'Graphicsmagick (as gm) needs to be installed and on the path for image processing to work'
+			'Imagemagick (as magick) needs to be installed and on the path for image processing to work'
 		)
 		throw e
 	}
