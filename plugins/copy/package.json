@@ -5,7 +5,11 @@
 	"main": "dist/wanderer-copy.js",
 	"module": "dist/wanderer-copy.module.mjs",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "node build",
+		"dryRun": "pnpm publish --dry-run",
+		"pub": "pnpm publish --access public",
+		"prepublishOnly": "pnpm build"
 	},
 	"keywords": [],
 	"author": "",
