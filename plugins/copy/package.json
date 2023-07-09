@@ -1,9 +1,10 @@
 {
 	"name": "@a-morphous/wanderer-plugin-copy",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "",
 	"main": "dist/wanderer-copy.js",
-	"module": "dist/wanderer-copy.module.mjs",
+	"type": "module",
+	"types": "./dist/index.d.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "node build",
@@ -18,8 +19,12 @@
 		"upath": "^1.2.0"
 	},
 	"devDependencies": {
-		"@a-morphous/wanderer-types": "^1.0.0",
+		"@a-morphous/wanderer": "workspace:^1.3.0",
 		"@types/node": "^20.2.6",
-		"esbuild": "^0.14.49"
+		"esbuild": "^0.18.11",
+		"npm-dts": "^1.3.12"
+	},
+	"peerDependencies": {
+		"@a-morphous/wanderer": "workspace:^1.3.0"
 	}
 }
