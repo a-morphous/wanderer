@@ -208,8 +208,16 @@ var CopyPlugin = class {
   constructor() {
     this.extensions = "UNUSED";
   }
-  url(fileInfo, site) {
-    return fileInfo.id;
+  url(file, site) {
+    let relativeDir;
+    if (file.configuration?.dir) {
+      const resolvedDir = import_upath.default.resolve(site.contentDirectory, file.configuration.dir);
+      relativeDir = import_upath.default.relative(site.contentDirectory, resolvedDir);
+    } else {
+      relativeDir = import_upath.default.relative(site.contentDirectory, file.sourceDir);
+    }
+    const urlPiece = relativeDir + import_upath.default.sep + file.name;
+    return urlPiece + file.ext;
   }
   build(opts) {
     const targetFilePath = import_upath.default.resolve(opts.site.buildDirectory, opts.url);

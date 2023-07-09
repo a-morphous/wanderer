@@ -1,6 +1,6 @@
 {
 	"name": "@a-morphous/wanderer-plugin-copy",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "",
 	"main": "dist/wanderer-copy.js",
 	"module": "dist/wanderer-copy.module.mjs",
@@ -19,6 +19,7 @@
 	},
 	"devDependencies": {
 		"@a-morphous/wanderer-types": "^1.0.0",
+		"@types/node": "^20.2.6",
 		"esbuild": "^0.14.49"
 	}
 }
