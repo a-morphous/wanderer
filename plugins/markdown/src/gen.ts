@@ -1,13 +1,13 @@
-import path from 'upath'
+import path from 'path'
 import fs from 'fs'
-import {
-	FileCache,
-	FileDB,
+import type {
 	FileInfo,
+	IFileCache,
+	IFileDB,
 	PageReference,
 	QueryOpts,
 	SiteInfo,
-} from '@a-morphous/wanderer-types'
+} from '@a-morphous/wanderer'
 
 /**
  * genLayout - produces layout text based on input configuration
@@ -43,7 +43,7 @@ type PageStatics = {
  *  statics: [list of other static files]
  * }
  */
-export const genPageStatics = (file: FileInfo, allFiles: FileCache) => {
+export const genPageStatics = (file: FileInfo, allFiles: IFileCache) => {
 	// figure out if we should add css / js files
 	const possiblePageStatics = allFiles.getFilesWithSimilarNames(file)
 	const staticObj: PageStatics = {
@@ -66,7 +66,7 @@ export const genPageStatics = (file: FileInfo, allFiles: FileCache) => {
 /**
  * genFeeds - creates feeds that can be used in layouts in content pages
  */
-export const genFeeds = (file: FileInfo, filePool: FileDB, allURLs: Record<string, string>) => {
+export const genFeeds = (file: FileInfo, filePool: IFileDB, allURLs: Record<string, string>) => {
 	// generate all of the feeds
 	//////////////////////////////
 	const feeds: Record<string, FileInfo[]> = {}
@@ -126,7 +126,7 @@ export const genFeeds = (file: FileInfo, filePool: FileDB, allURLs: Record<strin
 
 export const genPageReference = (
 	file: FileInfo,
-	filePool: FileDB,
+	filePool: IFileDB,
 	allURLs: Record<string, string>,
 	existingFeed?: FileInfo[]
 ) => {

@@ -1,27 +1,25 @@
-const esbuild = require('esbuild')
-const fs = require('fs')
-const path = require('path')
+import esbuild from "esbuild"
+import npmDTS from 'npm-dts';
+const { Generator } = npmDTS;
 
-esbuild
-	.build({
-		entryPoints: ['src/index.ts'],
-		bundle: true,
-        metafile: true,
-		minify: false,
-		platform: 'node',
-		outfile: 'dist/wanderer-markdown.js',
-	}).then((result) => {
-        fs.writeFileSync(path.resolve(__dirname, 'meta.json'), JSON.stringify(result.metafile))
-    })
-	.catch(() => process.exit(1))
 
-esbuild
-	.build({
-		entryPoints: ['src/index.ts'],
+const build = async () => {
+	new Generator({
+		// relative to tsconfig rootdir
+		entry: 'index.ts',
+		output: 'dist/index.d.ts',
+		logLevel: 'debug',
+		force: true,
+	}, true).generate()
+	await esbuild.build({
+		entryPoints: ["src/index.ts"],
 		bundle: true,
-		format: 'esm',
-		minify: false,
-		platform: 'node',
-		outfile: 'dist/wanderer-markdown.module.mjs',
+		target: "es6",
+		format: "esm",
+		platform: "node",
+		outfile: "dist/wanderer-markdown.js",
 	})
-	.catch(() => process.exit(1))
+}
+
+build()
+

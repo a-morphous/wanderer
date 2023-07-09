@@ -1,3 +1,7 @@
+# v1.2.0
+
+- Upgrade to ESM Modules, no more require.
+
 # v1.1.1
 
 - Forgot to update builds

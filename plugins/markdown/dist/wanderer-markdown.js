@@ -1,206 +1,51 @@
 var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (let key2 of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key2) && key2 !== except)
-        __defProp(to, key2, { get: () => from[key2], enumerable: !(desc = __getOwnPropDesc(from, key2)) || desc.enumerable });
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// ../../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js
-var require_upath = __commonJS({
-  "../../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js"(exports) {
-    var VERSION = "1.2.0";
-    var extraFn;
-    var extraFunctions;
-    var isFunction;
-    var isString;
-    var isValidExt;
-    var name;
-    var path5;
-    var propName;
-    var propValue;
-    var toUnix;
-    var upath;
-    var slice = [].slice;
-    var indexOf = [].indexOf || function(item) {
-      for (var i = 0, l = this.length; i < l; i++) {
-        if (i in this && this[i] === item)
-          return i;
-      }
-      return -1;
-    };
-    var hasProp = {}.hasOwnProperty;
-    path5 = require("path");
-    isFunction = function(val) {
-      return val instanceof Function;
-    };
-    isString = function(val) {
-      return typeof val === "string" || !!val && typeof val === "object" && Object.prototype.toString.call(val) === "[object String]";
-    };
-    upath = exports;
-    upath.VERSION = typeof VERSION !== "undefined" && VERSION !== null ? VERSION : "NO-VERSION";
-    toUnix = function(p) {
-      var double;
-      p = p.replace(/\\/g, "/");
-      double = /\/\//;
-      while (p.match(double)) {
-        p = p.replace(double, "/");
-      }
-      return p;
-    };
-    for (propName in path5) {
-      propValue = path5[propName];
-      if (isFunction(propValue)) {
-        upath[propName] = function(propName2) {
-          return function() {
-            var args, result;
-            args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-            args = args.map(function(p) {
-              if (isString(p)) {
-                return toUnix(p);
-              } else {
-                return p;
-              }
-            });
-            result = path5[propName2].apply(path5, args);
-            if (isString(result)) {
-              return toUnix(result);
-            } else {
-              return result;
-            }
-          };
-        }(propName);
-      } else {
-        upath[propName] = propValue;
-      }
-    }
-    upath.sep = "/";
-    extraFunctions = {
-      toUnix,
-      normalizeSafe: function(p) {
-        p = toUnix(p);
-        if (p.startsWith("./")) {
-          if (p.startsWith("./..") || p === "./") {
-            return upath.normalize(p);
-          } else {
-            return "./" + upath.normalize(p);
-          }
-        } else {
-          return upath.normalize(p);
-        }
-      },
-      normalizeTrim: function(p) {
-        p = upath.normalizeSafe(p);
-        if (p.endsWith("/")) {
-          return p.slice(0, +(p.length - 2) + 1 || 9e9);
-        } else {
-          return p;
-        }
-      },
-      joinSafe: function() {
-        var p, result;
-        p = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        result = upath.join.apply(null, p);
-        if (p[0].startsWith("./") && !result.startsWith("./")) {
-          result = "./" + result;
-        }
-        return result;
-      },
-      addExt: function(file, ext) {
-        if (!ext) {
-          return file;
-        } else {
-          if (ext[0] !== ".") {
-            ext = "." + ext;
-          }
-          return file + (file.endsWith(ext) ? "" : ext);
-        }
-      },
-      trimExt: function(filename, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename.slice(0, +(filename.length - oldExt.length - 1) + 1 || 9e9);
-        } else {
-          return filename;
-        }
-      },
-      removeExt: function(filename, ext) {
-        if (!ext) {
-          return filename;
-        } else {
-          ext = ext[0] === "." ? ext : "." + ext;
-          if (upath.extname(filename) === ext) {
-            return upath.trimExt(filename);
-          } else {
-            return filename;
-          }
-        }
-      },
-      changeExt: function(filename, ext, ignoreExts, maxSize) {
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        return upath.trimExt(filename, ignoreExts, maxSize) + (!ext ? "" : ext[0] === "." ? ext : "." + ext);
-      },
-      defaultExt: function(filename, ext, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename;
-        } else {
-          return upath.addExt(filename, ext);
-        }
-      }
-    };
-    isValidExt = function(ext, ignoreExts, maxSize) {
-      if (ignoreExts == null) {
-        ignoreExts = [];
-      }
-      return ext && ext.length <= maxSize && indexOf.call(ignoreExts.map(function(e) {
-        return (e && e[0] !== "." ? "." : "") + e;
-      }), ext) < 0;
-    };
-    for (name in extraFunctions) {
-      if (!hasProp.call(extraFunctions, name))
-        continue;
-      extraFn = extraFunctions[name];
-      if (upath[name] !== void 0) {
-        throw new Error("path." + name + " already exists.");
-      } else {
-        upath[name] = extraFn;
-      }
-    }
-  }
-});
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // ../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js
 var require_dayjs_min = __commonJS({
-  "../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js"(exports, module2) {
+  "../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js"(exports, module) {
     !function(t, e) {
-      "object" == typeof exports && "undefined" != typeof module2 ? module2.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
+      "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
     }(exports, function() {
       "use strict";
       var t = 1e3, e = 6e4, n = 36e5, r = "millisecond", i = "second", s = "minute", u = "hour", a = "day", o = "week", f = "month", h = "quarter", c = "year", d = "date", $ = "Invalid Date", l = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, m = function(t2, e2, n2) {
@@ -257,9 +102,9 @@ var require_dayjs_min = __commonJS({
           this.$d = function(t3) {
             var e2 = t3.date, n2 = t3.utc;
             if (null === e2)
-              return new Date(NaN);
+              return /* @__PURE__ */ new Date(NaN);
             if (O.u(e2))
-              return new Date();
+              return /* @__PURE__ */ new Date();
             if (e2 instanceof Date)
               return new Date(e2);
             if ("string" == typeof e2 && !/Z$/i.test(e2)) {
@@ -406,23 +251,19 @@ var require_dayjs_min = __commonJS({
 });
 
 // src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  default: () => MarkdownPlugin
-});
-module.exports = __toCommonJS(src_exports);
-var import_upath4 = __toESM(require_upath());
-var import_fs3 = __toESM(require("fs"));
+import path4 from "path";
+import fs3 from "fs";
 
 // src/gen.ts
-var import_upath = __toESM(require_upath());
-var import_fs = __toESM(require("fs"));
+import path from "path";
+import fs from "fs";
 var genLayout = (siteInfo, file) => {
-  const layout = file.configuration?.layout || "default";
-  const layoutPath = import_upath.default.resolve(siteInfo.frameDirectory, "layouts", layout + ".html");
+  var _a;
+  const layout = ((_a = file.configuration) == null ? void 0 : _a.layout) || "default";
+  const layoutPath = path.resolve(siteInfo.frameDirectory, "layouts", layout + ".html");
   let layoutText = "${o.content}";
-  if (import_fs.default.existsSync(layoutPath)) {
-    layoutText = import_fs.default.readFileSync(import_upath.default.resolve(siteInfo.frameDirectory, "layouts", layout + ".html")).toString();
+  if (fs.existsSync(layoutPath)) {
+    layoutText = fs.readFileSync(path.resolve(siteInfo.frameDirectory, "layouts", layout + ".html")).toString();
   }
   return layoutText;
 };
@@ -443,9 +284,10 @@ var genPageStatics = (file, allFiles) => {
   return staticObj;
 };
 var genFeeds = (file, filePool, allURLs) => {
+  var _a;
   const feeds = {};
   const referenceFeeds = {};
-  if (file.configuration?.feeds) {
+  if ((_a = file.configuration) == null ? void 0 : _a.feeds) {
     for (let feedName of Object.keys(file.configuration.feeds)) {
       const feed = file.configuration.feeds[feedName];
       const rawQuery = feed.query;
@@ -455,12 +297,12 @@ var genFeeds = (file, filePool, allURLs) => {
       query.limit = feed.limit;
       if (typeof rawQuery === "string") {
         if (rawQuery.startsWith(".")) {
-          const directory = import_upath.default.resolve(file.sourceDir, rawQuery);
+          const directory = path.resolve(file.sourceDir, rawQuery);
           feeds[feedName] = filePool.queryDirectory(directory, query, false);
           continue;
         }
         if (rawQuery.toLocaleLowerCase().startsWith("dir:")) {
-          const directory = import_upath.default.resolve(file.sourceDir, rawQuery.slice(4));
+          const directory = path.resolve(file.sourceDir, rawQuery.slice(4));
           feeds[feedName] = filePool.queryDirectory(directory, query, false);
           continue;
         }
@@ -483,11 +325,14 @@ var genFeeds = (file, filePool, allURLs) => {
   return referenceFeeds;
 };
 var genPageReference = (file, filePool, allURLs, existingFeed) => {
+  var _a;
   const pageReference = {
     id: file.id,
-    title: file.title ?? file.name,
+    title: (_a = file.title) != null ? _a : file.name,
+    //TODO: actual method to get the title
     url: "/" + allURLs[file.id],
-    sourceName: import_upath.default.basename(file.sourcePath),
+    sourceName: path.basename(file.sourcePath),
+    // filename before we did any processing
     created: file.created,
     updated: file.updated,
     date: file.date,
@@ -496,7 +341,11 @@ var genPageReference = (file, filePool, allURLs, existingFeed) => {
   if (existingFeed) {
     const currentIndex = existingFeed.indexOf(file);
     if (currentIndex > 0) {
-      pageReference.previousPage = genPageReference(existingFeed[currentIndex - 1], filePool, allURLs);
+      pageReference.previousPage = genPageReference(
+        existingFeed[currentIndex - 1],
+        filePool,
+        allURLs
+      );
     }
     if (currentIndex >= 0 && currentIndex < existingFeed.length - 1) {
       pageReference.nextPage = genPageReference(existingFeed[currentIndex + 1], filePool, allURLs);
@@ -506,9 +355,9 @@ var genPageReference = (file, filePool, allURLs, existingFeed) => {
 };
 
 // ../../packages/template/index.mjs
-var import_fs2 = __toESM(require("fs"), 1);
-var import_upath2 = __toESM(require_upath(), 1);
 var import_dayjs = __toESM(require_dayjs_min(), 1);
+import fs2 from "fs";
+import path2 from "path";
 
 // ../../node_modules/.pnpm/marked@4.0.18/node_modules/marked/lib/marked.esm.js
 function getDefaults() {
@@ -646,12 +495,12 @@ function resolveUrl(base, href) {
 var noopTest = { exec: function noopTest2() {
 } };
 function merge(obj) {
-  let i = 1, target, key2;
+  let i = 1, target, key;
   for (; i < arguments.length; i++) {
     target = arguments[i];
-    for (key2 in target) {
-      if (Object.prototype.hasOwnProperty.call(target, key2)) {
-        obj[key2] = target[key2];
+    for (key in target) {
+      if (Object.prototype.hasOwnProperty.call(target, key)) {
+        obj[key] = target[key];
       }
     }
   }
@@ -1398,6 +1247,8 @@ var block = {
   def: /^ {0,3}\[(label)\]: *(?:\n *)?<?([^\s>]+)>?(?:(?: +(?:\n *)?| *\n *)(title))? *(?:\n+|$)/,
   table: noopTest,
   lheading: /^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,
+  // regex template, placeholders will be replaced according to different paragraph
+  // interruption rules of commonmark and the original markdown spec:
   _paragraph: /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table| +\n)[^\n]+)*)/,
   text: /^[^\n]+/
 };
@@ -1415,14 +1266,18 @@ block.blockquote = edit(block.blockquote).replace("paragraph", block.paragraph).
 block.normal = merge({}, block);
 block.gfm = merge({}, block.normal, {
   table: "^ *([^\\n ].*\\|.*)\\n {0,3}(?:\\| *)?(:?-+:? *(?:\\| *:?-+:? *)*)(?:\\| *)?(?:\\n((?:(?! *\\n|hr|heading|blockquote|code|fences|list|html).*(?:\\n|$))*)\\n*|$)"
+  // Cells
 });
 block.gfm.table = edit(block.gfm.table).replace("hr", block.hr).replace("heading", " {0,3}#{1,6} ").replace("blockquote", " {0,3}>").replace("code", " {4}[^\\n]").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list", " {0,3}(?:[*+-]|1[.)]) ").replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", block._tag).getRegex();
 block.gfm.paragraph = edit(block._paragraph).replace("hr", block.hr).replace("heading", " {0,3}#{1,6} ").replace("|lheading", "").replace("table", block.gfm.table).replace("blockquote", " {0,3}>").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*\\n)|~{3,})[^\\n]*\\n").replace("list", " {0,3}(?:[*+-]|1[.)]) ").replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", block._tag).getRegex();
 block.pedantic = merge({}, block.normal, {
-  html: edit(`^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:"[^"]*"|'[^']*'|\\s[^'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))`).replace("comment", block._comment).replace(/tag/g, "(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),
+  html: edit(
+    `^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:"[^"]*"|'[^']*'|\\s[^'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))`
+  ).replace("comment", block._comment).replace(/tag/g, "(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
   heading: /^(#{1,6})(.*)(?:\n+|$)/,
   fences: noopTest,
+  // fences not supported
   paragraph: edit(block.normal._paragraph).replace("hr", block.hr).replace("heading", " *#{1,6} *[^\n]").replace("lheading", block.lheading).replace("blockquote", " {0,3}>").replace("|fences", "").replace("|list", "").replace("|html", "").getRegex()
 });
 var inline = {
@@ -1430,14 +1285,18 @@ var inline = {
   autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/,
   url: noopTest,
   tag: "^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",
+  // CDATA section
   link: /^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,
   reflink: /^!?\[(label)\]\[(ref)\]/,
   nolink: /^!?\[(ref)\](?:\[\])?/,
   reflinkSearch: "reflink|nolink(?!\\()",
   emStrong: {
     lDelim: /^(?:\*+(?:([punct_])|[^\s*]))|^_+(?:([punct*])|([^\s_]))/,
+    //        (1) and (2) can only be a Right Delimiter. (3) and (4) can only be Left.  (5) and (6) can be either Left or Right.
+    //          () Skip orphan inside strong  () Consume to delim (1) #***                (2) a***#, a***                   (3) #***a, ***a                 (4) ***#              (5) #***#                 (6) a***a
     rDelimAst: /^[^_*]*?\_\_[^_*]*?\*[^_*]*?(?=\_\_)|[^*]+(?=[^*])|[punct_](\*+)(?=[\s]|$)|[^punct*_\s](\*+)(?=[punct_\s]|$)|[punct_\s](\*+)(?=[^punct*_\s])|[\s](\*+)(?=[punct_])|[punct_](\*+)(?=[punct_])|[^punct*_\s](\*+)(?=[^punct*_\s])/,
     rDelimUnd: /^[^_*]*?\*\*[^_*]*?\_[^_*]*?(?=\*\*)|[^_]+(?=[^_])|[punct*](\_+)(?=[\s]|$)|[^punct*_\s](\_+)(?=[punct*\s]|$)|[punct*\s](\_+)(?=[^punct*_\s])|[\s](\_+)(?=[punct*])|[punct*](\_+)(?=[punct*])/
+    // ^- Not allowed for _
   },
   code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
   br: /^( {2,}|\\)\n(?!\s*$)/,
@@ -1511,7 +1370,7 @@ function mangle(text) {
   }
   return out;
 }
-var Lexer = class {
+var Lexer = class _Lexer {
   constructor(options2) {
     this.tokens = [];
     this.tokens.links = /* @__PURE__ */ Object.create(null);
@@ -1543,20 +1402,32 @@ var Lexer = class {
     }
     this.tokenizer.rules = rules;
   }
+  /**
+   * Expose Rules
+   */
   static get rules() {
     return {
       block,
       inline
     };
   }
+  /**
+   * Static Lex Method
+   */
   static lex(src, options2) {
-    const lexer2 = new Lexer(options2);
+    const lexer2 = new _Lexer(options2);
     return lexer2.lex(src);
   }
+  /**
+   * Static Lex Inline Method
+   */
   static lexInline(src, options2) {
-    const lexer2 = new Lexer(options2);
+    const lexer2 = new _Lexer(options2);
     return lexer2.inlineTokens(src);
   }
+  /**
+   * Preprocessing
+   */
   lex(src) {
     src = src.replace(/\r\n|\r/g, "\n");
     this.blockTokens(src, this.tokens);
@@ -1566,6 +1437,9 @@ var Lexer = class {
     }
     return this.tokens;
   }
+  /**
+   * Lexing
+   */
   blockTokens(src, tokens = []) {
     if (this.options.pedantic) {
       src = src.replace(/\t/g, "    ").replace(/^ +$/gm, "");
@@ -1720,6 +1594,9 @@ var Lexer = class {
   inline(src, tokens) {
     this.inlineQueue.push({ src, tokens });
   }
+  /**
+   * Lexing/Compiling
+   */
   inlineTokens(src, tokens = []) {
     let token, lastToken, cutSrc;
     let maskedSrc = src;
@@ -1880,6 +1757,9 @@ var Renderer = class {
     }
     return '<pre><code class="' + this.options.langPrefix + escape(lang, true) + '">' + (escaped ? code : escape(code, true)) + "</code></pre>\n";
   }
+  /**
+   * @param {string} quote
+   */
   blockquote(quote) {
     return `<blockquote>
 ${quote}</blockquote>
@@ -1888,6 +1768,12 @@ ${quote}</blockquote>
   html(html) {
     return html;
   }
+  /**
+   * @param {string} text
+   * @param {string} level
+   * @param {string} raw
+   * @param {any} slugger
+   */
   heading(text, level, raw, slugger) {
     if (this.options.headerIds) {
       const id = this.options.headerPrefix + slugger.slug(raw);
@@ -1904,6 +1790,9 @@ ${quote}</blockquote>
     const type = ordered ? "ol" : "ul", startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
     return "<" + type + startatt + ">\n" + body + "</" + type + ">\n";
   }
+  /**
+   * @param {string} text
+   */
   listitem(text) {
     return `<li>${text}</li>
 `;
@@ -1911,15 +1800,25 @@ ${quote}</blockquote>
   checkbox(checked) {
     return "<input " + (checked ? 'checked="" ' : "") + 'disabled="" type="checkbox"' + (this.options.xhtml ? " /" : "") + "> ";
   }
+  /**
+   * @param {string} text
+   */
   paragraph(text) {
     return `<p>${text}</p>
 `;
   }
+  /**
+   * @param {string} header
+   * @param {string} body
+   */
   table(header, body) {
     if (body)
       body = `<tbody>${body}</tbody>`;
     return "<table>\n<thead>\n" + header + "</thead>\n" + body + "</table>\n";
   }
+  /**
+   * @param {string} content
+   */
   tablerow(content) {
     return `<tr>
 ${content}</tr>
@@ -1931,21 +1830,39 @@ ${content}</tr>
     return tag + content + `</${type}>
 `;
   }
+  /**
+   * span level renderer
+   * @param {string} text
+   */
   strong(text) {
     return `<strong>${text}</strong>`;
   }
+  /**
+   * @param {string} text
+   */
   em(text) {
     return `<em>${text}</em>`;
   }
+  /**
+   * @param {string} text
+   */
   codespan(text) {
     return `<code>${text}</code>`;
   }
   br() {
     return this.options.xhtml ? "<br/>" : "<br>";
   }
+  /**
+   * @param {string} text
+   */
   del(text) {
     return `<del>${text}</del>`;
   }
+  /**
+   * @param {string} href
+   * @param {string} title
+   * @param {string} text
+   */
   link(href, title, text) {
     href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
     if (href === null) {
@@ -1958,6 +1875,11 @@ ${content}</tr>
     out += ">" + text + "</a>";
     return out;
   }
+  /**
+   * @param {string} href
+   * @param {string} title
+   * @param {string} text
+   */
   image(href, title, text) {
     href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
     if (href === null) {
@@ -1975,6 +1897,7 @@ ${content}</tr>
   }
 };
 var TextRenderer = class {
+  // no need for block level renderers
   strong(text) {
     return text;
   }
@@ -2007,9 +1930,17 @@ var Slugger = class {
   constructor() {
     this.seen = {};
   }
+  /**
+   * @param {string} value
+   */
   serialize(value) {
     return value.toLowerCase().trim().replace(/<[!\/a-z].*?>/ig, "").replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, "").replace(/\s/g, "-");
   }
+  /**
+   * Finds the next safe (unique) slug to use
+   * @param {string} originalSlug
+   * @param {boolean} isDryRun
+   */
   getNextSafeSlug(originalSlug, isDryRun) {
     let slug = originalSlug;
     let occurenceAccumulator = 0;
@@ -2026,12 +1957,18 @@ var Slugger = class {
     }
     return slug;
   }
+  /**
+   * Convert string to unique id
+   * @param {object} [options]
+   * @param {boolean} [options.dryrun] Generates the next unique slug without
+   * updating the internal accumulator.
+   */
   slug(value, options2 = {}) {
     const slug = this.serialize(value);
     return this.getNextSafeSlug(slug, options2.dryrun);
   }
 };
-var Parser = class {
+var Parser = class _Parser {
   constructor(options2) {
     this.options = options2 || defaults;
     this.options.renderer = this.options.renderer || new Renderer();
@@ -2040,14 +1977,23 @@ var Parser = class {
     this.textRenderer = new TextRenderer();
     this.slugger = new Slugger();
   }
+  /**
+   * Static Parse Method
+   */
   static parse(tokens, options2) {
-    const parser2 = new Parser(options2);
+    const parser2 = new _Parser(options2);
     return parser2.parse(tokens);
   }
+  /**
+   * Static Parse Inline Method
+   */
   static parseInline(tokens, options2) {
-    const parser2 = new Parser(options2);
+    const parser2 = new _Parser(options2);
     return parser2.parseInline(tokens);
   }
+  /**
+   * Parse Loop
+   */
   parse(tokens, top = true) {
     let out = "", i, j, k, l2, l3, row, cell, header, body, token, ordered, start, loose, itemBody, item, checked, task, checkbox, ret;
     const l = tokens.length;
@@ -2069,11 +2015,20 @@ var Parser = class {
           continue;
         }
         case "heading": {
-          out += this.renderer.heading(this.parseInline(token.tokens), token.depth, unescape(this.parseInline(token.tokens, this.textRenderer)), this.slugger);
+          out += this.renderer.heading(
+            this.parseInline(token.tokens),
+            token.depth,
+            unescape(this.parseInline(token.tokens, this.textRenderer)),
+            this.slugger
+          );
           continue;
         }
         case "code": {
-          out += this.renderer.code(token.text, token.lang, token.escaped);
+          out += this.renderer.code(
+            token.text,
+            token.lang,
+            token.escaped
+          );
           continue;
         }
         case "table": {
@@ -2081,7 +2036,10 @@ var Parser = class {
           cell = "";
           l2 = token.header.length;
           for (j = 0; j < l2; j++) {
-            cell += this.renderer.tablecell(this.parseInline(token.header[j].tokens), { header: true, align: token.align[j] });
+            cell += this.renderer.tablecell(
+              this.parseInline(token.header[j].tokens),
+              { header: true, align: token.align[j] }
+            );
           }
           header += this.renderer.tablerow(cell);
           body = "";
@@ -2091,7 +2049,10 @@ var Parser = class {
             cell = "";
             l3 = row.length;
             for (k = 0; k < l3; k++) {
-              cell += this.renderer.tablecell(this.parseInline(row[k].tokens), { header: false, align: token.align[k] });
+              cell += this.renderer.tablecell(
+                this.parseInline(row[k].tokens),
+                { header: false, align: token.align[k] }
+              );
             }
             body += this.renderer.tablerow(cell);
           }
@@ -2168,6 +2129,9 @@ var Parser = class {
     }
     return out;
   }
+  /**
+   * Parse Inline Tokens
+   */
   parseInline(tokens, renderer) {
     renderer = renderer || this.renderer;
     let out = "", i, token, ret;
@@ -2498,21 +2462,23 @@ var lexer = Lexer.lex;
 var render = (template, config, layer) => {
   layer = layer || 0;
   if (layer > 10) {
-    throw new Error("More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported.");
+    throw new Error(
+      "More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported."
+    );
   }
   const baseDir = config._baseDir || process.cwd();
   const escapedTemplate = template;
-  const o = { ...config };
-  const premadePartials = { ...config._partials };
-  for (key of Object.keys(premadePartials)) {
+  const o = __spreadValues({}, config);
+  const premadePartials = __spreadValues({}, config._partials) || {};
+  for (let key of Object.keys(premadePartials)) {
     const possiblePath = premadePartials[key];
     if (possiblePath.endsWith(".html")) {
-      const partialPath = import_upath2.default.resolve(baseDir, possiblePath);
-      if (!import_fs2.default.existsSync(partialPath)) {
+      const partialPath = path2.resolve(baseDir, possiblePath);
+      if (!fs2.existsSync(partialPath)) {
         console.warn(`Partial at path ${partialPath} was not found. Your site may look incorrect.`);
         continue;
       }
-      premadePartials[key] = import_fs2.default.readFileSync(partialPath, "utf-8");
+      premadePartials[key] = fs2.readFileSync(partialPath, "utf-8");
     }
   }
   const splits = escapedTemplate.split(/\r\n|\r|\n/g);
@@ -2532,7 +2498,7 @@ var render = (template, config, layer) => {
       if (tokens.length < 3) {
         throw new Error("Invalid import statement");
       }
-      const key2 = tokens[1];
+      const key = tokens[1];
       const value = tokens[tokens.length - 1];
       let partialPath = value;
       if (partialPath.startsWith('"') || partialPath.startsWith("'")) {
@@ -2541,28 +2507,29 @@ var render = (template, config, layer) => {
       if (partialPath.endsWith('"') || partialPath.endsWith("'")) {
         partialPath = partialPath.slice(0, partialPath.length - 1);
       }
-      importedPartials[key2] = import_fs2.default.readFileSync(import_upath2.default.resolve(baseDir, partialPath), "utf-8");
+      importedPartials[key] = fs2.readFileSync(path2.resolve(baseDir, partialPath), "utf-8");
       continue;
     }
     processedTemplate += line + "\n";
     finishedImports = true;
   }
-  const unparsedPartials = { ...premadePartials, ...importedPartials };
+  const unparsedPartials = __spreadValues(__spreadValues({}, premadePartials), importedPartials);
   o._partials = unparsedPartials;
   const partials = {};
-  for (let key2 of Object.keys(unparsedPartials)) {
-    const p = unparsedPartials[key2];
-    if (template.indexOf("partials." + key2) > -1 || template.indexOf('macro("' + key2) > -1 || template.indexOf("macro('" + key2) > -1) {
-      partials[key2] = render(p, o, layer + 1);
+  for (let key of Object.keys(unparsedPartials)) {
+    const p = unparsedPartials[key];
+    if (template.indexOf("partials." + key) > -1 || template.indexOf('macro("' + key) > -1 || template.indexOf("macro('" + key) > -1) {
+      partials[key] = render(p, o, layer + 1);
     }
   }
   const macro = (partialName, vars) => {
-    const macroConfig = {
-      ...vars,
+    const macroConfig = __spreadProps(__spreadValues({}, vars), {
       _partials: unparsedPartials
-    };
+    });
     if (typeof partialName !== "string") {
-      throw new Error("The macro first argument should be a string that is either the name of the partial, or a link to the partial value");
+      throw new Error(
+        "The macro first argument should be a string that is either the name of the partial, or a link to the partial value"
+      );
     }
     const partialValue = unparsedPartials[partialName] || partialName;
     return render(partialValue, macroConfig, layer + 1);
@@ -2582,7 +2549,9 @@ var render = (template, config, layer) => {
   while (moreTemplateStrings.test(currentString) === true && currentString.indexOf("}") > -1) {
     renderLayers += 1;
     if (renderLayers > 10) {
-      throw new Error("More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported.");
+      throw new Error(
+        "More than 10 nested imports discovered. Either you have a very deep import tree (please don't), or there's a circular import, which is not supported."
+      );
     }
     const evaluationFunction = new Function("o", "macro", "md", "date", "partials", `
 			return \`${currentString}\`
@@ -2628,14 +2597,15 @@ ${part}`;
 
 // src/utils/extract-links.ts
 var extractLinks = (markdownText) => {
-  const regexLinks = /\[(?<text>[^\[]*)\](\((?<link>.*)\))/gm;
+  var _a;
+  const regexLinks = new RegExp("\\[(?<text>[^\\[]*)\\](\\((?<link>.*)\\))", "gm");
   const matches = markdownText.matchAll(regexLinks);
   const links = [];
   if (!matches) {
     return [];
   }
   for (let match of matches) {
-    if (match.groups?.link) {
+    if ((_a = match.groups) == null ? void 0 : _a.link) {
       links.push(match.groups.link);
     }
   }
@@ -2648,9 +2618,12 @@ var isURL = (str) => {
 };
 
 // src/utils/get-relative-url.ts
-var import_upath3 = __toESM(require_upath());
+import path3 from "path";
 var getRelativeURL = (site, sourceFileURL, targetURL) => {
-  const newLink = import_upath3.default.relative(import_upath3.default.resolve(site.contentDirectory, import_upath3.default.dirname(sourceFileURL)), import_upath3.default.resolve(site.contentDirectory, targetURL));
+  const newLink = path3.relative(
+    path3.resolve(site.contentDirectory, path3.dirname(sourceFileURL)),
+    path3.resolve(site.contentDirectory, targetURL)
+  );
   return newLink;
 };
 
@@ -2704,38 +2677,41 @@ var MarkdownPlugin = class {
     this.extensions = [".md", ".markdown"];
   }
   url(file, site) {
+    var _a;
     let relativeDir;
-    if (file.configuration?.dir) {
-      const resolvedDir = import_upath4.default.resolve(site.contentDirectory, file.configuration.dir);
-      relativeDir = import_upath4.default.relative(site.contentDirectory, resolvedDir);
+    if ((_a = file.configuration) == null ? void 0 : _a.dir) {
+      const resolvedDir = path4.resolve(site.contentDirectory, file.configuration.dir);
+      relativeDir = path4.relative(site.contentDirectory, resolvedDir);
     } else {
-      relativeDir = import_upath4.default.relative(site.contentDirectory, file.sourceDir);
+      relativeDir = path4.relative(site.contentDirectory, file.sourceDir);
     }
-    let urlPiece = relativeDir + import_upath4.default.sep + file.name;
+    let urlPiece = relativeDir + path4.sep + file.name;
     if (file.name === "index") {
-      const pathSplit = file.id.split(import_upath4.default.sep);
+      const pathSplit = file.id.split(path4.sep);
       if (pathSplit.length > 1) {
         const targetDir = pathSplit[pathSplit.length - 2];
-        const relativeSplit = relativeDir.split(import_upath4.default.sep);
+        const relativeSplit = relativeDir.split(path4.sep);
         if (targetDir !== relativeSplit[relativeSplit.length - 1]) {
-          urlPiece = relativeDir + import_upath4.default.sep + targetDir + import_upath4.default.sep + "index";
+          urlPiece = relativeDir + path4.sep + targetDir + path4.sep + "index";
         }
       }
     }
     if (["404", "index"].includes(file.name)) {
       return urlPiece + ".html";
     }
-    return urlPiece + import_upath4.default.sep + "index.html";
+    return urlPiece + path4.sep + "index.html";
   }
   title(file, site) {
+    var _a;
     const page = file;
     let title = "";
     if (page.text.trimStart().startsWith("#")) {
       title = page.text.trim().split(/\r\n|\r|\n/g)[0].slice(2).trim();
     }
-    return file.configuration?.title || title || file.name;
+    return ((_a = file.configuration) == null ? void 0 : _a.title) || title || file.name;
   }
   build(opts, dryRun = false) {
+    var _a, _b;
     const file = opts.file;
     const layoutText = genLayout(opts.site, file);
     const pageStatics = genPageStatics(file, opts.allFiles);
@@ -2746,9 +2722,9 @@ var MarkdownPlugin = class {
       if (isURL(link)) {
         continue;
       }
-      let linkSourcePath = import_upath4.default.resolve(opts.file.sourceDir, link);
+      let linkSourcePath = path4.resolve(opts.file.sourceDir, link);
       if (link.startsWith("/")) {
-        linkSourcePath = import_upath4.default.resolve(opts.site.contentDirectory, link.slice(1));
+        linkSourcePath = path4.resolve(opts.site.contentDirectory, link.slice(1));
       }
       const file2 = opts.allFiles.getFileFromPath(linkSourcePath)[0];
       if (!file2) {
@@ -2764,51 +2740,62 @@ var MarkdownPlugin = class {
     const html = parse(text);
     const pageStaticsURL = {};
     if (pageStatics.css) {
-      pageStaticsURL.css = getRelativeURL(opts.site, opts.url, opts.allURLs[pageStatics.css.id] ?? pageStatics.css.id);
+      pageStaticsURL.css = getRelativeURL(
+        opts.site,
+        opts.url,
+        (_a = opts.allURLs[pageStatics.css.id]) != null ? _a : pageStatics.css.id
+      );
     }
     if (pageStatics.js) {
-      pageStaticsURL.js = getRelativeURL(opts.site, opts.url, opts.allURLs[pageStatics.js.id] ?? pageStatics.js.id);
+      pageStaticsURL.js = getRelativeURL(
+        opts.site,
+        opts.url,
+        (_b = opts.allURLs[pageStatics.js.id]) != null ? _b : pageStatics.js.id
+      );
     }
-    const pageReference = genPageReference(opts.file, opts.database, opts.allURLs, opts.database.queryDirectory(opts.file.sourceDir, {
-      predicates: [
-        {
-          key: "name",
-          value: "index",
-          operator: "NOT",
-          modifier: "="
-        },
-        {
-          key: "name",
-          value: "404",
-          operator: "NOT",
-          modifier: "="
-        }
-      ]
-    }));
-    const templateVars = {
-      ...pageStaticsURL,
-      ...file,
-      ...file.configuration,
+    const pageReference = genPageReference(
+      opts.file,
+      opts.database,
+      opts.allURLs,
+      opts.database.queryDirectory(opts.file.sourceDir, {
+        predicates: [
+          {
+            key: "name",
+            value: "index",
+            operator: "NOT",
+            modifier: "="
+          },
+          {
+            key: "name",
+            value: "404",
+            operator: "NOT",
+            modifier: "="
+          }
+        ]
+      })
+    );
+    const templateVars = __spreadProps(__spreadValues(__spreadValues(__spreadValues({}, pageStaticsURL), file), file.configuration), {
       feeds,
       content: html,
       _baseDir: opts.site.frameDirectory,
       next: pageReference.nextPage,
       previous: pageReference.previousPage
-    };
+    });
     const templatedHTML = render(layoutText, templateVars);
-    const targetPath = import_upath4.default.resolve(opts.site.buildDirectory, opts.url);
+    const targetPath = path4.resolve(opts.site.buildDirectory, opts.url);
     if (dryRun) {
       console.log(opts);
       console.log(`Markdown plugin running, to save ${targetPath}`);
       return true;
     }
-    if (!import_fs3.default.existsSync(targetPath)) {
-      import_fs3.default.mkdirSync(import_upath4.default.dirname(targetPath), { recursive: true });
+    if (!fs3.existsSync(targetPath)) {
+      fs3.mkdirSync(path4.dirname(targetPath), { recursive: true });
     }
-    import_fs3.default.writeFileSync(targetPath, templatedHTML);
+    fs3.writeFileSync(targetPath, templatedHTML);
     file.html = html;
     return true;
   }
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
+export {
+  MarkdownPlugin as default
+};

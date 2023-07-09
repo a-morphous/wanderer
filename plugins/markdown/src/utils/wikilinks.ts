@@ -1,4 +1,4 @@
-import { FileCache } from '@a-morphous/wanderer-types'
+import type { IFileCache } from '@a-morphous/wanderer'
 
 type WikilinkResult = {
 	target: string
@@ -44,7 +44,7 @@ const parseWikiLink = (wikiLink: string): WikilinkResult => {
 	}
 }
 
-export const processAllWikilinks = (text: string, allFiles: FileCache): string => {
+export const processAllWikilinks = (text: string, allFiles: IFileCache): string => {
 	return text.replace(/\[\[(.*?)\]\]/g, (wikilink) => {
 		const linkParams = parseWikiLink(wikilink)
 		const possibleTargets = allFiles.getFilesWithTitle(linkParams.target)

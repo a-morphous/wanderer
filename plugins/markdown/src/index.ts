@@ -1,8 +1,8 @@
-import path from 'upath'
+import path from 'path'
 import fs from 'fs'
 import { genFeeds, genLayout, genPageReference, genPageStatics } from './gen'
 import { render } from '@a-morphous/wanderer-template'
-import {
+import type {
 	BasePlugin,
 	FileInfo,
 	Page,
@@ -10,7 +10,7 @@ import {
 	QUERY_BOOLEAN_OPERATORS,
 	QUERY_MODIFIER_OPERATIONS,
 	SiteInfo,
-} from '@a-morphous/wanderer-types'
+} from '@a-morphous/wanderer'
 import { parse } from './harpe'
 import { extractLinks } from './utils/extract-links'
 import { isURL } from './utils/is-url'
