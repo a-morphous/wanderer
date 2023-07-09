@@ -1,11 +1,11 @@
-import { BasePlugin, FileInfo, PluginBuildOptions, SiteInfo } from '@a-morphous/wanderer-types'
-import path from 'upath'
-import fs from 'fs'
-import dayjs from 'dayjs'
-import { processImage } from './processor'
+import type { BasePlugin, FileInfo, PluginBuildOptions, SiteInfo } from "@a-morphous/wanderer"
+import path from "path"
+import fs from "fs"
+import dayjs from "dayjs"
+import { processImage } from "./processor"
 
 export default class ImagePlugin implements BasePlugin {
-	public extensions = ['.png', '.jpg', '.jpeg']
+	public extensions = [".png", ".jpg", ".jpeg"]
 	url(file: FileInfo, site: SiteInfo) {
 		let relativeDir: string
 		if (file.configuration?.dir) {

@@ -7,10 +7,6 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -19,188 +15,20 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// ../../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js
-var require_upath = __commonJS({
-  "../../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js"(exports) {
-    var VERSION = "1.2.0";
-    var extraFn;
-    var extraFunctions;
-    var isFunction;
-    var isString;
-    var isValidExt;
-    var name;
-    var path3;
-    var propName;
-    var propValue;
-    var toUnix;
-    var upath;
-    var slice = [].slice;
-    var indexOf = [].indexOf || function(item) {
-      for (var i = 0, l = this.length; i < l; i++) {
-        if (i in this && this[i] === item)
-          return i;
-      }
-      return -1;
-    };
-    var hasProp = {}.hasOwnProperty;
-    path3 = require("path");
-    isFunction = function(val) {
-      return val instanceof Function;
-    };
-    isString = function(val) {
-      return typeof val === "string" || !!val && typeof val === "object" && Object.prototype.toString.call(val) === "[object String]";
-    };
-    upath = exports;
-    upath.VERSION = typeof VERSION !== "undefined" && VERSION !== null ? VERSION : "NO-VERSION";
-    toUnix = function(p) {
-      var double;
-      p = p.replace(/\\/g, "/");
-      double = /\/\//;
-      while (p.match(double)) {
-        p = p.replace(double, "/");
-      }
-      return p;
-    };
-    for (propName in path3) {
-      propValue = path3[propName];
-      if (isFunction(propValue)) {
-        upath[propName] = function(propName2) {
-          return function() {
-            var args, result;
-            args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-            args = args.map(function(p) {
-              if (isString(p)) {
-                return toUnix(p);
-              } else {
-                return p;
-              }
-            });
-            result = path3[propName2].apply(path3, args);
-            if (isString(result)) {
-              return toUnix(result);
-            } else {
-              return result;
-            }
-          };
-        }(propName);
-      } else {
-        upath[propName] = propValue;
-      }
-    }
-    upath.sep = "/";
-    extraFunctions = {
-      toUnix,
-      normalizeSafe: function(p) {
-        p = toUnix(p);
-        if (p.startsWith("./")) {
-          if (p.startsWith("./..") || p === "./") {
-            return upath.normalize(p);
-          } else {
-            return "./" + upath.normalize(p);
-          }
-        } else {
-          return upath.normalize(p);
-        }
-      },
-      normalizeTrim: function(p) {
-        p = upath.normalizeSafe(p);
-        if (p.endsWith("/")) {
-          return p.slice(0, +(p.length - 2) + 1 || 9e9);
-        } else {
-          return p;
-        }
-      },
-      joinSafe: function() {
-        var p, result;
-        p = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        result = upath.join.apply(null, p);
-        if (p[0].startsWith("./") && !result.startsWith("./")) {
-          result = "./" + result;
-        }
-        return result;
-      },
-      addExt: function(file, ext) {
-        if (!ext) {
-          return file;
-        } else {
-          if (ext[0] !== ".") {
-            ext = "." + ext;
-          }
-          return file + (file.endsWith(ext) ? "" : ext);
-        }
-      },
-      trimExt: function(filename, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename.slice(0, +(filename.length - oldExt.length - 1) + 1 || 9e9);
-        } else {
-          return filename;
-        }
-      },
-      removeExt: function(filename, ext) {
-        if (!ext) {
-          return filename;
-        } else {
-          ext = ext[0] === "." ? ext : "." + ext;
-          if (upath.extname(filename) === ext) {
-            return upath.trimExt(filename);
-          } else {
-            return filename;
-          }
-        }
-      },
-      changeExt: function(filename, ext, ignoreExts, maxSize) {
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        return upath.trimExt(filename, ignoreExts, maxSize) + (!ext ? "" : ext[0] === "." ? ext : "." + ext);
-      },
-      defaultExt: function(filename, ext, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename;
-        } else {
-          return upath.addExt(filename, ext);
-        }
-      }
-    };
-    isValidExt = function(ext, ignoreExts, maxSize) {
-      if (ignoreExts == null) {
-        ignoreExts = [];
-      }
-      return ext && ext.length <= maxSize && indexOf.call(ignoreExts.map(function(e) {
-        return (e && e[0] !== "." ? "." : "") + e;
-      }), ext) < 0;
-    };
-    for (name in extraFunctions) {
-      if (!hasProp.call(extraFunctions, name))
-        continue;
-      extraFn = extraFunctions[name];
-      if (upath[name] !== void 0) {
-        throw new Error("path." + name + " already exists.");
-      } else {
-        upath[name] = extraFn;
-      }
-    }
-  }
-});
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // ../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js
 var require_dayjs_min = __commonJS({
-  "../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js"(exports, module2) {
+  "../../node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js"(exports, module) {
     !function(t, e) {
-      "object" == typeof exports && "undefined" != typeof module2 ? module2.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
+      "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
     }(exports, function() {
       "use strict";
       var t = 1e3, e = 6e4, n = 36e5, r = "millisecond", i = "second", s = "minute", u = "hour", a = "day", o = "week", f = "month", h = "quarter", c = "year", d = "date", $ = "Invalid Date", l = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_") }, m = function(t2, e2, n2) {
@@ -257,9 +85,9 @@ var require_dayjs_min = __commonJS({
           this.$d = function(t3) {
             var e2 = t3.date, n2 = t3.utc;
             if (null === e2)
-              return new Date(NaN);
+              return /* @__PURE__ */ new Date(NaN);
             if (O.u(e2))
-              return new Date();
+              return /* @__PURE__ */ new Date();
             if (e2 instanceof Date)
               return new Date(e2);
             if ("string" == typeof e2 && !/Z$/i.test(e2)) {
@@ -406,28 +234,23 @@ var require_dayjs_min = __commonJS({
 });
 
 // src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  default: () => ImagePlugin
-});
-module.exports = __toCommonJS(src_exports);
-var import_upath = __toESM(require_upath());
-var import_fs2 = __toESM(require("fs"));
-var import_dayjs = __toESM(require_dayjs_min());
+var import_dayjs = __toESM(require_dayjs_min(), 1);
+import path2 from "path";
+import fs2 from "fs";
 
 // src/processor.ts
-var import_fs = __toESM(require("fs"));
-var import_path = __toESM(require("path"));
-var import_child_process = require("child_process");
+import fs from "fs";
+import path from "path";
+import { spawn } from "child_process";
 var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
   config = config || {};
-  const targetFileDir = import_path.default.dirname(targetFilePath);
-  const ext = import_path.default.extname(inputFilePath).toLocaleLowerCase();
-  if (!import_fs.default.existsSync(targetFileDir)) {
-    import_fs.default.mkdirSync(targetFileDir, { recursive: true });
+  const targetFileDir = path.dirname(targetFilePath);
+  const ext = path.extname(inputFilePath).toLocaleLowerCase();
+  if (!fs.existsSync(targetFileDir)) {
+    fs.mkdirSync(targetFileDir, { recursive: true });
   }
   try {
-    const magick = (0, import_child_process.spawn)("magick", [
+    const magick = spawn("magick", [
       "convert",
       "-size",
       "1200x1200>",
@@ -450,20 +273,24 @@ var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
         if (config.noPNGCompress) {
           throw new Error("skipping pngquant step");
         }
-        const pngQuant = (0, import_child_process.spawn)("pngquant", ["--ext", ".png", "-f", "-s10", targetFilePath]);
+        const pngQuant = spawn("pngquant", ["--ext", ".png", "-f", "-s10", targetFilePath]);
         pngQuant.on("close", () => {
           if (callback) {
             callback();
           }
         });
         pngQuant.on("error", (e) => {
-          console.log("pngquant not found in path or was deliberately not used. You need to install pngquant yourself to compress PNGs");
+          console.log(
+            "pngquant not found in path or was deliberately not used. You need to install pngquant yourself to compress PNGs"
+          );
           if (callback) {
             callback();
           }
         });
       } catch (e) {
-        console.log("pngquant not found in path or was deliberately not used. You need to install pngquant yourself to compress PNGs");
+        console.log(
+          "pngquant not found in path or was deliberately not used. You need to install pngquant yourself to compress PNGs"
+        );
         if (callback) {
           callback();
         }
@@ -473,12 +300,14 @@ var processImageGM = (inputFilePath, targetFilePath, config, callback) => {
       throw e;
     });
   } catch (e) {
-    console.log("Imagemagick (as magick) needs to be installed and on the path for image processing to work");
+    console.log(
+      "Imagemagick (as magick) needs to be installed and on the path for image processing to work"
+    );
     throw e;
   }
 };
 var processImage = (inputFilePath, targetFilePath, config = {}) => {
-  const inputFile = import_path.default.basename(inputFilePath);
+  const inputFile = path.basename(inputFilePath);
   const imageTrackingString = "write image " + inputFile;
   console.time(imageTrackingString);
   return new Promise((resolve, reject) => {
@@ -499,32 +328,33 @@ var ImagePlugin = class {
     this.extensions = [".png", ".jpg", ".jpeg"];
   }
   url(file, site) {
+    var _a;
     let relativeDir;
-    if (file.configuration?.dir) {
-      const resolvedDir = import_upath.default.resolve(site.contentDirectory, file.configuration.dir);
-      relativeDir = import_upath.default.relative(site.contentDirectory, resolvedDir);
+    if ((_a = file.configuration) == null ? void 0 : _a.dir) {
+      const resolvedDir = path2.resolve(site.contentDirectory, file.configuration.dir);
+      relativeDir = path2.relative(site.contentDirectory, resolvedDir);
     } else {
-      relativeDir = import_upath.default.relative(site.contentDirectory, file.sourceDir);
+      relativeDir = path2.relative(site.contentDirectory, file.sourceDir);
     }
-    const urlPiece = relativeDir + import_upath.default.sep + file.name;
+    const urlPiece = relativeDir + path2.sep + file.name;
     return urlPiece + file.ext;
   }
   build(opts, dryRun) {
     const cache = opts.site.cacheDirectory;
-    const cacheFilePath = import_upath.default.resolve(cache, opts.url);
-    const targetPath = import_upath.default.resolve(opts.site.buildDirectory, opts.url);
-    if (import_fs2.default.existsSync(cacheFilePath)) {
-      const cacheUpdatedTime = import_fs2.default.statSync(cacheFilePath).mtime;
+    const cacheFilePath = path2.resolve(cache, opts.url);
+    const targetPath = path2.resolve(opts.site.buildDirectory, opts.url);
+    if (fs2.existsSync(cacheFilePath)) {
+      const cacheUpdatedTime = fs2.statSync(cacheFilePath).mtime;
       if ((0, import_dayjs.default)(opts.file.updated).isBefore(cacheUpdatedTime)) {
         if (dryRun) {
           console.log(`retrieving ${opts.file.name} from the cache at ${cacheFilePath}`);
           return true;
         }
-        if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
-          if (!import_fs2.default.existsSync(import_upath.default.dirname(targetPath))) {
-            import_fs2.default.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+        if (path2.resolve(cacheFilePath) !== path2.resolve(targetPath)) {
+          if (!fs2.existsSync(path2.dirname(targetPath))) {
+            fs2.mkdirSync(path2.dirname(targetPath), { recursive: true });
           }
-          import_fs2.default.copyFileSync(cacheFilePath, targetPath);
+          fs2.copyFileSync(cacheFilePath, targetPath);
         }
         return true;
       }
@@ -534,15 +364,16 @@ var ImagePlugin = class {
         console.log(`building ${opts.file.name} at ${targetPath}`);
         return true;
       }
-      if (import_upath.default.resolve(cacheFilePath) !== import_upath.default.resolve(targetPath)) {
-        if (!import_fs2.default.existsSync(import_upath.default.dirname(targetPath))) {
-          import_fs2.default.mkdirSync(import_upath.default.dirname(targetPath), { recursive: true });
+      if (path2.resolve(cacheFilePath) !== path2.resolve(targetPath)) {
+        if (!fs2.existsSync(path2.dirname(targetPath))) {
+          fs2.mkdirSync(path2.dirname(targetPath), { recursive: true });
         }
-        import_fs2.default.copyFileSync(cacheFilePath, targetPath);
+        fs2.copyFileSync(cacheFilePath, targetPath);
       }
     });
     return true;
   }
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
+export {
+  ImagePlugin as default
+};

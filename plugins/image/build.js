@@ -1,20 +1,25 @@
-const esbuild = require('esbuild')
+import esbuild from "esbuild"
+import npmDTS from 'npm-dts';
+const { Generator } = npmDTS;
 
-esbuild
-	.build({
-		entryPoints: ['src/index.ts'],
-		bundle: true,
-		platform: 'node',
-		outfile: 'dist/wanderer-image.js',
-	})
-	.catch(() => process.exit(1))
 
-esbuild
-	.build({
-		entryPoints: ['src/index.ts'],
+const build = async () => {
+	new Generator({
+		// relative to tsconfig rootdir
+		entry: 'index.ts',
+		output: 'dist/index.d.ts',
+		logLevel: 'debug',
+		force: true,
+	}, true).generate()
+	await esbuild.build({
+		entryPoints: ["src/index.ts"],
 		bundle: true,
-		format: 'esm',
-		platform: 'node',
-		outfile: 'dist/wanderer-image.module.mjs',
+		target: "es6",
+		format: "esm",
+		platform: "node",
+		outfile: "dist/wanderer-image.js",
 	})
-	.catch(() => process.exit(1))
+}
+
+build()
+
