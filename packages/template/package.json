@@ -1,6 +1,6 @@
 {
   "name": "@a-morphous/wanderer-template",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.mjs",
   "module": "index.mjs",

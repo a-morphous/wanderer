@@ -1,3 +1,7 @@
+# v1.0.3
+
+- Fix bug where a key was not defined.
+
 # v1.0.2
 
 - micromark -> marked (zero dependencies)

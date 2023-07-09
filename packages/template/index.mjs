@@ -1,5 +1,5 @@
 import fs from 'fs'
-import path from 'upath'
+import path from 'path'
 import dayjs from 'dayjs'
 import { marked } from 'marked'
 
@@ -18,7 +18,7 @@ export const render = (template, config, layer) => {
 	const o = { ...config }
 	const premadePartials = { ...config._partials } || {}
 
-	for (key of Object.keys(premadePartials)) {
+	for (let key of Object.keys(premadePartials)) {
 		const possiblePath = premadePartials[key]
 		if (possiblePath.endsWith('.html')) {
 			const partialPath = path.resolve(baseDir, possiblePath)
