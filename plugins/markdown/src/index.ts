@@ -99,9 +99,14 @@ export default class MarkdownPlugin implements BasePlugin {
 			}
 			const newURL = opts.allURLs[file.id]
 			// make all links absolute; this is easier to debug.
-			const newLink =  '/' + newURL
+			let newLink =  '/' + newURL
 			// uncomment if you really want relative links.
 			// const newLink = getRelativeURL(opts.site, opts.url, newURL)
+
+			// pretty urls by removing an ending index.html
+			if (newLink.endsWith('index.html')) {
+				newLink = newLink.slice(0, newLink.length - `index.html`.length)
+			}
 
 			if (link !== newLink) {
 				text = text.replace(link, newLink)

@@ -2598,7 +2598,7 @@ ${part}`;
 // src/utils/extract-links.ts
 var extractLinks = (markdownText) => {
   var _a;
-  const regexLinks = new RegExp("\\[(?<text>[^\\[]*)\\](\\((?<link>.*)\\))", "gm");
+  const regexLinks = new RegExp("\\[(?<text>[^\\[]*)\\](\\((?<link>.*?)\\))", "gm");
   const matches = markdownText.matchAll(regexLinks);
   const links = [];
   if (!matches) {
@@ -2731,7 +2731,10 @@ var MarkdownPlugin = class {
         continue;
       }
       const newURL = opts.allURLs[file2.id];
-      const newLink = "/" + newURL;
+      let newLink = "/" + newURL;
+      if (newLink.endsWith("index.html")) {
+        newLink = newLink.slice(0, newLink.length - `index.html`.length);
+      }
       if (link !== newLink) {
         text = text.replace(link, newLink);
       }
