@@ -1,15 +1,42 @@
+
+import { fileURLToPath } from 'url';
+import { createRequire as topLevelCreateRequire } from 'module';
+const require = topLevelCreateRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+			
 var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined")
+    return require.apply(this, arguments);
+  throw new Error('Dynamic require of "' + x + '" is not supported');
+});
+var __commonJS = (cb, mod) => function __require2() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -19,182 +46,43 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// ../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js
-var require_upath = __commonJS({
-  "../node_modules/.pnpm/upath@1.2.0/node_modules/upath/build/code/upath.js"(exports2) {
-    var VERSION = "1.2.0";
-    var extraFn;
-    var extraFunctions;
-    var isFunction;
-    var isString;
-    var isValidExt;
-    var name;
-    var path7;
-    var propName;
-    var propValue;
-    var toUnix;
-    var upath;
-    var slice = [].slice;
-    var indexOf = [].indexOf || function(item) {
-      for (var i = 0, l = this.length; i < l; i++) {
-        if (i in this && this[i] === item)
-          return i;
-      }
-      return -1;
-    };
-    var hasProp = {}.hasOwnProperty;
-    path7 = require("path");
-    isFunction = function(val) {
-      return val instanceof Function;
-    };
-    isString = function(val) {
-      return typeof val === "string" || !!val && typeof val === "object" && Object.prototype.toString.call(val) === "[object String]";
-    };
-    upath = exports2;
-    upath.VERSION = typeof VERSION !== "undefined" && VERSION !== null ? VERSION : "NO-VERSION";
-    toUnix = function(p) {
-      var double;
-      p = p.replace(/\\/g, "/");
-      double = /\/\//;
-      while (p.match(double)) {
-        p = p.replace(double, "/");
-      }
-      return p;
-    };
-    for (propName in path7) {
-      propValue = path7[propName];
-      if (isFunction(propValue)) {
-        upath[propName] = function(propName2) {
-          return function() {
-            var args, result;
-            args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-            args = args.map(function(p) {
-              if (isString(p)) {
-                return toUnix(p);
-              } else {
-                return p;
-              }
-            });
-            result = path7[propName2].apply(path7, args);
-            if (isString(result)) {
-              return toUnix(result);
-            } else {
-              return result;
-            }
-          };
-        }(propName);
-      } else {
-        upath[propName] = propValue;
-      }
-    }
-    upath.sep = "/";
-    extraFunctions = {
-      toUnix,
-      normalizeSafe: function(p) {
-        p = toUnix(p);
-        if (p.startsWith("./")) {
-          if (p.startsWith("./..") || p === "./") {
-            return upath.normalize(p);
-          } else {
-            return "./" + upath.normalize(p);
-          }
-        } else {
-          return upath.normalize(p);
-        }
-      },
-      normalizeTrim: function(p) {
-        p = upath.normalizeSafe(p);
-        if (p.endsWith("/")) {
-          return p.slice(0, +(p.length - 2) + 1 || 9e9);
-        } else {
-          return p;
-        }
-      },
-      joinSafe: function() {
-        var p, result;
-        p = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-        result = upath.join.apply(null, p);
-        if (p[0].startsWith("./") && !result.startsWith("./")) {
-          result = "./" + result;
-        }
-        return result;
-      },
-      addExt: function(file, ext) {
-        if (!ext) {
-          return file;
-        } else {
-          if (ext[0] !== ".") {
-            ext = "." + ext;
-          }
-          return file + (file.endsWith(ext) ? "" : ext);
-        }
-      },
-      trimExt: function(filename, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename.slice(0, +(filename.length - oldExt.length - 1) + 1 || 9e9);
-        } else {
-          return filename;
-        }
-      },
-      removeExt: function(filename, ext) {
-        if (!ext) {
-          return filename;
-        } else {
-          ext = ext[0] === "." ? ext : "." + ext;
-          if (upath.extname(filename) === ext) {
-            return upath.trimExt(filename);
-          } else {
-            return filename;
-          }
-        }
-      },
-      changeExt: function(filename, ext, ignoreExts, maxSize) {
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        return upath.trimExt(filename, ignoreExts, maxSize) + (!ext ? "" : ext[0] === "." ? ext : "." + ext);
-      },
-      defaultExt: function(filename, ext, ignoreExts, maxSize) {
-        var oldExt;
-        if (maxSize == null) {
-          maxSize = 7;
-        }
-        oldExt = upath.extname(filename);
-        if (isValidExt(oldExt, ignoreExts, maxSize)) {
-          return filename;
-        } else {
-          return upath.addExt(filename, ext);
-        }
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
       }
     };
-    isValidExt = function(ext, ignoreExts, maxSize) {
-      if (ignoreExts == null) {
-        ignoreExts = [];
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
       }
-      return ext && ext.length <= maxSize && indexOf.call(ignoreExts.map(function(e) {
-        return (e && e[0] !== "." ? "." : "") + e;
-      }), ext) < 0;
     };
-    for (name in extraFunctions) {
-      if (!hasProp.call(extraFunctions, name))
-        continue;
-      extraFn = extraFunctions[name];
-      if (upath[name] !== void 0) {
-        throw new Error("path." + name + " already exists.");
-      } else {
-        upath[name] = extraFn;
-      }
-    }
-  }
-});
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+var __forAwait = (obj, it, method) => {
+  it = obj[Symbol.asyncIterator];
+  method = (key, fn) => (fn = obj[key]) && (it[key] = (arg) => new Promise((resolve, reject, done) => {
+    arg = fn.call(obj, arg);
+    done = arg.done;
+    return Promise.resolve(arg.value).then((value) => resolve({ value, done }), reject);
+  }));
+  return it ? it.call(obj) : (obj = obj[Symbol.iterator](), it = {}, method("next"), method("return"), it);
+};
 
 // ../node_modules/.pnpm/@iarna+toml@2.2.5/node_modules/@iarna/toml/lib/parser.js
 var require_parser = __commonJS({
@@ -202,6 +90,7 @@ var require_parser = __commonJS({
     "use strict";
     var ParserEND = 1114112;
     var ParserError = class extends Error {
+      /* istanbul ignore next */
       constructor(msg, filename, linenumber) {
         super("[ParserError] " + msg, filename, linenumber);
         this.name = "ParserError";
@@ -316,6 +205,7 @@ var require_parser = __commonJS({
         err.pos = this.pos;
         return err;
       }
+      /* istanbul ignore next */
       parseStart() {
         throw new ParserError("Must declare a parseStart method");
       }
@@ -611,9 +501,11 @@ var require_toml_parser = __commonJS({
       isNaN() {
         return this.value === null;
       }
+      /* istanbul ignore next */
       toString() {
         return String(this.value);
       }
+      /* istanbul ignore next */
       [_inspect]() {
         return `[BigInt: ${this.toString()}]}`;
       }
@@ -687,6 +579,7 @@ var require_toml_parser = __commonJS({
           super();
           this.ctx = this.obj = Table();
         }
+        /* MATCH HELPER */
         atEndOfWord() {
           return this.char === CHAR_NUM || this.char === CTRL_I || this.char === CHAR_SP || this.atEndOfLine();
         }
@@ -708,6 +601,8 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError(`Unknown character "${this.char}"`));
           }
         }
+        // HELPER, this strips any whitespace and comments to the end of the line
+        // then RETURNS. Last state in a production.
         parseWhitespaceToEOL() {
           if (this.char === CHAR_SP || this.char === CTRL_I || this.char === CTRL_M) {
             return null;
@@ -719,6 +614,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Unexpected character, expected only whitespace or comments till end of line"));
           }
         }
+        /* ASSIGNMENT: key = value */
         parseAssignStatement() {
           return this.callNow(this.parseAssign, this.recordAssignStatement);
         }
@@ -741,6 +637,7 @@ var require_toml_parser = __commonJS({
           }
           return this.goto(this.parseWhitespaceToEOL);
         }
+        /* ASSSIGNMENT expression, key = value possibly inside an inline table */
         parseAssign() {
           return this.callNow(this.parseKeyword, this.recordAssignKeyword);
         }
@@ -781,6 +678,7 @@ var require_toml_parser = __commonJS({
         recordAssignValue(value) {
           return this.returnNow({ key: this.state.resultTable, value });
         }
+        /* COMMENTS: #...eol */
         parseComment() {
           do {
             if (this.char === Parser.END || this.char === CTRL_J) {
@@ -788,6 +686,7 @@ var require_toml_parser = __commonJS({
             }
           } while (this.nextChar());
         }
+        /* TABLES AND LISTS, [foo] and [[foo]] */
         parseTableOrList() {
           if (this.char === CHAR_LSQB) {
             this.next(this.parseList);
@@ -795,6 +694,7 @@ var require_toml_parser = __commonJS({
             return this.goto(this.parseTable);
           }
         }
+        /* TABLE [foo.bar.baz] */
         parseTable() {
           this.ctx = this.obj;
           return this.goto(this.parseTableNext);
@@ -832,6 +732,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Unexpected character, expected whitespace, . or ]"));
           }
         }
+        /* LIST [[a.b.c]] */
         parseList() {
           this.ctx = this.obj;
           return this.goto(this.parseListNext);
@@ -886,6 +787,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Unexpected character, expected whitespace, . or ]"));
           }
         }
+        /* VALUE string, number, boolean, inline list, inline object */
         parseValue() {
           if (this.char === Parser.END) {
             throw this.error(new TomlError("Key without value"));
@@ -947,6 +849,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError('Unexpected character, expected "nan"'));
           }
         }
+        /* KEYS, barewords or basic, literal, or dotted */
         parseKeyword() {
           if (this.char === CHAR_QUOT) {
             return this.next(this.parseBasicString);
@@ -956,6 +859,7 @@ var require_toml_parser = __commonJS({
             return this.goto(this.parseBareKey);
           }
         }
+        /* KEYS: barewords */
         parseBareKey() {
           do {
             if (this.char === Parser.END) {
@@ -969,6 +873,7 @@ var require_toml_parser = __commonJS({
             }
           } while (this.nextChar());
         }
+        /* STRINGS, single quoted (literal) */
         parseSingleString() {
           if (this.char === CHAR_APOS) {
             return this.next(this.parseLiteralMultiStringMaybe);
@@ -1034,6 +939,7 @@ var require_toml_parser = __commonJS({
             return this.goto(this.parseLiteralMultiStringContent);
           }
         }
+        /* STRINGS double quoted */
         parseDoubleString() {
           if (this.char === CHAR_QUOT) {
             return this.next(this.parseMultiStringMaybe);
@@ -1184,6 +1090,7 @@ var require_toml_parser = __commonJS({
               return this.return();
           }
         }
+        /* NUMBERS */
         parseNumberSign() {
           this.consume();
           return this.next(this.parseMaybeSignedInfOrNan);
@@ -1283,6 +1190,7 @@ var require_toml_parser = __commonJS({
             return this.returnNow(Float(this.state.buf));
           }
         }
+        /* NUMBERS or DATETIMES  */
         parseNumberOrDateTime() {
           if (this.char === CHAR_0) {
             this.consume();
@@ -1389,6 +1297,7 @@ var require_toml_parser = __commonJS({
             }
           }
         }
+        /* DATETIME */
         parseDateTime() {
           if (this.state.buf.length < 4) {
             throw this.error(new TomlError("Years less than 1000 must be zero padded to four characters"));
@@ -1583,6 +1492,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Unexpected character in datetime, expected digit"));
           }
         }
+        /* BOOLEAN */
         parseBoolean() {
           if (this.char === CHAR_t) {
             this.consume();
@@ -1646,6 +1556,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Invalid boolean, expected true or false"));
           }
         }
+        /* INLINE LISTS */
         parseInlineList() {
           if (this.char === CHAR_SP || this.char === CTRL_I || this.char === CTRL_M || this.char === CTRL_J) {
             return null;
@@ -1689,6 +1600,7 @@ var require_toml_parser = __commonJS({
             throw this.error(new TomlError("Invalid character, expected whitespace, comma (,) or close bracket (])"));
           }
         }
+        /* INLINE TABLE */
         parseInlineTable() {
           if (this.char === CHAR_SP || this.char === CTRL_I) {
             return null;
@@ -1841,7 +1753,7 @@ var require_parse_stream = __commonJS({
   "../node_modules/.pnpm/@iarna+toml@2.2.5/node_modules/@iarna/toml/parse-stream.js"(exports2, module2) {
     "use strict";
     module2.exports = parseStream;
-    var stream = require("stream");
+    var stream = __require("stream");
     var TOMLParser = require_toml_parser();
     function parseStream(stm) {
       if (stm) {
@@ -2239,7 +2151,7 @@ var require_jsonata = __commonJS({
           function o(i2, f) {
             if (!n[i2]) {
               if (!e[i2]) {
-                var c = "function" == typeof require && require;
+                var c = "function" == typeof __require && __require;
                 if (!f && c)
                   return c(i2, true);
                 if (u)
@@ -2255,7 +2167,7 @@ var require_jsonata = __commonJS({
             }
             return n[i2].exports;
           }
-          for (var u = "function" == typeof require && require, i = 0; i < t.length; i++)
+          for (var u = "function" == typeof __require && __require, i = 0; i < t.length; i++)
             o(t[i]);
           return o;
         }
@@ -2717,6 +2629,7 @@ var require_jsonata = __commonJS({
                 var def = {
                   type: "marker",
                   component: marker.charAt(0)
+                  // 1. The component specifier is always present and is always a single letter.
                 };
                 var comma = marker.lastIndexOf(",");
                 var presMod;
@@ -3690,7 +3603,10 @@ var require_jsonata = __commonJS({
                 if (typeof str === "undefined") {
                   return void 0;
                 }
-                var btoa = typeof window !== "undefined" ? window.btoa : function(str2) {
+                var btoa = typeof window !== "undefined" ? (
+                  /* istanbul ignore next */
+                  window.btoa
+                ) : function(str2) {
                   return new global2.Buffer.from(str2, "binary").toString("base64");
                 };
                 return btoa(str);
@@ -3699,7 +3615,10 @@ var require_jsonata = __commonJS({
                 if (typeof str === "undefined") {
                   return void 0;
                 }
-                var atob = typeof window !== "undefined" ? window.atob : function(str2) {
+                var atob = typeof window !== "undefined" ? (
+                  /* istanbul ignore next */
+                  window.atob
+                ) : function(str2) {
                   return new global2.Buffer.from(str2, "base64").toString("binary");
                 };
                 return atob(str);
@@ -6162,6 +6081,7 @@ var require_jsonata = __commonJS({
             "T2003": "The left side of the range operator (..) must evaluate to an integer",
             "T2004": "The right side of the range operator (..) must evaluate to an integer",
             "D2005": "The left side of := must be a variable name (start with $)",
+            // defunct - replaced by S0212 parser error
             "T2006": "The right side of the function application operator ~> must be a function",
             "T2007": "Type mismatch when comparing values {{value}} and {{value2}} in order-by clause",
             "T2008": "The expressions within an order-by clause must evaluate to numeric or string values",
@@ -6237,7 +6157,7 @@ var require_jsonata = __commonJS({
               throw err;
             }
             var environment = createFrame(staticFrame);
-            var timestamp = new Date();
+            var timestamp = /* @__PURE__ */ new Date();
             environment.bind("now", defineFunction(function(picture, timezone) {
               return datetime.fromMillis(timestamp.getTime(), picture, timezone);
             }, "<s?s?:s>"));
@@ -6269,7 +6189,7 @@ var require_jsonata = __commonJS({
                   exec_env = environment;
                 }
                 exec_env.bind("$", input);
-                timestamp = new Date();
+                timestamp = /* @__PURE__ */ new Date();
                 exec_env.timestamp = timestamp;
                 if (Array.isArray(input) && !isSequence(input)) {
                   input = createSequence(input);
@@ -6366,9 +6286,12 @@ var require_jsonata = __commonJS({
             "in": 40,
             "&": 50,
             "!": 0,
+            // not an operator, but needed as a stop character for name tokens
             "~": 0
+            // not an operator, but needed as a stop character for name tokens
           };
           var escapes2 = {
+            // JSON string escape sequences - see json.org
             '"': '"',
             "\\": "\\",
             "/": "/",
@@ -7902,39 +7825,51 @@ var require_jsonata = __commonJS({
   }
 });
 
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-  CONFIG_RECURSION_LEVEL: () => CONFIG_RECURSION_LEVEL,
-  FileCache: () => FileCache,
-  FileDB: () => FileDB,
-  QUERY_BOOLEAN_OPERATORS: () => QUERY_BOOLEAN_OPERATORS,
-  QUERY_MODIFIER_OPERATIONS: () => QUERY_MODIFIER_OPERATIONS,
-  Site: () => Site,
-  wanderer: () => wanderer
-});
-module.exports = __toCommonJS(src_exports);
-var url = __toESM(require("url"));
+// src/types.ts
+var CONFIG_RECURSION_LEVEL = /* @__PURE__ */ ((CONFIG_RECURSION_LEVEL2) => {
+  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["NONE"] = 0] = "NONE";
+  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["IMMEDIATE_PARENT"] = 1] = "IMMEDIATE_PARENT";
+  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["ALL"] = 2] = "ALL";
+  return CONFIG_RECURSION_LEVEL2;
+})(CONFIG_RECURSION_LEVEL || {});
+var QUERY_BOOLEAN_OPERATORS = /* @__PURE__ */ ((QUERY_BOOLEAN_OPERATORS2) => {
+  QUERY_BOOLEAN_OPERATORS2["AND"] = "AND";
+  QUERY_BOOLEAN_OPERATORS2["OR"] = "OR";
+  QUERY_BOOLEAN_OPERATORS2["NOT"] = "NOT";
+  return QUERY_BOOLEAN_OPERATORS2;
+})(QUERY_BOOLEAN_OPERATORS || {});
+var QUERY_MODIFIER_OPERATIONS = /* @__PURE__ */ ((QUERY_MODIFIER_OPERATIONS2) => {
+  QUERY_MODIFIER_OPERATIONS2["EQUALS"] = "=";
+  QUERY_MODIFIER_OPERATIONS2["NOT"] = "!=";
+  QUERY_MODIFIER_OPERATIONS2["GREATERTHAN"] = ">";
+  QUERY_MODIFIER_OPERATIONS2["GE"] = ">=";
+  QUERY_MODIFIER_OPERATIONS2["LESSTHAN"] = "<";
+  QUERY_MODIFIER_OPERATIONS2["LE"] = "<=";
+  QUERY_MODIFIER_OPERATIONS2["IN"] = "IN";
+  QUERY_MODIFIER_OPERATIONS2["EXISTS"] = "EXISTS";
+  QUERY_MODIFIER_OPERATIONS2["CONTAINS"] = "CONTAINS";
+  return QUERY_MODIFIER_OPERATIONS2;
+})(QUERY_MODIFIER_OPERATIONS || {});
 
 // src/objects/site.ts
-var import_upath4 = __toESM(require_upath());
-var import_fs4 = __toESM(require("fs"));
+import path5 from "path";
+import fs4 from "fs";
 
 // src/objects/pages.ts
-var import_upath3 = __toESM(require_upath());
-var import_fs3 = __toESM(require("fs"));
+import path4 from "path";
+import fs3 from "fs";
 
 // src/lib/recursive-readdir.ts
-var import_fs = __toESM(require("fs"));
-var import_path = __toESM(require("path"));
+import fs from "fs";
+import path from "path";
 var _readdirSyncRecursive = function(dirPath, _originalDirPath, arrayOfFiles = []) {
-  const files = import_fs.default.readdirSync(dirPath);
+  const files = fs.readdirSync(dirPath);
   const originalDirPath = _originalDirPath || dirPath;
   files.forEach(function(file) {
-    if (import_fs.default.statSync(import_path.default.join(dirPath, file)).isDirectory()) {
-      arrayOfFiles = _readdirSyncRecursive(import_path.default.join(dirPath, file), originalDirPath, arrayOfFiles);
+    if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
+      arrayOfFiles = _readdirSyncRecursive(path.join(dirPath, file), originalDirPath, arrayOfFiles);
     } else {
-      arrayOfFiles.push(import_path.default.normalize(import_path.default.relative(originalDirPath, import_path.default.join(dirPath, file))));
+      arrayOfFiles.push(path.normalize(path.relative(originalDirPath, path.join(dirPath, file))));
     }
   });
   return arrayOfFiles;
@@ -7944,7 +7879,7 @@ var readdirSyncRecursive = function(sourceDirectory) {
 };
 
 // ../node_modules/.pnpm/istextorbinary@6.0.0/node_modules/istextorbinary/edition-es2019-esm/index.js
-var pathUtil = __toESM(require("path"), 1);
+import * as pathUtil from "path";
 
 // ../node_modules/.pnpm/textextensions@5.15.0/node_modules/textextensions/edition-es5-esm/index.js
 var list = [
@@ -8395,58 +8330,70 @@ function isLaterByteOfUtf8(byte) {
 }
 
 // src/objects/pages.ts
-var toml2 = __toESM(require_toml());
+var toml2 = __toESM(require_toml(), 1);
 
 // src/lib/frontmatter/index.ts
-var import_toml = __toESM(require_toml());
-var import_fs2 = __toESM(require("fs"));
-var import_upath = __toESM(require_upath());
-var import_readline = __toESM(require("readline"));
-var streamFrontmatter = async (filename) => {
+var toml = __toESM(require_toml(), 1);
+import fs2 from "fs";
+import path2 from "path";
+import readline from "readline";
+var streamFrontmatter = (filename) => __async(void 0, null, function* () {
   let startToken = "";
-  const fileStream = import_fs2.default.createReadStream(import_upath.default.resolve(filename));
-  const rl = import_readline.default.createInterface({
+  const fileStream = fs2.createReadStream(path2.resolve(filename));
+  const rl = readline.createInterface({
     input: fileStream,
     terminal: false
   });
   let frontmatterString = "";
-  for await (const line of rl) {
-    const trimmedLine = line.trim();
-    if (trimmedLine === "") {
-      continue;
-    }
-    if (startToken === "") {
-      if (trimmedLine === "---") {
-        startToken = "---";
+  try {
+    for (var iter = __forAwait(rl), more, temp, error; more = !(temp = yield iter.next()).done; more = false) {
+      const line = temp.value;
+      const trimmedLine = line.trim();
+      if (trimmedLine === "") {
         continue;
-      } else if (trimmedLine === "+++") {
-        startToken = "+++";
-        continue;
-      } else {
-        return {};
       }
-    }
-    if (trimmedLine === startToken) {
-      try {
-        const frontmatter = import_toml.default.parse(frontmatterString);
-        return frontmatter;
-      } catch (e) {
-        console.log(e);
-        return {};
+      if (startToken === "") {
+        if (trimmedLine === "---") {
+          startToken = "---";
+          continue;
+        } else if (trimmedLine === "+++") {
+          startToken = "+++";
+          continue;
+        } else {
+          return {};
+        }
       }
+      if (trimmedLine === startToken) {
+        try {
+          const frontmatter = toml.parse(frontmatterString);
+          return frontmatter;
+        } catch (e) {
+          console.log(e);
+          return {};
+        }
+      }
+      frontmatterString += line + "\n";
     }
-    frontmatterString += line + "\n";
+  } catch (temp) {
+    error = [temp];
+  } finally {
+    try {
+      more && (temp = iter.return) && (yield temp.call(iter));
+    } finally {
+      if (error)
+        throw error[0];
+    }
   }
   try {
-    const frontmatter = import_toml.default.parse(frontmatterString);
+    const frontmatter = toml.parse(frontmatterString);
     return frontmatter;
   } catch (e) {
     console.log(e);
     return {};
   }
-};
+});
 var getTextAfterFrontmatter = (filename) => {
-  const text = import_fs2.default.readFileSync(import_upath.default.resolve(filename), "utf-8");
+  const text = fs2.readFileSync(path2.resolve(filename), "utf-8");
   let startToken = "";
   if (text.startsWith("---")) {
     startToken = "---";
@@ -8496,8 +8443,8 @@ var tempo = (filename) => {
 };
 
 // src/objects/db.ts
-var import_jsonata = __toESM(require_jsonata());
-var import_upath2 = __toESM(require_upath());
+var import_jsonata = __toESM(require_jsonata(), 1);
+import path3 from "path";
 
 // src/lib/log.ts
 var LOG_LABELS = ["DEBUG", "INFO", "WARN", "ERROR"];
@@ -8517,24 +8464,6 @@ var LoggerClass = class {
 var Logger = new LoggerClass();
 
 // src/objects/db.ts
-var QUERY_BOOLEAN_OPERATORS = /* @__PURE__ */ ((QUERY_BOOLEAN_OPERATORS2) => {
-  QUERY_BOOLEAN_OPERATORS2["AND"] = "AND";
-  QUERY_BOOLEAN_OPERATORS2["OR"] = "OR";
-  QUERY_BOOLEAN_OPERATORS2["NOT"] = "NOT";
-  return QUERY_BOOLEAN_OPERATORS2;
-})(QUERY_BOOLEAN_OPERATORS || {});
-var QUERY_MODIFIER_OPERATIONS = /* @__PURE__ */ ((QUERY_MODIFIER_OPERATIONS2) => {
-  QUERY_MODIFIER_OPERATIONS2["EQUALS"] = "=";
-  QUERY_MODIFIER_OPERATIONS2["NOT"] = "!=";
-  QUERY_MODIFIER_OPERATIONS2["GREATERTHAN"] = ">";
-  QUERY_MODIFIER_OPERATIONS2["GE"] = ">=";
-  QUERY_MODIFIER_OPERATIONS2["LESSTHAN"] = "<";
-  QUERY_MODIFIER_OPERATIONS2["LE"] = "<=";
-  QUERY_MODIFIER_OPERATIONS2["IN"] = "IN";
-  QUERY_MODIFIER_OPERATIONS2["EXISTS"] = "EXISTS";
-  QUERY_MODIFIER_OPERATIONS2["CONTAINS"] = "CONTAINS";
-  return QUERY_MODIFIER_OPERATIONS2;
-})(QUERY_MODIFIER_OPERATIONS || {});
 var FileDB = class {
   constructor(files) {
     this.files = files;
@@ -8607,7 +8536,7 @@ var FileDB = class {
     } else {
       return [];
     }
-    queryResult = queryResult ?? [];
+    queryResult = queryResult != null ? queryResult : [];
     if (!Array.isArray(queryResult)) {
       queryResult = [queryResult];
     }
@@ -8627,7 +8556,14 @@ var FileDB = class {
     }
     return queryResult;
   }
+  /**
+   * Helper function to query tags in files, where tags are defined in the file's configuration
+   * as an array of strings, representing the tags.
+   * @param query
+   * @returns
+   */
   queryTags(query) {
+    var _a;
     const regularQuery = {
       predicates: [],
       sortBy: query.sortBy,
@@ -8641,18 +8577,26 @@ var FileDB = class {
         operator: tagQuery.operator,
         modifier: "IN" /* IN */
       };
-      regularQuery.predicates?.push(predicate);
+      (_a = regularQuery.predicates) == null ? void 0 : _a.push(predicate);
     }
     return this.query(regularQuery);
   }
+  /**
+   * Helper function to query for files that are in the same directory as one provided
+   * @param directory
+   * @param opts
+   * @param alsoMatchSubdirectories
+   * @returns
+   */
   queryDirectory(directory, opts = {}, alsoMatchSubdirectories) {
+    var _a;
     const predicate = {
       key: "sourceDir",
-      value: import_upath2.default.resolve(directory),
+      value: path3.resolve(directory.toString()),
       modifier: alsoMatchSubdirectories ? "CONTAINS" /* CONTAINS */ : "=" /* EQUALS */
     };
     return this.query({
-      predicates: [predicate, ...opts.predicates ?? []],
+      predicates: [predicate, ...(_a = opts.predicates) != null ? _a : []],
       limit: opts.limit,
       isAscending: opts.isAscending,
       sortBy: opts.sortBy
@@ -8664,129 +8608,130 @@ var FileDB = class {
 };
 
 // src/objects/pages.ts
-var CONFIG_RECURSION_LEVEL = /* @__PURE__ */ ((CONFIG_RECURSION_LEVEL2) => {
-  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["NONE"] = 0] = "NONE";
-  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["IMMEDIATE_PARENT"] = 1] = "IMMEDIATE_PARENT";
-  CONFIG_RECURSION_LEVEL2[CONFIG_RECURSION_LEVEL2["ALL"] = 2] = "ALL";
-  return CONFIG_RECURSION_LEVEL2;
-})(CONFIG_RECURSION_LEVEL || {});
 var FileCache = class {
   constructor(siteInfo) {
+    // these are stored in the format { fileId: FileInfo }
     this.files = {};
+    // stored in the format { relative/path/to/directory: config }
     this.nestedConfiguration = {};
     this.siteInfo = siteInfo;
   }
-  async generate() {
-    await this.generateConfig();
-    await this.generateFiles();
-    this._db = new FileDB(this.allFiles);
+  // GENERATION
+  ////////////////
+  generate() {
+    return __async(this, null, function* () {
+      yield this.generateConfig();
+      yield this.generateFiles();
+      this._db = new FileDB(this.allFiles);
+    });
   }
-  async generateConfig() {
-    this.nestedConfiguration = {};
-    const allFiles = readdirSyncRecursive(this.siteInfo.contentDirectory);
-    for (let file of allFiles) {
-      const fullPath = import_upath3.default.resolve(this.siteInfo.contentDirectory, file);
-      const dir = import_upath3.default.dirname(file);
-      const ext = import_upath3.default.extname(file).toLocaleLowerCase();
-      const name = import_upath3.default.basename(file, import_upath3.default.extname(file));
-      let isFrontmatter = false;
-      let config;
-      if (ext.toLocaleLowerCase() !== ".toml") {
-        config = await streamFrontmatter(fullPath);
-        isFrontmatter = true;
-      } else {
-        const contents = import_fs3.default.readFileSync(import_upath3.default.resolve(this.siteInfo.contentDirectory, file), "utf-8");
-        if (name === `_`) {
-          this.nestedConfiguration[dir] = toml2.parse(contents);
+  generateConfig() {
+    return __async(this, null, function* () {
+      this.nestedConfiguration = {};
+      const allFiles = readdirSyncRecursive(this.siteInfo.contentDirectory);
+      for (let file of allFiles) {
+        const fullPath = path4.resolve(this.siteInfo.contentDirectory, file);
+        const dir = path4.dirname(file);
+        const ext = path4.extname(file).toLocaleLowerCase();
+        const name = path4.basename(file, path4.extname(file));
+        let isFrontmatter = false;
+        let config;
+        if (ext.toLocaleLowerCase() !== ".toml") {
+          config = yield streamFrontmatter(fullPath);
+          isFrontmatter = true;
+        } else {
+          const contents = fs3.readFileSync(
+            path4.resolve(this.siteInfo.contentDirectory, file),
+            "utf-8"
+          );
+          if (name === `_`) {
+            this.nestedConfiguration[dir] = toml2.parse(contents);
+            continue;
+          }
+          config = toml2.parse(contents);
+        }
+        if (!this.nestedConfiguration[file]) {
+          this.nestedConfiguration[file] = config;
           continue;
         }
-        config = toml2.parse(contents);
+        if (isFrontmatter) {
+          this.nestedConfiguration[file] = __spreadValues(__spreadValues({}, this.nestedConfiguration[file]), config);
+        } else {
+          this.nestedConfiguration[file] = __spreadValues(__spreadValues({}, config), this.nestedConfiguration[file]);
+        }
       }
-      if (!this.nestedConfiguration[file]) {
-        this.nestedConfiguration[file] = config;
-        continue;
-      }
-      if (isFrontmatter) {
-        this.nestedConfiguration[file] = {
-          ...this.nestedConfiguration[file],
-          ...config
-        };
-      } else {
-        this.nestedConfiguration[file] = {
-          ...config,
-          ...this.nestedConfiguration[file]
-        };
-      }
-    }
-    Logger.log(0 /* DEBUG */, this.nestedConfiguration);
-    return this.nestedConfiguration;
+      Logger.log(0 /* DEBUG */, this.nestedConfiguration);
+      return this.nestedConfiguration;
+    });
   }
-  async generateFiles() {
-    const allFiles = readdirSyncRecursive(this.siteInfo.contentDirectory);
-    this.files = {};
-    for (let file of allFiles) {
-      const ext = import_upath3.default.extname(file).toLocaleLowerCase();
-      const rawname = import_upath3.default.basename(file, import_upath3.default.extname(file));
-      if (rawname.startsWith(".")) {
-        continue;
+  generateFiles() {
+    return __async(this, null, function* () {
+      var _a, _b, _c;
+      const allFiles = readdirSyncRecursive(this.siteInfo.contentDirectory);
+      this.files = {};
+      for (let file of allFiles) {
+        const ext = path4.extname(file).toLocaleLowerCase();
+        const rawname = path4.basename(file, path4.extname(file));
+        if (rawname.startsWith(".")) {
+          continue;
+        }
+        const tempoString = tempo(rawname);
+        const name = tempoString.name;
+        if (ext.toLocaleLowerCase() === ".toml") {
+          continue;
+        }
+        const sourcePath = path4.resolve(this.siteInfo.contentDirectory, file);
+        const stats = fs3.statSync(sourcePath);
+        if (stats.size === 0) {
+          continue;
+        }
+        const config = this.getConfigForFile(file, 2 /* ALL */);
+        if (config.private) {
+          continue;
+        }
+        const info = {
+          configuration: config,
+          id: file,
+          name,
+          ext,
+          sourcePath,
+          sourceDir: path4.dirname(sourcePath),
+          created: stats.birthtime,
+          updated: stats.mtime,
+          date: (_a = tempoString.date) != null ? _a : stats.mtime
+        };
+        if (isText(sourcePath, fs3.readFileSync(sourcePath))) {
+          const pageInfo = info;
+          pageInfo.text = getTextAfterFrontmatter(sourcePath);
+          pageInfo.title = (_c = (_b = config.title) != null ? _b : config.name) != null ? _c : name;
+          pageInfo.isPage = true;
+        }
+        this.files[file] = info;
       }
-      const tempoString = tempo(rawname);
-      const name = tempoString.name;
-      if (ext.toLocaleLowerCase() === ".toml") {
-        continue;
-      }
-      const sourcePath = import_upath3.default.resolve(this.siteInfo.contentDirectory, file);
-      const stats = import_fs3.default.statSync(sourcePath);
-      if (stats.size === 0) {
-        continue;
-      }
-      const config = this.getConfigForFile(file, 2 /* ALL */);
-      if (config.private) {
-        continue;
-      }
-      const info = {
-        configuration: config,
-        id: file,
-        name,
-        ext,
-        sourcePath,
-        sourceDir: import_upath3.default.dirname(sourcePath),
-        created: stats.birthtime,
-        updated: stats.mtime,
-        date: tempoString.date ?? stats.mtime
-      };
-      if (isText(sourcePath, import_fs3.default.readFileSync(sourcePath))) {
-        const pageInfo = info;
-        pageInfo.text = getTextAfterFrontmatter(sourcePath);
-        pageInfo.title = config.title ?? config.name ?? name;
-        pageInfo.isPage = true;
-      }
-      this.files[file] = info;
-    }
-    return this.files;
+      return this.files;
+    });
   }
+  // GETTERS
+  /////////////
+  // id of a file is always the path _relative_ to the content directory
+  // and is stored in the id field
   getConfigForFile(fileId, recursive = 2 /* ALL */) {
-    const parts = fileId.split(import_upath3.default.sep);
+    var _a, _b, _c, _d, _e, _f;
+    const parts = fileId.split(path4.sep);
     if (recursive === 0 /* NONE */) {
-      return this.nestedConfiguration[fileId] ?? {};
+      return (_a = this.nestedConfiguration[fileId]) != null ? _a : {};
     }
     if (recursive === 1 /* IMMEDIATE_PARENT */) {
       parts.pop();
       if (!parts.length) {
         if (this.nestedConfiguration["."]) {
           Logger.log(0 /* DEBUG */, "Has a main config!", this.nestedConfiguration["."]);
-          return {
-            ...this.nestedConfiguration["."],
-            ...this.nestedConfiguration[fileId] ?? {}
-          };
+          return __spreadValues(__spreadValues({}, this.nestedConfiguration["."]), (_b = this.nestedConfiguration[fileId]) != null ? _b : {});
         }
-        return this.nestedConfiguration[fileId] ?? {};
+        return (_c = this.nestedConfiguration[fileId]) != null ? _c : {};
       }
       Logger.log(0 /* DEBUG */, "Does this have a main config!", this.nestedConfiguration["."]);
-      return {
-        ...this.nestedConfiguration[parts[parts.length - 1]] ?? {},
-        ...this.nestedConfiguration[fileId] ?? {}
-      };
+      return __spreadValues(__spreadValues({}, (_d = this.nestedConfiguration[parts[parts.length - 1]]) != null ? _d : {}), (_e = this.nestedConfiguration[fileId]) != null ? _e : {});
     }
     if (recursive === 2 /* ALL */) {
       const config = {};
@@ -8795,8 +8740,8 @@ var FileCache = class {
         Object.assign(config, this.nestedConfiguration["."]);
       }
       for (let part of parts) {
-        currentPath = import_upath3.default.join(currentPath, part);
-        Object.assign(config, this.nestedConfiguration[currentPath] ?? {});
+        currentPath = path4.join(currentPath, part);
+        Object.assign(config, (_f = this.nestedConfiguration[currentPath]) != null ? _f : {});
       }
       Logger.log(0 /* DEBUG */, "full config", config);
       return config;
@@ -8818,7 +8763,7 @@ var FileCache = class {
       predicates: [
         {
           key: "sourcePath",
-          value: import_upath3.default.resolve(sourcePath),
+          value: path4.resolve(sourcePath),
           modifier: "=" /* EQUALS */
         }
       ]
@@ -8862,7 +8807,7 @@ var FileCache = class {
   }
   getFilesWithSimilarNames(file) {
     const name = file.name;
-    const sourceDir = import_upath3.default.dirname(file.sourcePath);
+    const sourceDir = path4.dirname(file.sourcePath);
     const files = this._db.query({
       predicates: [
         {
@@ -8884,7 +8829,7 @@ var FileCache = class {
         }
       ]
     });
-    return files ?? [];
+    return files != null ? files : [];
   }
 };
 
@@ -8897,13 +8842,12 @@ var slugify = (str) => {
 var Site = class {
   constructor(config) {
     this.plugins = [];
-    this.siteInfo = {
-      ...config,
-      contentDirectory: import_upath4.default.resolve(config.contentDirectory),
-      frameDirectory: import_upath4.default.resolve(config.frameDirectory),
-      cacheDirectory: import_upath4.default.resolve(config.cacheDirectory),
-      buildDirectory: import_upath4.default.resolve(config.buildDirectory)
-    };
+    this.siteInfo = __spreadProps(__spreadValues({}, config), {
+      contentDirectory: path5.resolve(config.contentDirectory),
+      frameDirectory: path5.resolve(config.frameDirectory),
+      cacheDirectory: path5.resolve(config.cacheDirectory),
+      buildDirectory: path5.resolve(config.buildDirectory)
+    });
     this.fileCache = new FileCache(this.siteInfo);
     this.usedExtensions = /* @__PURE__ */ new Set();
   }
@@ -8917,7 +8861,7 @@ var Site = class {
     return this.siteInfo.cacheDirectory;
   }
   get staticDir() {
-    return import_upath4.default.resolve(this.siteInfo.frameDirectory, "static");
+    return path5.resolve(this.siteInfo.frameDirectory, "static");
   }
   get buildDir() {
     return this.siteInfo.buildDirectory;
@@ -8928,102 +8872,100 @@ var Site = class {
   addPlugin(plugin) {
     this.plugins.push(plugin);
   }
-  async make() {
-    const staticFiles = readdirSyncRecursive(this.staticDir);
-    for (let file of staticFiles) {
-      const targetFile = import_upath4.default.resolve(this.buildDir, "static", file);
-      if (!import_fs4.default.existsSync(import_upath4.default.dirname(targetFile))) {
-        import_fs4.default.mkdirSync(import_upath4.default.dirname(targetFile), { recursive: true });
+  make() {
+    return __async(this, null, function* () {
+      var _a, _b;
+      const staticFiles = readdirSyncRecursive(this.staticDir);
+      for (let file of staticFiles) {
+        const targetFile = path5.resolve(this.buildDir, "static", file);
+        if (!fs4.existsSync(path5.dirname(targetFile))) {
+          fs4.mkdirSync(path5.dirname(targetFile), { recursive: true });
+        }
+        fs4.copyFileSync(path5.resolve(this.staticDir, file), targetFile);
       }
-      import_fs4.default.copyFileSync(import_upath4.default.resolve(this.staticDir, file), targetFile);
-    }
-    await this.fileCache.generate();
-    this.usedExtensions.clear();
-    for (let plugin of this.plugins) {
-      if (plugin.extensions === "UNUSED") {
-        continue;
+      yield this.fileCache.generate();
+      this.usedExtensions.clear();
+      for (let plugin of this.plugins) {
+        if (plugin.extensions === "UNUSED") {
+          continue;
+        }
+        for (let extension of plugin.extensions) {
+          this.usedExtensions.add(extension);
+        }
       }
-      for (let extension of plugin.extensions) {
-        this.usedExtensions.add(extension);
-      }
-    }
-    const pluginFiles = [];
-    const allURLs = {};
-    for (let i = 0; i < this.plugins.length; i++) {
-      const plugin = this.plugins[i];
-      if (plugin.extensions === "UNUSED") {
-        pluginFiles[i] = this.fileCache.getAllFilesWithExts(Array.from(this.usedExtensions), true);
-      } else if (plugin.extensions.length === 0) {
-        pluginFiles[i] = [];
-      } else {
-        pluginFiles[i] = this.fileCache.getAllFilesWithExts(plugin.extensions);
-      }
-      for (let j = 0; j < pluginFiles[i].length; j++) {
-        const file = pluginFiles[i][j];
-        let partialUrl = plugin.url(file, this.siteInfo);
-        if (partialUrl) {
-          if (partialUrl.startsWith("/")) {
-            partialUrl = partialUrl.slice(1);
+      const pluginFiles = [];
+      const allURLs = {};
+      for (let i = 0; i < this.plugins.length; i++) {
+        const plugin = this.plugins[i];
+        if (plugin.extensions === "UNUSED") {
+          pluginFiles[i] = this.fileCache.getAllFilesWithExts(Array.from(this.usedExtensions), true);
+        } else if (plugin.extensions.length === 0) {
+          pluginFiles[i] = [];
+        } else {
+          pluginFiles[i] = this.fileCache.getAllFilesWithExts(plugin.extensions);
+        }
+        for (let j = 0; j < pluginFiles[i].length; j++) {
+          const file = pluginFiles[i][j];
+          let partialUrl = plugin.url(file, this.siteInfo);
+          if (partialUrl) {
+            if (partialUrl.startsWith("/")) {
+              partialUrl = partialUrl.slice(1);
+            }
+            const urlSplits = partialUrl.split("/");
+            const slugifiedSplits = urlSplits.map((value) => {
+              return slugify(value);
+            });
+            allURLs[file.id] = slugifiedSplits.join("/");
+            file.url = partialUrl;
           }
-          const urlSplits = partialUrl.split("/");
-          const slugifiedSplits = urlSplits.map((value) => {
-            return slugify(value);
-          });
-          allURLs[file.id] = slugifiedSplits.join("/");
-          file.url = partialUrl;
-        }
-        if (plugin.title) {
-          file.title = file.configuration?.title ?? plugin.title(file, this.siteInfo);
+          if (plugin.title) {
+            file.title = (_b = (_a = file.configuration) == null ? void 0 : _a.title) != null ? _b : plugin.title(file, this.siteInfo);
+          }
         }
       }
-    }
-    const allPluginOpts = [];
-    for (let i = 0; i < this.plugins.length; i++) {
-      const plugin = this.plugins[i];
-      const pluginOpts = {
-        site: this.siteInfo,
-        database: new FileDB(pluginFiles[i]),
-        allFiles: this.fileCache,
-        allURLs
-      };
-      if (plugin.beforeBuild) {
-        plugin.beforeBuild(pluginOpts);
-      }
-      allPluginOpts[i] = pluginOpts;
-    }
-    for (let i = 0; i < this.plugins.length; i++) {
-      const plugin = this.plugins[i];
-      for (let j = 0; j < pluginFiles[i].length; j++) {
-        const file = pluginFiles[i][j];
-        const buildOpts = {
-          ...allPluginOpts[i],
-          file,
-          url: allURLs[file.id]
+      const allPluginOpts = [];
+      for (let i = 0; i < this.plugins.length; i++) {
+        const plugin = this.plugins[i];
+        const pluginOpts = {
+          site: this.siteInfo,
+          database: new FileDB(pluginFiles[i]),
+          allFiles: this.fileCache,
+          allURLs
         };
-        plugin.build(buildOpts);
+        if (plugin.beforeBuild) {
+          plugin.beforeBuild(pluginOpts);
+        }
+        allPluginOpts[i] = pluginOpts;
       }
-    }
-    for (let i = 0; i < this.plugins.length; i++) {
-      const plugin = this.plugins[i];
-      if (plugin.afterBuild) {
-        plugin.afterBuild(allPluginOpts[i]);
+      for (let i = 0; i < this.plugins.length; i++) {
+        const plugin = this.plugins[i];
+        for (let j = 0; j < pluginFiles[i].length; j++) {
+          const file = pluginFiles[i][j];
+          const buildOpts = __spreadProps(__spreadValues({}, allPluginOpts[i]), {
+            file,
+            url: allURLs[file.id]
+          });
+          plugin.build(buildOpts);
+        }
       }
-    }
+      for (let i = 0; i < this.plugins.length; i++) {
+        const plugin = this.plugins[i];
+        if (plugin.afterBuild) {
+          plugin.afterBuild(allPluginOpts[i]);
+        }
+      }
+    });
   }
 };
 
-// src/wanderer.ts
-var import_wanderer_plugin_markdown = __toESM(require("@a-morphous/wanderer-plugin-markdown"));
-var import_wanderer_plugin_image = __toESM(require("@a-morphous/wanderer-plugin-image"));
-
 // src/objects/plugins/loader.ts
-var import_upath5 = __toESM(require_upath());
-var loadPluginFromString = async (pluginPath, nameOfExport = "default", baseDir) => {
+import path6 from "path";
+var loadPluginFromString = (pluginPath, nameOfExport = "default", baseDir) => __async(void 0, null, function* () {
   try {
     if (pluginPath.startsWith(".")) {
-      pluginPath = import_upath5.default.resolve(baseDir || process.cwd(), pluginPath);
+      pluginPath = path6.resolve(baseDir || process.cwd(), pluginPath);
     }
-    const pluginModule = await import(pluginPath);
+    const pluginModule = yield import(pluginPath);
     const PluginClass = pluginModule[nameOfExport];
     const plugin = new PluginClass();
     if (!plugin.build || !plugin.extensions) {
@@ -9035,15 +8977,17 @@ var loadPluginFromString = async (pluginPath, nameOfExport = "default", baseDir)
     console.log("Error trying to load plugin at path " + pluginPath);
     console.log(e);
   }
-};
+});
 
 // src/wanderer.ts
-var import_wanderer_plugin_copy = __toESM(require("@a-morphous/wanderer-plugin-copy"));
-var wanderer = async (siteInfo, useDefaultPlugins = true, plugins) => {
+import MarkdownPlugin from "@a-morphous/wanderer-plugin-markdown";
+import ImagePlugin from "@a-morphous/wanderer-plugin-image";
+import CopyPlugin from "@a-morphous/wanderer-plugin-copy";
+var wanderer = (siteInfo, useDefaultPlugins = true, plugins) => __async(void 0, null, function* () {
   const site = new Site(siteInfo);
   if (useDefaultPlugins) {
-    site.addPlugin(new import_wanderer_plugin_image.default());
-    site.addPlugin(new import_wanderer_plugin_markdown.default());
+    site.addPlugin(new ImagePlugin());
+    site.addPlugin(new MarkdownPlugin());
   }
   if (plugins) {
     for (let plugin of plugins) {
@@ -9051,24 +8995,18 @@ var wanderer = async (siteInfo, useDefaultPlugins = true, plugins) => {
     }
   } else if (siteInfo.siteConfiguration.plugins) {
     for (let pluginPath of siteInfo.siteConfiguration.plugins) {
-      const plugin = await loadPluginFromString(pluginPath);
+      const plugin = yield loadPluginFromString(pluginPath);
       if (plugin) {
         site.addPlugin(plugin);
       }
     }
   }
   if (useDefaultPlugins) {
-    site.addPlugin(new import_wanderer_plugin_copy.default());
+    site.addPlugin(new CopyPlugin());
   }
-  await site.make();
-};
-
-// src/index.ts
-var import_meta = {};
-var __filename = __filename || url.fileURLToPath(import_meta.url);
-var __dirname = __dirname || url.fileURLToPath(new URL(".", import_meta.url));
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+  yield site.make();
+});
+export {
   CONFIG_RECURSION_LEVEL,
   FileCache,
   FileDB,
@@ -9076,4 +9014,4 @@ var __dirname = __dirname || url.fileURLToPath(new URL(".", import_meta.url));
   QUERY_MODIFIER_OPERATIONS,
   Site,
   wanderer
-});
+};

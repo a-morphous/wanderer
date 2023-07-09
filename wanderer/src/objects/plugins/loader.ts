@@ -1,5 +1,5 @@
-import path from 'upath'
-import { BasePlugin } from './base-plugin'
+import path from 'path'
+import type { BasePlugin } from './base-plugin'
 
 export const loadPluginFromString = async (pluginPath: string, nameOfExport: string = 'default', baseDir?: string) => {
 	try {

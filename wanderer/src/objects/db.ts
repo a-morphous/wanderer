@@ -1,55 +1,10 @@
-import { FileInfo } from '../types'
+import { FileInfo, IFileDB, QUERY_BOOLEAN_OPERATORS, QUERY_MODIFIER_OPERATIONS, QueryOpts, QueryPredicate, TagQueryOpts } from '../types'
 import jsonata from 'jsonata'
-import path from 'upath'
+import path from 'path'
 import { PathLike } from 'fs'
 import { Logger, LOG_LEVEL } from '../lib/log'
 
-// https://docs.jsonata.org/boolean-functions and https://docs.jsonata.org/boolean-operators
-export enum QUERY_BOOLEAN_OPERATORS {
-	AND = 'AND',
-	OR = 'OR',
-	NOT = 'NOT',
-}
-
-export enum QUERY_MODIFIER_OPERATIONS {
-	EQUALS = '=',
-	NOT = '!=',
-	GREATERTHAN = '>',
-	GE = '>=', // greater or equal
-	LESSTHAN = '<',
-	LE = '<=', // less or equal
-	IN = 'IN', // https://docs.jsonata.org/comparison-operators#in-inclusion
-	EXISTS = 'EXISTS',
-	CONTAINS = 'CONTAINS',
-}
-
-type BaseQueryOpts = {
-	sortBy?: string // can be a top-level item or an item in the config. Nested items separated by `.`
-	limit?: number
-	isAscending?: boolean
-}
-
-type QueryPredicate = {
-	key: string
-	value?: any
-	modifier: QUERY_MODIFIER_OPERATIONS
-	operator?: QUERY_BOOLEAN_OPERATORS
-}
-export type QueryOpts = BaseQueryOpts & {
-	rawQuery?: string // JSONata string. If this exists, predicate isn't used.
-	predicates?: QueryPredicate[] // key value pair where the key is the item in the db, and the value is what they should match.
-}
-
-type TagQuery = {
-	tag: string
-	operator: QUERY_BOOLEAN_OPERATORS
-}
-
-export type TagQueryOpts = BaseQueryOpts & {
-	tags: TagQuery[]
-}
-
-export class FileDB {
+export class FileDB implements IFileDB {
 	protected files: FileInfo[]
 	constructor(files: FileInfo[]) {
 		this.files = files
@@ -195,7 +150,7 @@ export class FileDB {
 	) {
 		const predicate: QueryPredicate = {
 			key: 'sourceDir',
-			value: path.resolve(directory),
+			value: path.resolve(directory.toString()),
 			modifier: alsoMatchSubdirectories
 				? QUERY_MODIFIER_OPERATIONS.CONTAINS
 				: QUERY_MODIFIER_OPERATIONS.EQUALS,

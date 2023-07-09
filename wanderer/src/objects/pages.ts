@@ -1,22 +1,27 @@
-import path from 'upath'
-import fs from 'fs'
-import { readdirSyncRecursive } from '../lib/recursive-readdir'
-import { Configuration, FileInfo, Page, PageConfig, SiteInfo } from '../types'
-import { isText } from 'istextorbinary'
+import path from "path"
+import fs from "fs"
+import { readdirSyncRecursive } from "../lib/recursive-readdir"
+import {
+	CONFIG_RECURSION_LEVEL,
+	Configuration,
+	FileInfo,
+	IFileCache,
+	Page,
+	PageConfig,
+	QUERY_BOOLEAN_OPERATORS,
+	QUERY_MODIFIER_OPERATIONS,
+	QueryOpts,
+	SiteInfo,
+} from "../types"
+import { isText } from "istextorbinary"
 
-import * as toml from '@iarna/toml'
-import { getTextAfterFrontmatter, streamFrontmatter } from '../lib/frontmatter'
-import { tempo } from '../lib/tempo'
-import { FileDB, QueryOpts, QUERY_BOOLEAN_OPERATORS, QUERY_MODIFIER_OPERATIONS } from './db'
-import { Logger, LOG_LEVEL } from '../lib/log'
+import * as toml from "@iarna/toml"
+import { getTextAfterFrontmatter, streamFrontmatter } from "../lib/frontmatter"
+import { tempo } from "../lib/tempo"
+import { FileDB } from "./db"
+import { Logger, LOG_LEVEL } from "../lib/log"
 
-export enum CONFIG_RECURSION_LEVEL {
-	NONE,
-	IMMEDIATE_PARENT,
-	ALL,
-}
-
-export class FileCache {
+export class FileCache implements IFileCache {
 	// these are stored in the format { fileId: FileInfo }
 	protected files: Record<string, FileInfo> = {}
 	protected _db: FileDB
@@ -50,14 +55,14 @@ export class FileCache {
 			const name = path.basename(file, path.extname(file))
 			let isFrontmatter = false
 
-			let config
-			if (ext.toLocaleLowerCase() !== '.toml') {
+			let config: any
+			if (ext.toLocaleLowerCase() !== ".toml") {
 				config = await streamFrontmatter(fullPath)
 				isFrontmatter = true
 			} else {
 				const contents = fs.readFileSync(
 					path.resolve(this.siteInfo.contentDirectory, file),
-					'utf-8'
+					"utf-8"
 				)
 
 				if (name === `_`) {
@@ -101,14 +106,14 @@ export class FileCache {
 			const rawname = path.basename(file, path.extname(file))
 
 			// hidden files should be ignored
-			if (rawname.startsWith('.')) {
+			if (rawname.startsWith(".")) {
 				continue
 			}
 
 			const tempoString = tempo(rawname)
 			const name = tempoString.name
 
-			if (ext.toLocaleLowerCase() === '.toml') {
+			if (ext.toLocaleLowerCase() === ".toml") {
 				continue
 			}
 
@@ -167,16 +172,16 @@ export class FileCache {
 
 			if (!parts.length) {
 				// check the main directory
-				if (this.nestedConfiguration['.']) {
-					Logger.log(LOG_LEVEL.DEBUG, 'Has a main config!', this.nestedConfiguration['.'])
+				if (this.nestedConfiguration["."]) {
+					Logger.log(LOG_LEVEL.DEBUG, "Has a main config!", this.nestedConfiguration["."])
 					return {
-						...this.nestedConfiguration['.'],
+						...this.nestedConfiguration["."],
 						...(this.nestedConfiguration[fileId] ?? {}),
 					}
 				}
 				return this.nestedConfiguration[fileId] ?? {}
 			}
-			Logger.log(LOG_LEVEL.DEBUG, 'Does this have a main config!', this.nestedConfiguration['.'])
+			Logger.log(LOG_LEVEL.DEBUG, "Does this have a main config!", this.nestedConfiguration["."])
 			return {
 				...(this.nestedConfiguration[parts[parts.length - 1]] ?? {}),
 				...(this.nestedConfiguration[fileId] ?? {}),
@@ -184,15 +189,15 @@ export class FileCache {
 		}
 		if (recursive === CONFIG_RECURSION_LEVEL.ALL) {
 			const config = {}
-			let currentPath = ''
-			if (this.nestedConfiguration['.']) {
-				Object.assign(config, this.nestedConfiguration['.'])
+			let currentPath = ""
+			if (this.nestedConfiguration["."]) {
+				Object.assign(config, this.nestedConfiguration["."])
 			}
 			for (let part of parts) {
 				currentPath = path.join(currentPath, part)
 				Object.assign(config, this.nestedConfiguration[currentPath] ?? {})
 			}
-			Logger.log(LOG_LEVEL.DEBUG, 'full config', config)
+			Logger.log(LOG_LEVEL.DEBUG, "full config", config)
 			return config
 		}
 		return {}
@@ -214,7 +219,7 @@ export class FileCache {
 		const query: QueryOpts = {
 			predicates: [
 				{
-					key: 'sourcePath',
+					key: "sourcePath",
 					value: path.resolve(sourcePath),
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 				},
@@ -228,12 +233,12 @@ export class FileCache {
 		const query: QueryOpts = {
 			predicates: [
 				{
-					key: 'title',
+					key: "title",
 					value: title,
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 				},
 				{
-					key: 'name',
+					key: "name",
 					value: title,
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 					operator: QUERY_BOOLEAN_OPERATORS.OR,
@@ -253,7 +258,7 @@ export class FileCache {
 				query.predicates = []
 			}
 			query.predicates.push({
-				key: 'ext',
+				key: "ext",
 				value: ext,
 				modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 				operator: not ? QUERY_BOOLEAN_OPERATORS.NOT : QUERY_BOOLEAN_OPERATORS.OR,
@@ -269,18 +274,18 @@ export class FileCache {
 		const files = this._db.query({
 			predicates: [
 				{
-					key: 'name',
+					key: "name",
 					value: name,
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 				},
 				{
-					key: 'sourcePath',
+					key: "sourcePath",
 					value: sourceDir,
 					modifier: QUERY_MODIFIER_OPERATIONS.CONTAINS,
 					operator: QUERY_BOOLEAN_OPERATORS.AND,
 				},
 				{
-					key: 'ext',
+					key: "ext",
 					value: file.ext,
 					modifier: QUERY_MODIFIER_OPERATIONS.EQUALS,
 					operator: QUERY_BOOLEAN_OPERATORS.NOT,

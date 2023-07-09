@@ -1,14 +1,12 @@
 {
 	"name": "@a-morphous/wanderer",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"description": "",
 	"main": "dist/wanderer.js",
-	"module": "dist/wanderer.module.js",
 	"scripts": {
 		"test": "node ./cli -i test/content -f test/frame -o test/build -c test/config.toml -a test/.cache --clean",
 		"docs": "node ./cli -i docs/content -f docs/frame -o docs/build -c docs/config.toml -a docs/.cache --clean",
 		"stats": "esbuild-visualizer --metadata ./meta.json",
-		"types": "tsc --build ./tsconfig-types.json",
 		"dryRun": "pnpm publish --dry-run",
 		"pub": "pnpm publish --access public",
 		"build": "node build",
@@ -23,14 +21,16 @@
 		"src"
 	],
 	"keywords": [],
+	"type": "module",
+	"types": "./dist/index.d.ts",
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@iarna/toml": "^2.2.3",
-		"minimist": "^1.2.2",
-		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
+		"@a-morphous/wanderer-plugin-copy": "^1.2.0",
 		"@a-morphous/wanderer-plugin-image": "^1.0.0",
-		"@a-morphous/wanderer-plugin-markdown": "^1.1.0"
+		"@a-morphous/wanderer-plugin-markdown": "^1.1.0",
+		"@iarna/toml": "^2.2.5",
+		"minimist": "^1.2.2"
 	},
 	"devDependencies": {
 		"@a-morphous/wanderer-plugin-copy": "^1.0.0",
@@ -38,12 +38,12 @@
 		"@a-morphous/wanderer-plugin-markdown": "^1.1.0",
 		"@a-morphous/wanderer-plugin-rss": "^1.0.0",
 		"@types/node": "^18.0.6",
-		"esbuild": "^0.14.49",
-		"esbuild-visualizer": "^0.3.1",
-		"typescript": "^4.7.4",
 		"dayjs": "^1.8.19",
+		"esbuild": "^0.18.0",
+		"esbuild-visualizer": "^0.3.1",
 		"istextorbinary": "^6.0.0",
 		"jsonata": "^1.8.6",
-		"upath": "^1.2.0"
+		"npm-dts": "^1.3.12",
+		"typescript": "^4.7.4"
 	}
 }

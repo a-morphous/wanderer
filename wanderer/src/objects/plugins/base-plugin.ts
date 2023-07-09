@@ -1,14 +1,17 @@
-import { FileInfo, SiteInfo } from '../../types'
-import { FileDB } from '../db'
-import { FileCache } from '../pages'
+import {
+	FileInfo,
+	IFileCache,
+	IFileDB,
+	SiteInfo,
+} from "../../types"
 
 export type PluginOperationOptions = {
 	site: SiteInfo
 
 	// global stuff, can be used to look at other files.
-	allFiles: FileCache
+	allFiles: IFileCache
 	allURLs: Record<string, string> // id, url
-	database: FileDB // note that the database is JUST for the files in the extension
+	database: IFileDB // note that the database is JUST for the files in the extension
 }
 
 export type PluginBuildOptions = PluginOperationOptions & {
@@ -16,7 +19,7 @@ export type PluginBuildOptions = PluginOperationOptions & {
 	url: string
 }
 
-export type EXTENSIONS_UNUSED = 'UNUSED'
+export type EXTENSIONS_UNUSED = "UNUSED"
 
 export interface BasePlugin {
 	/**

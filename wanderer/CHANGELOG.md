@@ -1,3 +1,9 @@
+# v1.4.0
+
+- Upgrade to ES modules only, so no more commonJS requires. This also upgrades all plugins to it
+- Use interfaces for FileDB and FileCache in plugins to avoid type clashes
+- Add npm-dts to create types without needing a separate repository for it.
+
 # v1.3.0
 
 - Plugins are now listed as dependencies, and not bundled into Wanderer proper.

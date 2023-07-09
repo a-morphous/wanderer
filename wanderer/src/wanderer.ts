@@ -1,10 +1,11 @@
-import MarkdownPlugin from '@a-morphous/wanderer-plugin-markdown'
-import ImagePlugin from '@a-morphous/wanderer-plugin-image'
-import { BasePlugin } from './objects/plugins/base-plugin'
-import { loadPluginFromString } from './objects/plugins/loader'
-import { Site } from './objects/site'
-import { SiteInfo } from './types'
-import CopyPlugin from '@a-morphous/wanderer-plugin-copy'
+import { BasePlugin } from "./objects/plugins/base-plugin"
+import { loadPluginFromString } from "./objects/plugins/loader"
+import { Site } from "./objects/site"
+import { SiteInfo } from "./types"
+
+import MarkdownPlugin from "@a-morphous/wanderer-plugin-markdown"
+import ImagePlugin from "@a-morphous/wanderer-plugin-image"
+import CopyPlugin from "@a-morphous/wanderer-plugin-copy"
 
 export const wanderer = async (
 	siteInfo: SiteInfo,

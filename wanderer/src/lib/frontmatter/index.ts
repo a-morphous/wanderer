@@ -1,6 +1,6 @@
-import toml from '@iarna/toml'
+import * as toml from '@iarna/toml'
 import fs from 'fs'
-import path from 'upath'
+import path from 'path'
 import readline from 'readline'
 
 export const streamFrontmatter = async (filename) => {

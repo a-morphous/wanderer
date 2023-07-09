@@ -1,5 +1,5 @@
 import { FileInfo, SiteInfo } from '../types'
-import path from 'upath'
+import path from 'path'
 import fs from 'fs'
 import { BasePlugin, PluginBuildOptions, PluginOperationOptions } from './plugins/base-plugin'
 import { FileCache } from './pages'
