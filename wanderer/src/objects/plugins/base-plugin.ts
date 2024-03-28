@@ -51,7 +51,7 @@ export interface BasePlugin {
 	 * directory during this function.
 	 * @return {boolean} true if the build succeeded, false if we should error out.
 	 */
-	build: (opts: PluginBuildOptions, dryRun?: boolean) => boolean
+	build: (opts: PluginBuildOptions, dryRun?: boolean) => boolean | Promise<boolean>
 
 	/**
 	 * A global hook that runs after the build step, but is otherwise similar to beforeBuild

@@ -100,7 +100,7 @@ declare module '@a-morphous/wanderer/objects/plugins/base-plugin' {
       url: (file: FileInfo, site: SiteInfo) => string;
       title?: (file: FileInfo, site: SiteInfo) => string;
       beforeBuild?: (opts: PluginOperationOptions) => void;
-      build: (opts: PluginBuildOptions, dryRun?: boolean) => boolean;
+      build: (opts: PluginBuildOptions, dryRun?: boolean) => boolean | Promise<boolean>;
       afterBuild?: (opts: PluginOperationOptions) => void;
   }
 
