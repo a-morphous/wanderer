@@ -1,3 +1,7 @@
+# v1.4.1
+
+- Make build optionally async so that we can run asynchronous files in it. (This is mostly used at present for the preact plugin.)
+
 # v1.4.0
 
 - Upgrade to ES modules only, so no more commonJS requires. This also upgrades all plugins to it
