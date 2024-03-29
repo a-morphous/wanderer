@@ -1,4 +1,4 @@
-declare module '@a-morphous/wanderer-plugin-react/index' {
+declare module '@a-morphous/wanderer-plugin-preact/index' {
   /// <reference path="../../../../../../../Users/amorphous/sanctuary/frameworks/wanderer/wanderer/dist/index.d.ts" />
   import type { BasePlugin, FileInfo, PageReference, PluginBuildOptions, SiteInfo } from '@a-morphous/wanderer';
   import { PluginOperationOptions } from '@a-morphous/wanderer/index';
@@ -20,7 +20,7 @@ declare module '@a-morphous/wanderer-plugin-react/index' {
   }
 
 }
-declare module '@a-morphous/wanderer-plugin-react' {
-  import main = require('@a-morphous/wanderer-plugin-react/index');
+declare module '@a-morphous/wanderer-plugin-preact' {
+  import main = require('@a-morphous/wanderer-plugin-preact/index');
   export = main;
 }
