@@ -1,5 +1,5 @@
 {
-	"name": "@a-morphous/wanderer-plugin-react",
+	"name": "@a-morphous/wanderer-plugin-preact",
 	"version": "1.0.0",
 	"description": "",
 	"main": "dist/wanderer-preact.js",
