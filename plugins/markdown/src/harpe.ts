@@ -7,9 +7,8 @@ import { marked } from 'marked'
 
 const escapeHTML = (text) => {
 	// escape $ is necessary since otherwise ${} inside a code tag will turn into a template literal
+	// everything else is handled by the markdown parser.
 	return text
-		.replace(/\&/g, '&amp;')
-		.replace(/</g, '&lt;')
 		.replace(/\$/g, '\\$')
 }
 

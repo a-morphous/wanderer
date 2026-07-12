@@ -8945,7 +8945,7 @@ var Site = class {
             file,
             url: allURLs[file.id]
           });
-          plugin.build(buildOpts);
+          yield plugin.build(buildOpts);
         }
       }
       for (let i = 0; i < this.plugins.length; i++) {

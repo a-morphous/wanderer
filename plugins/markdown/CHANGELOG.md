@@ -1,3 +1,7 @@
+# v1.2.2
+
+- Fix issue where `<` and `&` could be double-escaped.
+
 # v1.2.1
 
 - Make sure that the link regex is not greedy so that they don't accidentally view entire paragraphs as links.

@@ -163,7 +163,7 @@ export class Site {
 					file: file,
 					url: allURLs[file.id],
 				}
-				plugin.build(buildOpts)
+				await plugin.build(buildOpts)
 			}
 		}
 

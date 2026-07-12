@@ -1,4 +1,5 @@
 declare module '@a-morphous/wanderer-plugin-markdown/gen' {
+  /// <reference path="../../../../../../../Users/amorphous/sanctuary/frameworks/wanderer/wanderer/dist/index.d.ts" />
   import type { FileInfo, IFileCache, IFileDB, PageReference, SiteInfo } from '@a-morphous/wanderer';
   export const genLayout: (siteInfo: SiteInfo, file: FileInfo) => string;
   type PageStatics = {
@@ -17,6 +18,7 @@ declare module '@a-morphous/wanderer-plugin-markdown/harpe' {
 
 }
 declare module '@a-morphous/wanderer-plugin-markdown/index' {
+  /// <reference path="../../../../../../../Users/amorphous/sanctuary/frameworks/wanderer/wanderer/dist/index.d.ts" />
   import type { BasePlugin, FileInfo, PluginBuildOptions, SiteInfo } from '@a-morphous/wanderer';
   export default class MarkdownPlugin implements BasePlugin {
       extensions: string[];
@@ -31,6 +33,7 @@ declare module '@a-morphous/wanderer-plugin-markdown/utils/extract-links' {
 
 }
 declare module '@a-morphous/wanderer-plugin-markdown/utils/get-relative-url' {
+  /// <reference path="../../../../../../../../Users/amorphous/sanctuary/frameworks/wanderer/wanderer/dist/index.d.ts" />
   import type { SiteInfo } from '@a-morphous/wanderer';
   export const getRelativeURL: (site: SiteInfo, sourceFileURL: string, targetURL: string) => string;
 
@@ -40,6 +43,7 @@ declare module '@a-morphous/wanderer-plugin-markdown/utils/is-url' {
 
 }
 declare module '@a-morphous/wanderer-plugin-markdown/utils/wikilinks' {
+  /// <reference path="../../../../../../../../Users/amorphous/sanctuary/frameworks/wanderer/wanderer/dist/index.d.ts" />
   import type { IFileCache } from '@a-morphous/wanderer';
   export const processAllWikilinks: (text: string, allFiles: IFileCache) => string;
 

@@ -2563,7 +2563,7 @@ var render = (template, config, layer) => {
 
 // src/harpe.ts
 var escapeHTML = (text) => {
-  return text.replace(/\&/g, "&amp;").replace(/</g, "&lt;").replace(/\$/g, "\\$");
+  return text.replace(/\$/g, "\\$");
 };
 var parse = (input) => {
   let preparseTextPieces = [];
