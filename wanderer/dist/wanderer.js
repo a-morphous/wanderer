@@ -7853,20 +7853,40 @@ var QUERY_MODIFIER_OPERATIONS = /* @__PURE__ */ ((QUERY_MODIFIER_OPERATIONS2) =>
 
 // src/objects/site.ts
 import path5 from "path";
-import fs4 from "fs";
+import fs5 from "fs";
 
 // src/objects/pages.ts
 import path4 from "path";
-import fs3 from "fs";
+import fs4 from "fs";
+
+// src/lib/is-binary.ts
+import fs from "fs";
+function isFileBinary(filePath) {
+  return new Promise((resolve, reject) => {
+    const stream = fs.createReadStream(filePath, { start: 0, end: 512 });
+    stream.on("data", (chunk) => {
+      if (chunk.includes(0)) {
+        resolve(true);
+        stream.destroy();
+      }
+    });
+    stream.on("end", () => {
+      resolve(false);
+    });
+    stream.on("error", (err) => {
+      reject(err);
+    });
+  });
+}
 
 // src/lib/recursive-readdir.ts
-import fs from "fs";
+import fs2 from "fs";
 import path from "path";
 var _readdirSyncRecursive = function(dirPath, _originalDirPath, arrayOfFiles = []) {
-  const files = fs.readdirSync(dirPath);
+  const files = fs2.readdirSync(dirPath);
   const originalDirPath = _originalDirPath || dirPath;
   files.forEach(function(file) {
-    if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
+    if (fs2.statSync(path.join(dirPath, file)).isDirectory()) {
       arrayOfFiles = _readdirSyncRecursive(path.join(dirPath, file), originalDirPath, arrayOfFiles);
     } else {
       arrayOfFiles.push(path.normalize(path.relative(originalDirPath, path.join(dirPath, file))));
@@ -8334,12 +8354,12 @@ var toml2 = __toESM(require_toml(), 1);
 
 // src/lib/frontmatter/index.ts
 var toml = __toESM(require_toml(), 1);
-import fs2 from "fs";
+import fs3 from "fs";
 import path2 from "path";
 import readline from "readline";
 var streamFrontmatter = (filename) => __async(void 0, null, function* () {
   let startToken = "";
-  const fileStream = fs2.createReadStream(path2.resolve(filename));
+  const fileStream = fs3.createReadStream(path2.resolve(filename));
   const rl = readline.createInterface({
     input: fileStream,
     terminal: false
@@ -8393,7 +8413,7 @@ var streamFrontmatter = (filename) => __async(void 0, null, function* () {
   }
 });
 var getTextAfterFrontmatter = (filename) => {
-  const text = fs2.readFileSync(path2.resolve(filename), "utf-8");
+  const text = fs3.readFileSync(path2.resolve(filename), "utf-8");
   let startToken = "";
   if (text.startsWith("---")) {
     startToken = "---";
@@ -8635,12 +8655,15 @@ var FileCache = class {
         const ext = path4.extname(file).toLocaleLowerCase();
         const name = path4.basename(file, path4.extname(file));
         let isFrontmatter = false;
+        if (yield isFileBinary(fullPath)) {
+          continue;
+        }
         let config;
         if (ext.toLocaleLowerCase() !== ".toml") {
           config = yield streamFrontmatter(fullPath);
           isFrontmatter = true;
         } else {
-          const contents = fs3.readFileSync(
+          const contents = fs4.readFileSync(
             path4.resolve(this.siteInfo.contentDirectory, file),
             "utf-8"
           );
@@ -8681,7 +8704,7 @@ var FileCache = class {
           continue;
         }
         const sourcePath = path4.resolve(this.siteInfo.contentDirectory, file);
-        const stats = fs3.statSync(sourcePath);
+        const stats = fs4.statSync(sourcePath);
         if (stats.size === 0) {
           continue;
         }
@@ -8700,7 +8723,7 @@ var FileCache = class {
           updated: stats.mtime,
           date: (_a = tempoString.date) != null ? _a : stats.mtime
         };
-        if (isText(sourcePath, fs3.readFileSync(sourcePath))) {
+        if (isText(sourcePath, fs4.readFileSync(sourcePath))) {
           const pageInfo = info;
           pageInfo.text = getTextAfterFrontmatter(sourcePath);
           pageInfo.title = (_c = (_b = config.title) != null ? _b : config.name) != null ? _c : name;
@@ -8878,10 +8901,10 @@ var Site = class {
       const staticFiles = readdirSyncRecursive(this.staticDir);
       for (let file of staticFiles) {
         const targetFile = path5.resolve(this.buildDir, "static", file);
-        if (!fs4.existsSync(path5.dirname(targetFile))) {
-          fs4.mkdirSync(path5.dirname(targetFile), { recursive: true });
+        if (!fs5.existsSync(path5.dirname(targetFile))) {
+          fs5.mkdirSync(path5.dirname(targetFile), { recursive: true });
         }
-        fs4.copyFileSync(path5.resolve(this.staticDir, file), targetFile);
+        fs5.copyFileSync(path5.resolve(this.staticDir, file), targetFile);
       }
       yield this.fileCache.generate();
       this.usedExtensions.clear();

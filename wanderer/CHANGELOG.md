@@ -1,3 +1,11 @@
+# v1.4.3
+
+- Fix bug where wanderer would erroneously check for configs in images / binary files, greatly inflating processing time.
+
+# v1.4.2
+
+- Misspelling
+
 # v1.4.1
 
 - Make build optionally async so that we can run asynchronous files in it. (This is mostly used at present for the preact plugin.)

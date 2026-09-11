@@ -1,5 +1,6 @@
 import path from "path"
 import fs from "fs"
+import {isFileBinary} from "../lib/is-binary";
 import { readdirSyncRecursive } from "../lib/recursive-readdir"
 import {
 	CONFIG_RECURSION_LEVEL,
@@ -54,6 +55,10 @@ export class FileCache implements IFileCache {
 			const ext = path.extname(file).toLocaleLowerCase()
 			const name = path.basename(file, path.extname(file))
 			let isFrontmatter = false
+
+			if (await isFileBinary(fullPath)) {
+				continue
+			}
 
 			let config: any
 			if (ext.toLocaleLowerCase() !== ".toml") {

@@ -13,6 +13,10 @@ declare module '@a-morphous/wanderer/lib/frontmatter/index' {
   export const getTextAfterFrontmatter: (filename: any) => string;
 
 }
+declare module '@a-morphous/wanderer/lib/is-binary' {
+  export function isFileBinary(filePath: any): Promise<unknown>;
+
+}
 declare module '@a-morphous/wanderer/lib/log' {
   export enum LOG_LEVEL {
       DEBUG = 0,
